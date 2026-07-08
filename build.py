@@ -118,8 +118,12 @@ footer.site a{color:var(--ink-muted)}
 .hero{display:grid; grid-template-columns:1fr minmax(220px,300px); gap:38px; align-items:center; margin:8px 0 20px}
 .hero h1{font-size:clamp(38px,6vw,60px); margin:0 0 16px}
 .hero p{font-size:20px; color:var(--ink-muted); line-height:1.5; margin:0 0 22px; max-width:36ch}
-.hero-cta{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.hero-cta{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center}
 .hero-cta.center{justify-content:center}
+/* secondary text link next to a chunky button — quiet, on-brand, not a raw blue link */
+.hero-cta a:not(.btn){color:var(--ink); font-weight:600; font-size:15px; text-decoration:none;
+  border-bottom:2px solid var(--go-bright); padding-bottom:2px; transition:border-color .12s ease}
+.hero-cta a:not(.btn):hover{border-bottom-color:var(--ink)}
 .note{font-size:13px; color:var(--ink-muted); letter-spacing:.4px; margin:14px 0 0}
 
 /* Phone screenshot as a hand-placed sticker card */
@@ -321,7 +325,7 @@ home = f"""<section class="hero">
 you move, and discover the traces other people have left behind, all around you.</p>
 <div class="hero-cta">
 <a class="btn" href="support.html">Get in touch</a>
-<a href="privacy.html">Read our privacy promise</a>
+<a href="privacy.html">Read our privacy promise &rsaquo;</a>
 </div>
 <p class="note">Made in the UK · For ages 16+ · Coming to the App Store</p>
 </div>
