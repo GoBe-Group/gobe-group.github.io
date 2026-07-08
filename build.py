@@ -110,6 +110,53 @@ footer.site a{color:var(--ink-muted)}
 .btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
 .mono{font-family:var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
 .flush{margin:0}
+
+/* ---------- Landing page ---------- */
+.eyebrow{font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--go); margin:0 0 8px}
+.wrap.home{max-width:940px}
+
+.hero{display:grid; grid-template-columns:1fr minmax(220px,300px); gap:38px; align-items:center; margin:8px 0 20px}
+.hero h1{font-size:clamp(38px,6vw,60px); margin:0 0 16px}
+.hero p{font-size:20px; color:var(--ink-muted); line-height:1.5; margin:0 0 22px; max-width:36ch}
+.hero-cta{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+.hero-cta.center{justify-content:center}
+.note{font-size:13px; color:var(--ink-muted); letter-spacing:.4px; margin:14px 0 0}
+
+/* Phone screenshot as a hand-placed sticker card */
+.shot{display:block; width:100%; height:auto; border-radius:26px;
+  border:5px solid #fff; box-shadow:0 20px 40px rgba(43,36,29,.22), 0 0 0 1px var(--border-soft);
+  background:#fff}
+.hero .shot{transform:rotate(2deg)}
+
+.features{display:grid; gap:30px; margin:56px 0 12px}
+.feature{display:grid; grid-template-columns:minmax(220px,300px) 1fr; gap:36px; align-items:center;
+  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:28px;
+  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset}
+.feature.rev{grid-template-columns:1fr minmax(220px,300px)}
+.feature.rev .feat-media{order:2}
+.feature h2{margin:0 0 12px; font-size:30px}
+.feature p{margin:0; font-size:17px; line-height:1.55; color:var(--ink)}
+.feature .shot{transform:rotate(-1.5deg)}
+.feature.rev .shot{transform:rotate(1.5deg)}
+
+.values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:48px 0 8px}
+.value{background:#fff; border:1px solid var(--border-soft); border-radius:16px; padding:18px 16px;
+  box-shadow:0 6px 14px var(--shadow)}
+.value .vtitle{font-family:var(--serif); font-weight:700; font-size:22px; margin:0 0 4px}
+.value p{margin:0; font-size:13.5px; color:var(--ink-muted); line-height:1.4}
+
+.closer{text-align:center; margin:56px 0 8px}
+.closer h2{font-size:34px; margin:0 0 10px}
+.closer p{color:var(--ink-muted); font-size:18px; margin:0 auto 22px; max-width:44ch}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr; gap:26px}
+  .hero .shot{max-width:280px; margin:0 auto}
+  .feature,.feature.rev{grid-template-columns:1fr; gap:22px}
+  .feature.rev .feat-media{order:0}
+  .feature .shot{max-width:260px; margin:0 auto}
+  .values{grid-template-columns:repeat(2,1fr)}
+}
 """
 
 GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
@@ -118,10 +165,11 @@ GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
              '<rect width="100%" height="100%" filter="url(#n)"/></svg>')
 
 
-def page(title, body, active=""):
+def page(title, body, active="", wrap_class=""):
     def nav(href, label):
         cls = ' class="active"' if active == href else ""
         return f'<a href="{href}"{cls}>{label}</a>'
+    wrap = "wrap" + (f" {wrap_class}" if wrap_class else "")
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -136,7 +184,7 @@ def page(title, body, active=""):
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="wrap">
+<div class="{wrap}">
 <header class="site">
 <a class="brand" href="index.html"><img src="assets/gobe-logo.png" alt="GoBe" width="84" height="56"></a>
 <nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
@@ -265,19 +313,81 @@ us at {CONTACT} with what the content is, where you found it, and why.</li>
 print("wrote support.html")
 
 # --- Home / landing ---
-home = f"""<h1>Traces of your day, left where they happened.</h1>
-<p class="lede">GoBe lets you record the paths you walk and drop short notes, photos,
-and places along the way, then find the traces other people have left near you.</p>
-<div class="card">
-<p class="flush">GoBe is a small, independent app made in the UK. There are no ads and we
-do not sell your data.</p>
+home = f"""<section class="hero">
+<div class="hero-copy">
+<p class="eyebrow">Leave a trace · Go be there</p>
+<h1>A little of your day, left where it happened.</h1>
+<p>GoBe turns the places you go into a living map. Drop short notes and photos as
+you move, and discover the traces other people have left behind, all around you.</p>
+<div class="hero-cta">
+<a class="btn" href="support.html">Get in touch</a>
+<a href="privacy.html">Read our privacy promise</a>
 </div>
-<h2>Links</h2>
-<ul>
-<li><a href="privacy.html">Privacy Policy</a></li>
-<li><a href="terms.html">Terms of Service</a></li>
-<li><a href="support.html">Support &amp; contact</a></li>
-</ul>
+<p class="note">Made in the UK · For ages 16+ · Coming to the App Store</p>
+</div>
+<div class="hero-media">
+<img class="shot" src="assets/screens/map.jpg" width="360" height="782"
+  alt="The GoBe map of central London covered in traces left by people nearby">
+</div>
+</section>
+
+<div class="features">
+
+<div class="feature">
+<div class="feat-media"><img class="shot" src="assets/screens/trace.jpg" width="300" height="652"
+  alt="A GoBe trace card reading &quot;Great spot for watching the world go by&quot;"></div>
+<div class="feat-copy">
+<p class="eyebrow">Traces</p>
+<h2>Read what others left behind.</h2>
+<p>A Trace is a small thing someone noticed here — a note, a photo, a tip. Tap one
+open to read it, like it, or retrace it onto your own map. Your neighbourhood, told
+by the people who walk it.</p>
+</div>
+</div>
+
+<div class="feature rev">
+<div class="feat-media"><img class="shot" src="assets/screens/trail.jpg" width="300" height="652"
+  alt="A finished GoBe trail along the South Bank with distance, time outside and a timeline of traces"></div>
+<div class="feat-copy">
+<p class="eyebrow">Trails</p>
+<h2>Keep the path, not just the memory.</h2>
+<p>Press play and GoBe quietly records the route you take. When you finish, you get a
+keepsake of your day — the line you walked, how far you went, and every trace you
+dropped along the way, in order.</p>
+</div>
+</div>
+
+<div class="feature">
+<div class="feat-media"><img class="shot" src="assets/screens/privacy.jpg" width="300" height="652"
+  alt="GoBe's privacy screen for setting protected areas that are kept off the map"></div>
+<div class="feat-copy">
+<p class="eyebrow">Privacy first</p>
+<h2>Your map, not your whereabouts.</h2>
+<p>Traces are saved to an approximate spot — never your exact location. Mark protected
+areas like home or work and GoBe keeps them off the map, stored only on your device.
+No ads, and we never sell your data.</p>
+</div>
+</div>
+
+</div>
+
+<div class="values">
+<div class="value"><div class="vtitle">No ads</div><p>Nothing following you around. GoBe is not built on attention.</p></div>
+<div class="value"><div class="vtitle">Your data</div><p>We never sell it. Delete your account and content any time.</p></div>
+<div class="value"><div class="vtitle">Made in the UK</div><p>A small, independent app, run by one person.</p></div>
+<div class="value"><div class="vtitle">Ages 16+</div><p>Higher-privacy defaults for younger users, by design.</p></div>
+</div>
+
+<div class="closer">
+<h2>Go be somewhere.</h2>
+<p>GoBe is on its way to the App Store. In the meantime, here's everything about how
+it works and how we look after your data.</p>
+<div class="hero-cta center">
+<a class="btn" href="privacy.html">Privacy Policy</a>
+<a class="btn" href="terms.html">Terms</a>
+<a class="btn" href="support.html">Support</a>
+</div>
+</div>
 """
-(HERE / "index.html").write_text(page("Home", home, "index.html"), encoding="utf-8")
+(HERE / "index.html").write_text(page("Home", home, "index.html", "home"), encoding="utf-8")
 print("wrote index.html")
