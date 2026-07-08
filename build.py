@@ -2,12 +2,22 @@
 """Build GoBe's public legal/support site from the source markdown.
 
 Run:  python3 build.py
-Outputs: index.html, privacy.html, terms.html, support.html
+Outputs: index.html, privacy.html, terms.html, support.html,
+         assets/style.css, assets/grain.svg, .well-known/security.txt, .nojekyll
 
-The privacy/terms pages are generated from the same markdown files that are kept
-word-for-word in sync with the in-app Swift docs. Internal editor notes (lines
-starting with '>') are stripped from the public pages. Re-run after editing the
-.md files.
+Security posture (static site, so hardened at the document level):
+  - No third-party requests at all. Fonts (Cormorant Garamond) are self-hosted
+    and subset; no Google Fonts, no CDN, no analytics — nothing that could leak a
+    visitor's IP or inject code. Especially important on a Privacy Policy page.
+  - Strict Content-Security-Policy meta: default-src 'none', only same-origin
+    styles/fonts/images, no scripts, no framing of others, locked base-uri.
+  - Referrer-Policy: no-referrer.
+  - CSS is external (no inline <style>/style=) so the CSP needs no 'unsafe-inline'.
+  - HTTPS is enforced at the GitHub Pages level (see repo Pages settings).
+
+The privacy/terms pages are generated from the source markdown, kept word-for-word
+in sync with the in-app Swift docs. Internal editor notes ('>' lines) are stripped.
+Re-run after editing the .md files.
 """
 import html
 import re
@@ -15,8 +25,18 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 CONTACT = "hamedbakayoko048@gmail.com"
+ORIGIN = "https://gobe-group.github.io"
+
+# Content-Security-Policy — everything same-origin, no scripts, no third parties.
+CSP = ("default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+       "base-uri 'none'; form-action 'none'")
 
 CSS = """
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/cormorant-regular.woff') format('woff')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/cormorant-bold.woff') format('woff')}
+
 :root{
   /* Exact GoBe design-system values (GoBeColors.swift) */
   --paper:#E8DCC4; --paper-light:#F5EBD3; --paper-aged:#D6C49F;
@@ -27,7 +47,7 @@ CSS = """
   --border:rgba(126,90,50,.35); --border-soft:rgba(126,90,50,.25);
   --shadow:rgba(43,36,29,.16);
   --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-  --sans:'Avenir Next','Avenir','Mulish','Segoe UI',system-ui,-apple-system,sans-serif;
+  --sans:'Avenir Next','Avenir','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -39,8 +59,7 @@ body{
 /* barely-there paper fibre grain, matching the app's paperGrain() pass */
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:9999;
-  opacity:.035; mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.035; mix-blend-mode:multiply; background-image:url('grain.svg');
 }
 .wrap{max-width:700px; margin:0 auto; padding:38px 22px 80px}
 
@@ -57,6 +76,7 @@ header.site::before{
 nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
 nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px; border-bottom:2px solid transparent}
 nav.top a:hover{color:var(--ink)}
+nav.top a.active{color:var(--ink); border-bottom-color:var(--go-bright)}
 
 h1{font-family:var(--serif); font-weight:700; font-size:44px; line-height:1.08; letter-spacing:.2px; margin:0 0 10px}
 h2{font-family:var(--serif); font-weight:700; font-size:27px; line-height:1.15; margin:40px 0 12px; color:var(--ink)}
@@ -88,29 +108,32 @@ footer.site a{color:var(--ink-muted)}
   box-shadow:0 4px 0 rgba(47,123,255,.38), 0 8px 14px var(--shadow); margin:8px 0 6px;
   transition:transform .08s ease, box-shadow .08s ease}
 .btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
-.mono{font-family:'Avenir Next','Avenir',var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
+.mono{font-family:var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
+.flush{margin:0}
 """
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">')
+GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
+             '<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" '
+             'numOctaves="2" stitchTiles="stitch"/></filter>'
+             '<rect width="100%" height="100%" filter="url(#n)"/></svg>')
 
 
 def page(title, body, active=""):
     def nav(href, label):
-        cls = ' style="color:var(--accent);border-bottom-color:var(--accent)"' if active == href else ""
+        cls = ' class="active"' if active == href else ""
         return f'<a href="{href}"{cls}>{label}</a>'
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="{CSP}">
+<meta name="referrer" content="no-referrer">
 <title>{html.escape(title)} · GoBe</title>
 <meta name="description" content="GoBe — leave and find traces of daily moments. {html.escape(title)}.">
 <link rel="icon" type="image/png" href="assets/icon.png">
 <link rel="apple-touch-icon" href="assets/icon.png">
-{FONTS}
-<style>{CSS}</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="wrap">
@@ -161,8 +184,7 @@ def md_to_html(md):
             in_list = False
 
     for raw in lines:
-        line = raw.rstrip()
-        stripped = line.strip()
+        stripped = raw.strip()
         if stripped.startswith('# '):            # H1 — supplied by template
             continue
         if stripped.startswith('>'):             # internal note — drop
@@ -192,6 +214,22 @@ def build_legal(src, title, slug, active):
     print("wrote", slug)
 
 
+# --- Static assets ---
+(HERE / "assets" / "style.css").write_text(CSS, encoding="utf-8")
+(HERE / "assets" / "grain.svg").write_text(GRAIN_SVG, encoding="utf-8")
+(HERE / ".nojekyll").write_text("", encoding="utf-8")  # serve dotfolders as-is
+wk = HERE / ".well-known"
+wk.mkdir(exist_ok=True)
+(wk / "security.txt").write_text(
+    f"Contact: mailto:{CONTACT}\n"
+    f"Expires: 2027-07-08T00:00:00.000Z\n"
+    f"Preferred-Languages: en\n"
+    f"Canonical: {ORIGIN}/.well-known/security.txt\n"
+    f"Policy: {ORIGIN}/privacy.html\n",
+    encoding="utf-8",
+)
+print("wrote assets/style.css, assets/grain.svg, .well-known/security.txt, .nojekyll")
+
 # --- Privacy & Terms (generated from markdown) ---
 build_legal("gobe-privacy-policy.md", "Privacy Policy", "privacy.html", "privacy.html")
 build_legal("gobe-terms-of-service.md", "Terms of Service", "terms.html", "terms.html")
@@ -200,7 +238,7 @@ build_legal("gobe-terms-of-service.md", "Terms of Service", "terms.html", "terms
 support = f"""<h1>Support</h1>
 <p class="lede">Help with GoBe, and how to reach a real person.</p>
 <div class="card">
-<h2 style="margin-top:0">Contact</h2>
+<h2>Contact</h2>
 <p>GoBe is run by one person. The fastest way to get help, report a problem, or
 ask a question is by email:</p>
 <p><a class="btn" href="mailto:{CONTACT}?subject=GoBe%20support">Email support</a></p>
@@ -231,7 +269,7 @@ home = f"""<h1>Traces of your day, left where they happened.</h1>
 <p class="lede">GoBe lets you record the paths you walk and drop short notes, photos,
 and places along the way, then find the traces other people have left near you.</p>
 <div class="card">
-<p style="margin:0">GoBe is a small, independent app made in the UK. There are no ads and we
+<p class="flush">GoBe is a small, independent app made in the UK. There are no ads and we
 do not sell your data.</p>
 </div>
 <h2>Links</h2>
