@@ -24,7 +24,7 @@ import re
 from pathlib import Path
 
 HERE = Path(__file__).parent
-CONTACT = "hamedbakayoko048@gmail.com"
+CONTACT = "hamedibakayoko82@gmail.com"
 ORIGIN = "https://gobe-group.github.io"
 
 # Content-Security-Policy — everything same-origin, no scripts, no third parties.
@@ -291,8 +291,7 @@ support = f"""<h1>Support</h1>
 <p class="lede">Help with GoBe, and how to reach a real person.</p>
 <div class="card">
 <h2>Contact</h2>
-<p>GoBe is run by one person. The fastest way to get help, report a problem, or
-ask a question is by email:</p>
+<p>The fastest way to get help, report a problem, or ask a question is by email:</p>
 <p><a class="btn" href="mailto:{CONTACT}?subject=GoBe%20support">Email support</a></p>
 <p class="mono">{CONTACT}</p>
 <p>We aim to reply within a few days.</p>
@@ -378,7 +377,7 @@ No ads, and we never sell your data.</p>
 <div class="values">
 <div class="value"><div class="vtitle">No ads</div><p>Nothing following you around. GoBe is not built on attention.</p></div>
 <div class="value"><div class="vtitle">Your data</div><p>We never sell it. Delete your account and content any time.</p></div>
-<div class="value"><div class="vtitle">Made in the UK</div><p>A small, independent app, run by one person.</p></div>
+<div class="value"><div class="vtitle">Made in the UK</div><p>A small, independent app, built with care in Britain.</p></div>
 <div class="value"><div class="vtitle">Ages 16+</div><p>Higher-privacy defaults for younger users, by design.</p></div>
 </div>
 

@@ -91,7 +91,7 @@ Under the UK GDPR you have rights to access, correct, export, or delete your per
 - Review and edit your profile information directly in the App.
 - Delete your account and associated data at any time using "Delete Account" in the App's Account screen — this permanently removes your account, trails, and traces from our systems.
 - Revoke location, motion, or photo-library permissions at any time in iOS Settings (note this will limit or disable core features).
-- Contact us at hamedbakayoko048@gmail.com to make a data access, correction, or deletion request, or with any privacy question.
+- Contact us at hamedibakayoko82@gmail.com to make a data access, correction, or deletion request, or with any privacy question.
 
 We will respond to verified requests within the timeframe required by law (usually one month). You also have the right to complain to the ICO at [ico.org.uk](https://ico.org.uk) if you are unhappy with how we handle your data.
 
@@ -99,7 +99,7 @@ We will respond to verified requests within the timeframe required by law (usual
 
 GoBe is not for anyone under 16, and we ask for your date of birth at sign-up to enforce this. We do not knowingly collect personal information from anyone under 16, and we will delete such data if we discover it.
 
-Because some of our users are 16 or 17 — who are still "children" under UK data protection law — we follow the ICO's Age Appropriate Design Code (the "Children's Code"). For users we understand to be under 18, we aim to apply high-privacy defaults, collect the minimum data needed, and keep location sharing limited by default. We have assessed, and keep under review, the risks our processing poses to younger users. If you are a parent or guardian with concerns, contact us at hamedbakayoko048@gmail.com.
+Because some of our users are 16 or 17 — who are still "children" under UK data protection law — we follow the ICO's Age Appropriate Design Code (the "Children's Code"). For users we understand to be under 18, we aim to apply high-privacy defaults, collect the minimum data needed, and keep location sharing limited by default. We have assessed, and keep under review, the risks our processing poses to younger users. If you are a parent or guardian with concerns, contact us at hamedibakayoko82@gmail.com.
 
 ## 14. Security
 
@@ -115,4 +115,4 @@ We may update this Privacy Policy from time to time. If we make material changes
 
 ## 17. Contact Us
 
-If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 35 Cheshire Close, CR4 1XF, United Kingdom, at hamedbakayoko048@gmail.com.
+If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 35 Cheshire Close, CR4 1XF, United Kingdom, at hamedibakayoko82@gmail.com.
