@@ -18,43 +18,83 @@ CONTACT = "hamedbakayoko048@gmail.com"
 
 CSS = """
 :root{
-  --paper:#f5efe2; --paper-2:#efe7d4; --ink:#2b2622; --muted:#6f665a;
-  --rule:#d8cdb6; --accent:#8a6d3b; --card:#fbf7ec;
+  /* Exact GoBe design-system values (GoBeColors.swift) */
+  --paper:#E8DCC4; --paper-light:#F5EBD3; --paper-aged:#D6C49F;
+  --cardboard:#B88C58; --cardboard-dark:#7E5A32;
+  --ink:#2B241D; --ink-muted:#6F675A;
+  --go:#5E8205; --go-bright:#90C808; --be:#2F7BFF; --be-dark:#154AA8;
+  --stamp:#E89135; --red:#E84C3D;
+  --border:rgba(126,90,50,.35); --border-soft:rgba(126,90,50,.25);
+  --shadow:rgba(43,36,29,.16);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Avenir Next','Avenir','Mulish','Segoe UI',system-ui,-apple-system,sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
-  font-size:18px; line-height:1.65;
-  background-image:radial-gradient(circle at 20% 0,rgba(255,255,255,.5),transparent 60%);
+  font-family:var(--sans); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:720px; margin:0 auto; padding:40px 22px 80px}
-header.site{border-bottom:1px solid var(--rule); padding-bottom:18px; margin-bottom:34px}
-.brand{font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:30px; letter-spacing:.5px; text-decoration:none; color:var(--ink)}
-.brand span{color:var(--accent)}
-nav.top{margin-top:12px; font-size:15px}
-nav.top a{color:var(--muted); text-decoration:none; margin-right:18px; border-bottom:1px solid transparent}
-nav.top a:hover{color:var(--accent); border-bottom-color:var(--accent)}
-h1{font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:34px; line-height:1.15; margin:0 0 6px}
-h2{font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:22px; margin:38px 0 10px; color:var(--ink)}
-.updated{color:var(--muted); font-size:15px; margin:0 0 8px}
+/* barely-there paper fibre grain, matching the app's paperGrain() pass */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  opacity:.035; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:700px; margin:0 auto; padding:38px 22px 80px}
+
+header.site{position:relative; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:34px}
+/* washi-tape strip taped over the header, like the app's card headers */
+header.site::before{
+  content:""; position:absolute; top:-14px; right:26px; width:76px; height:17px;
+  background:var(--go-bright); opacity:.72; transform:rotate(-2.5deg);
+  box-shadow:inset 0 0 0 .5px rgba(126,90,50,.4);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1px,transparent 1px 8px);
+}
+.brand{display:inline-flex; align-items:center; font-family:var(--sans); font-weight:800; font-size:30px; letter-spacing:-.5px; text-decoration:none}
+.brand .go{color:var(--go); margin-right:3px}
+.brand .be{color:#fff; background:var(--be); padding:1px 8px 3px; border-radius:11px}
+nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
+nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px; border-bottom:2px solid transparent}
+nav.top a:hover{color:var(--ink)}
+
+h1{font-family:var(--serif); font-weight:700; font-size:44px; line-height:1.08; letter-spacing:.2px; margin:0 0 10px}
+h2{font-family:var(--serif); font-weight:700; font-size:27px; line-height:1.15; margin:40px 0 12px; color:var(--ink)}
 p{margin:0 0 16px}
 ul{margin:0 0 16px; padding-left:22px}
-li{margin:0 0 8px}
-a{color:var(--accent)}
+li{margin:0 0 9px}
+a{color:var(--be)}
 strong{font-weight:700}
-.card{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:22px 24px; margin:0 0 22px; box-shadow:0 1px 0 #fff inset}
-.lede{font-size:20px; color:var(--muted); margin:0 0 26px}
-footer.site{border-top:1px solid var(--rule); margin-top:56px; padding-top:20px; color:var(--muted); font-size:14px}
-footer.site a{color:var(--muted)}
-.btn{display:inline-block; background:var(--accent); color:#fff!important; text-decoration:none; padding:11px 20px; border-radius:10px; font-family:'Playfair Display',Georgia,serif; font-size:16px}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:15px}
+
+/* Passport-style stamp, used for the "Last updated" line */
+.stamp{display:inline-block; font-size:12px; font-weight:700; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--stamp); border:1.5px solid rgba(232,145,53,.55);
+  border-radius:4px; padding:5px 10px; transform:rotate(-1.5deg); margin:0 0 26px}
+
+/* paperLight card with warm printed edge + soft ink shadow */
+.card{background:var(--paper-light); border:1px solid var(--border-soft);
+  border-radius:26px; padding:26px 28px; margin:0 0 24px;
+  box-shadow:0 16px 34px rgba(43,36,29,.14), 0 2px 0 rgba(255,255,255,.55) inset}
+.card h2{margin-top:0}
+.lede{font-size:20px; color:var(--ink-muted); margin:0 0 26px; line-height:1.45}
+
+footer.site{border-top:1px solid var(--border); margin-top:56px; padding-top:20px; color:var(--ink-muted); font-size:13.5px; line-height:1.55}
+footer.site a{color:var(--ink-muted)}
+
+/* Chunky sticker CTA — white die-cut face, coloured under-edge, uppercase ink label */
+.btn{display:inline-block; background:#fff; color:var(--ink)!important; text-decoration:none;
+  text-transform:uppercase; letter-spacing:.09em; font-weight:700; font-size:13px;
+  padding:14px 24px; border-radius:14px; border:1px solid var(--border-soft);
+  box-shadow:0 4px 0 rgba(47,123,255,.38), 0 8px 14px var(--shadow); margin:8px 0 6px;
+  transition:transform .08s ease, box-shadow .08s ease}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
+.mono{font-family:'Avenir Next','Avenir',var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
 """
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">')
+         '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">')
 
 
 def page(title, body, active=""):
@@ -74,7 +114,7 @@ def page(title, body, active=""):
 <body>
 <div class="wrap">
 <header class="site">
-<a class="brand" href="index.html">Go<span>Be</span></a>
+<a class="brand" href="index.html"><span class="go">Go</span><span class="be">Be</span></a>
 <nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
 </header>
 {body}
@@ -104,7 +144,13 @@ def md_to_html(md):
     def flush_para():
         nonlocal para
         if para:
-            out.append(f"<p>{inline(' '.join(para).strip())}</p>")
+            joined = ' '.join(para).strip()
+            # Render the "Last updated" line as a passport-style stamp
+            m = re.match(r'\*\*Last updated:\*\*\s*(.+)', joined)
+            if m:
+                out.append(f'<div class="stamp">Last updated · {html.escape(m.group(1))}</div>')
+            else:
+                out.append(f"<p>{inline(joined)}</p>")
             para = []
 
     def flush_list():
