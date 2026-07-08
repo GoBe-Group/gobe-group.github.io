@@ -52,9 +52,8 @@ header.site::before{
   box-shadow:inset 0 0 0 .5px rgba(126,90,50,.4);
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1px,transparent 1px 8px);
 }
-.brand{display:inline-flex; align-items:center; font-family:var(--sans); font-weight:800; font-size:30px; letter-spacing:-.5px; text-decoration:none}
-.brand .go{color:var(--go); margin-right:3px}
-.brand .be{color:#fff; background:var(--be); padding:1px 8px 3px; border-radius:11px}
+.brand{display:inline-flex; align-items:center; text-decoration:none}
+.brand img{height:56px; width:auto; display:block}
 nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
 nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px; border-bottom:2px solid transparent}
 nav.top a:hover{color:var(--ink)}
@@ -108,13 +107,15 @@ def page(title, body, active=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)} · GoBe</title>
 <meta name="description" content="GoBe — leave and find traces of daily moments. {html.escape(title)}.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
 {FONTS}
 <style>{CSS}</style>
 </head>
 <body>
 <div class="wrap">
 <header class="site">
-<a class="brand" href="index.html"><span class="go">Go</span><span class="be">Be</span></a>
+<a class="brand" href="index.html"><img src="assets/gobe-logo.png" alt="GoBe" width="84" height="56"></a>
 <nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
 </header>
 {body}
