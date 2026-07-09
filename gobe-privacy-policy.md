@@ -1,6 +1,6 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 4 July 2026
+**Last updated:** 10 July 2026
 
 > This is the hosted version of GoBe's Privacy Policy. It is kept word-for-word in sync with the in-app version (`Legal/PrivacyPolicyContent.swift`). Change both together. Once registered with the ICO (ico.org.uk — the data protection fee), add back to section 1: "…, and we are registered with the UK Information Commissioner's Office (ICO) under registration number <number>."
 
@@ -51,6 +51,8 @@ GoBe stores the content you create:
 This content is stored on our servers (described below) so it can sync across your sessions and, where the App's sharing features allow it, be viewed by other users. Traces may be visible to other signed-in users; Trails are private to you by default.
 
 Choosing photos. When you set a profile picture or attach a photo to a Trace, the App accesses your device's photo library so you can pick an image. iOS lets you share your whole library or only the specific photos you select; either way, GoBe only ever receives the individual image you choose, and only that image is uploaded.
+
+Reports and blocks. If you report a Trace, we keep a record of the report: your account, the reported content and its author, the reason you chose, and when you filed it. We use this to review the report and to meet our content moderation duties under the Online Safety Act 2023. Reports are visible only to us, never to other users. If you block someone, we store your block list (your account and the accounts you have blocked) so that their content stays hidden from you. Your block list is private to you, and the people you block are not told about it.
 
 ## 7. How We Use Your Information
 
