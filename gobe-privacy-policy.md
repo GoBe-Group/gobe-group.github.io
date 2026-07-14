@@ -79,7 +79,7 @@ We share information with a limited number of service providers who help us run 
 
 - **Apple** — provides "Sign in with Apple" authentication and, if you choose, relays your email through its private-relay service.
 - **Supabase** — provides our database, file storage, and authentication (GoTrue) infrastructure, and stores the data described in this policy on our behalf, hosted in the EU.
-- **PostHog** — provides anonymous usage statistics and crash reporting, hosted in the United States. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email. Section 15 explains how this transfer outside the UK is protected.
+- **PostHog** — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email.
 
 We do not share your personal information with advertisers or data brokers. We may disclose information if required by law, to protect the rights and safety of GoBe or its users, or in connection with a sale of the business, in which case we'll make reasonable efforts to notify you.
 
@@ -110,7 +110,7 @@ We use reasonable technical and organisational measures — including encrypted 
 
 ## 15. International Data Transfers
 
-Our servers are hosted in the EU (eu-central-1 / Frankfurt). Transfers of personal data from the UK to the EEA are permitted under the UK's adequacy arrangements. Our analytics and crash-reporting provider, PostHog, processes the anonymous events described in section 10 in the United States; this transfer is protected by our data processing agreement with PostHog, which incorporates standard contractual clauses together with the UK International Data Transfer Addendum. If we transfer personal data anywhere else that is not covered by a UK adequacy decision, we put appropriate safeguards (such as the ICO's International Data Transfer Agreement) in place.
+Our servers are hosted in the EU (eu-central-1 / Frankfurt). Transfers of personal data from the UK to the EEA are permitted under the UK's adequacy arrangements. If we transfer personal data anywhere that is not covered by a UK adequacy decision, we put appropriate safeguards (such as the ICO's International Data Transfer Agreement) in place.
 
 ## 16. Changes to This Policy
 
