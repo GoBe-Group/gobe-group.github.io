@@ -1,12 +1,12 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 14 July 2026
+**Last updated:** 24 July 2026
 
 > This is the hosted version of GoBe's Privacy Policy. It is kept word-for-word in sync with the in-app version (`Legal/PrivacyPolicyContent.swift`). Change both together. Once registered with the ICO (ico.org.uk — the data protection fee), add back to section 1: "…, and we are registered with the UK Information Commissioner's Office (ICO) under registration number <number>."
 
 ## 1. Introduction
 
-This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 35 Cheshire Close, CR4 1XF, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data. This policy is provided under, and should be read together with, the UK GDPR and the Data Protection Act 2018. By using the App you agree to this Privacy Policy. If you do not agree, please do not use the App.
+This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 35 Cheshire Close, CR4 1XF, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data, and we are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This policy is provided under, and should be read together with, the UK GDPR and the Data Protection Act 2018. By using the App you agree to this Privacy Policy. If you do not agree, please do not use the App.
 
 GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy goes into specific detail about the location, motion, and content data the App collects.
 
@@ -54,9 +54,11 @@ Choosing photos. When you set a profile picture or attach a photo to a Trace, th
 
 Reports and blocks. If you report a Trace, we keep a record of the report: your account, the reported content and its author, the reason you chose, and when you filed it. We use this to review the report and to meet our content moderation duties under the Online Safety Act 2023. Reports are visible only to us, never to other users. If you block someone, we store your block list (your account and the accounts you have blocked) so that their content stays hidden from you. Your block list is private to you, and the people you block are not told about it.
 
+Friends, invites and your GoBe Score. When you add another user as a friend (a mutual "bond"), we store the connection between your two accounts so we can show it to you both and deliver friend requests. If you invite someone with your personal invite code, or join using a friend's code, we store the link between the inviting account and the joining account so we can attribute the referral. We also calculate a "GoBe Score" — a single number derived from your own activity (traces, trails, retraces, likes, comments and successful invites) and the reactions your traces receive. Your GoBe Score is shown on your profile and is visible to other signed-in users; it does not reveal your location or the content of any private Trail.
+
 ## 7. How We Use Your Information
 
-We use the information described above to: operate the App's core features (recording trails, placing traces, displaying your map); create and secure your account; authenticate you across devices and sessions; display your profile and content to you and, where applicable, to other users; moderate content and keep the service safe; maintain and improve the App's reliability and features; respond to support requests; and meet legal obligations. We do not sell your personal information, and we do not use your location or content data for third-party advertising.
+We use the information described above to: operate the App's core features (recording trails, placing traces, displaying your map); create and secure your account; authenticate you across devices and sessions; display your profile and content to you and, where applicable, to other users; moderate content and keep the service safe; maintain and improve the App's reliability and features; respond to support requests; and meet legal obligations. We also use it to send you notifications about activity that involves you — such as a like, comment, or retrace on your trace, or a friend request — which you can turn off at any time in the App's profile screen or in iOS Settings. We do not sell your personal information, and we do not use your location or content data for third-party advertising.
 
 ## 8. Our Legal Bases for Using Your Data
 
