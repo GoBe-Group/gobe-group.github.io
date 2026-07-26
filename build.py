@@ -20,12 +20,19 @@ in sync with the in-app Swift docs. Internal editor notes ('>' lines) are stripp
 Re-run after editing the .md files.
 """
 import html
+import json
 import re
 from pathlib import Path
 
 HERE = Path(__file__).parent
 CONTACT = "hamedibakayoko82@gmail.com"
 ORIGIN = "https://gobe-group.github.io"
+
+# Universal-link identity. APP_ID is <App ID Prefix>.<bundle id> — the prefix is
+# normally the Team ID (Xcode: DEVELOPMENT_TEAM on the GoBe target).
+TEAM_ID = "DN2QB9489H"
+BUNDLE_ID = "com.gobeapp.gobe"
+APP_ID = f"{TEAM_ID}.{BUNDLE_ID}"
 
 # Content-Security-Policy — everything same-origin, no scripts, no third parties.
 CSP = ("default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
@@ -149,6 +156,19 @@ footer.site a{color:var(--ink-muted)}
 .value .vtitle{font-family:var(--serif); font-weight:700; font-size:22px; margin:0 0 4px}
 .value p{margin:0; font-size:13.5px; color:var(--ink-muted); line-height:1.4}
 
+/* ---------- Profile handoff (/u/) ---------- */
+/* The page a shared profile link lands on when GoBe isn't installed to catch it.
+   Deliberately shows no profile data — just the handoff. */
+.handoff{text-align:center; margin:26px 0 8px}
+.handoff h1{font-size:clamp(32px,5.4vw,46px); margin:0 0 14px}
+.handoff .lede{max-width:40ch; margin:0 auto 26px}
+.handoff .hero-cta{justify-content:center}
+/* Die-cut sticker window holding the app mark, same language as the app's share artefact */
+.handoff-mark{display:inline-block; background:#fff; border:5px solid #fff; border-radius:24px;
+  box-shadow:0 16px 34px rgba(43,36,29,.2), 0 0 0 1px var(--border-soft);
+  transform:rotate(-2deg); margin:0 0 26px; line-height:0}
+.handoff-mark img{width:96px; height:96px; border-radius:20px; display:block}
+
 .closer{text-align:center; margin:56px 0 8px}
 .closer h2{font-size:34px; margin:0 0 10px}
 .closer p{color:var(--ink-muted); font-size:18px; margin:0 auto 22px; max-width:44ch}
@@ -169,11 +189,14 @@ GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
              '<rect width="100%" height="100%" filter="url(#n)"/></svg>')
 
 
-def page(title, body, active="", wrap_class=""):
+def page(title, body, active="", wrap_class="", base="", description=""):
+    """Render a full page. `base` prefixes every internal link — pass "/" for
+    pages that don't live at the site root (e.g. /u/), so assets still resolve."""
     def nav(href, label):
         cls = ' class="active"' if active == href else ""
-        return f'<a href="{href}"{cls}>{label}</a>'
+        return f'<a href="{base}{href}"{cls}>{label}</a>'
     wrap = "wrap" + (f" {wrap_class}" if wrap_class else "")
+    desc = description or f"GoBe — leave and find traces of daily moments. {title}."
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -182,15 +205,21 @@ def page(title, body, active="", wrap_class=""):
 <meta http-equiv="Content-Security-Policy" content="{CSP}">
 <meta name="referrer" content="no-referrer">
 <title>{html.escape(title)} · GoBe</title>
-<meta name="description" content="GoBe — leave and find traces of daily moments. {html.escape(title)}.">
-<link rel="icon" type="image/png" href="assets/icon.png">
-<link rel="apple-touch-icon" href="assets/icon.png">
-<link rel="stylesheet" href="assets/style.css">
+<meta name="description" content="{html.escape(desc)}">
+<meta property="og:site_name" content="GoBe">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{html.escape(title)} · GoBe">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:image" content="{ORIGIN}/assets/icon.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="{base}assets/icon.png">
+<link rel="apple-touch-icon" href="{base}assets/icon.png">
+<link rel="stylesheet" href="{base}assets/style.css">
 </head>
 <body>
 <div class="{wrap}">
 <header class="site">
-<a class="brand" href="index.html"><img src="assets/gobe-logo.png" alt="GoBe" width="84" height="56"></a>
+<a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="84" height="56"></a>
 <nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
 </header>
 {body}
@@ -280,7 +309,35 @@ wk.mkdir(exist_ok=True)
     f"Policy: {ORIGIN}/privacy.html\n",
     encoding="utf-8",
 )
-print("wrote assets/style.css, assets/grain.svg, .well-known/security.txt, .nojekyll")
+
+# apple-app-site-association — lets iOS hand /u/ links straight to the GoBe app
+# instead of opening Safari. Must be served at this exact path, with no file
+# extension, over HTTPS, with no redirect. `.nojekyll` above is what stops
+# GitHub Pages hiding the dot-directory.
+(wk / "apple-app-site-association").write_text(
+    json.dumps(
+        {
+            "applinks": {
+                "details": [
+                    {
+                        "appIDs": [APP_ID],
+                        # Both forms: "/u/" is the link we actually share
+                        # (the handle rides in ?h=), "/u/*" covers the older
+                        # pretty-path links that are still out there.
+                        "components": [
+                            {"/": "/u/", "comment": "profile links"},
+                            {"/": "/u/*", "comment": "profile links (path form)"},
+                        ],
+                    }
+                ]
+            }
+        },
+        indent=2,
+    ),
+    encoding="utf-8",
+)
+print("wrote assets/style.css, assets/grain.svg, .well-known/security.txt,"
+      " .well-known/apple-app-site-association, .nojekyll")
 
 # --- Privacy & Terms (generated from markdown) ---
 build_legal("gobe-privacy-policy.md", "Privacy Policy", "privacy.html", "privacy.html")
@@ -394,3 +451,46 @@ it works and how we look after your data.</p>
 """
 (HERE / "index.html").write_text(page("Home", home, "index.html", "home"), encoding="utf-8")
 print("wrote index.html")
+
+# --- Profile handoff (/u/) ---
+# Where a shared profile link lands when the GoBe app isn't installed to catch
+# it. On a device with GoBe, iOS matches the apple-app-site-association above and
+# opens the app instead, so this page is never seen.
+#
+# It shows NO profile data — not the name, avatar, or traces. Profiles in GoBe
+# are behind sign-in and bond-gated, and a public web page would quietly undo
+# that. The handle sits in the URL and that's as far as it goes. This is also why
+# the page needs no JavaScript, so the site's script-free CSP stays intact.
+profile = """<section class="handoff">
+<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<p class="eyebrow">Someone shared their GoBe</p>
+<h1>Open this profile in GoBe.</h1>
+<p class="lede">Profile links open straight in the app. If you have GoBe installed,
+tap the link again on your iPhone and it'll take you there.</p>
+<div class="hero-cta">
+<a class="btn" href="/index.html">What is GoBe?</a>
+<a href="/support.html">Need a hand? &rsaquo;</a>
+</div>
+<p class="note">GoBe is coming to the App Store · Made in the UK · For ages 16+</p>
+</section>
+
+<div class="card">
+<h2>Why can't I see the profile here?</h2>
+<p>GoBe profiles aren't public web pages. What someone has posted is visible inside
+the app, to people they've added — not to anyone holding a link. So this page hands
+you over to the app rather than showing you their traces.</p>
+<p class="flush">More on how we handle your data in our
+<a href="/privacy.html">Privacy Policy</a>.</p>
+</div>
+"""
+(HERE / "u").mkdir(exist_ok=True)
+(HERE / "u" / "index.html").write_text(
+    page(
+        "Profile",
+        profile,
+        base="/",
+        description="Open this GoBe profile in the app. GoBe — leave and find traces of daily moments.",
+    ),
+    encoding="utf-8",
+)
+print("wrote u/index.html")

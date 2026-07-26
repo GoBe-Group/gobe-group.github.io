@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "DN2QB9489H.com.gobeapp.gobe"
+        ],
+        "components": [
+          {
+            "/": "/u/",
+            "comment": "profile links"
+          },
+          {
+            "/": "/u/*",
+            "comment": "profile links (path form)"
+          }
+        ]
+      }
+    ]
+  }
+}
