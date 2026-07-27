@@ -336,8 +336,19 @@ wk.mkdir(exist_ok=True)
     ),
     encoding="utf-8",
 )
+# Apple requires the association file to be served as application/json. GitHub
+# Pages sends application/octet-stream for extensionless files and gives no way
+# to change it, which is what has kept universal links from working. Hosts that
+# read a `_headers` file (Cloudflare Pages, Netlify) honour this; on GitHub Pages
+# it's simply an inert text file, so it's safe to ship either way.
+(HERE / "_headers").write_text(
+    "/.well-known/apple-app-site-association\n"
+    "  Content-Type: application/json\n"
+    "  Cache-Control: public, max-age=3600\n",
+    encoding="utf-8",
+)
 print("wrote assets/style.css, assets/grain.svg, .well-known/security.txt,"
-      " .well-known/apple-app-site-association, .nojekyll")
+      " .well-known/apple-app-site-association, .nojekyll, _headers")
 
 # --- Privacy & Terms (generated from markdown) ---
 build_legal("gobe-privacy-policy.md", "Privacy Policy", "privacy.html", "privacy.html")

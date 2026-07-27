@@ -1,0 +1,9 @@
+# Files in this repo that build the site but shouldn't be served from it.
+# `wrangler.jsonc` points the asset uploader at the repo root, so without this
+# the build script and the source markdown would be downloadable from the
+# public site.
+build.py
+*.md
+wrangler.jsonc
+.gitignore
+.assetsignore
