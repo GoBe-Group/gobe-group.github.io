@@ -6,7 +6,11 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    // Unmatched paths get 404.html rather than Cloudflare's bare "not found".
+    // That page also rescues the old pretty profile links (/u/ada), which have
+    // no file behind them, by sending them to /u/?h=ada.
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"

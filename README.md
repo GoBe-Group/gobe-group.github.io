@@ -15,8 +15,14 @@ Note Workers serves pages without the `.html` suffix: `/privacy.html` 307s to
 - `support.html` — Support & contact (App Store "Support URL")
 - `index.html` — landing page
 - `u/index.html` — where a shared profile link
-  (`/u/?h=<handle>`) lands when the GoBe app isn't installed to catch it. Shows
-  no profile data by design, only a way into the app.
+  (`/u/?h=<handle>`) lands when iOS didn't hand it to the app. Shows no profile
+  data by design, only a way into the app: it fires `gobe://u/?h=<handle>` to
+  reach an installed GoBe, and if the page is still open ~1.4s later (nothing
+  took the scheme, so the app isn't there) it goes to the App Store product
+  page. `?noauto=1` turns the automatic attempt off for looking at the page.
+- `404.html` — ordinary "not found", except for the old pretty profile links
+  (`/u/ada`), which have no file behind them and are redirected to `/u/?h=ada`.
+  `wrangler.jsonc` sets `not_found_handling: "404-page"` so Workers serves it.
 - `.well-known/apple-app-site-association` — claims `/u/` for the GoBe app so
   iOS opens profile links in-app. Generated; edit `APP_ID` in `build.py` if the
   Team ID or bundle id ever changes.
@@ -24,6 +30,21 @@ Note Workers serves pages without the `.html` suffix: `/privacy.html` 307s to
   GitHub Pages could not do. This is why the site moved hosts.
 - `.assetsignore` — keeps `build.py` and the source markdown out of the upload;
   `wrangler.jsonc` points the asset directory at the repo root.
+
+`/u/` and `404.html` are the only pages carrying a script, and it's inline and
+pinned by a `sha256` CSP hash that `build.py` computes from the script itself,
+so the hash can't drift and nothing external can ever load. Every other page
+keeps the site's script-free `default-src 'none'` policy.
+
+**Universal links need Apple's CDN, not just this site.** iOS reads the
+association from `app-site-association.cdn-apple.com/a/v1/gobeapp.co.uk`, not
+from the origin, and that copy appears only once Apple has crawled the domain.
+Until it does, universal links silently do nothing however correct the file is —
+which is what the `gobe://` fallback above is for. Check it with:
+
+```
+curl -sI https://app-site-association.cdn-apple.com/a/v1/gobeapp.co.uk
+```
 
 The `/u/` link deliberately carries the handle as a query (`?h=`) rather than a
 path (`/u/ada`), a constraint inherited from GitHub Pages, which could only

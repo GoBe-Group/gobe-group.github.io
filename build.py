@@ -19,6 +19,8 @@ The privacy/terms pages are generated from the source markdown, kept word-for-wo
 in sync with the in-app Swift docs. Internal editor notes ('>' lines) are stripped.
 Re-run after editing the .md files.
 """
+import base64
+import hashlib
 import html
 import json
 import re
@@ -33,6 +35,16 @@ ORIGIN = "https://gobeapp.co.uk"
 TEAM_ID = "DN2QB9489H"
 BUNDLE_ID = "com.gobeapp.gobe"
 APP_ID = f"{TEAM_ID}.{BUNDLE_ID}"
+
+# Where someone without the app has to end up. The numeric id is GoBe's App
+# Store id (apps.apple.com/gb/app/gobe/id6779702391); it never changes, while
+# the "/gobe" slug is cosmetic, so the id is what the fallback is keyed on.
+APP_STORE_ID = "6779702391"
+APP_STORE_URL = f"https://apps.apple.com/app/id{APP_STORE_ID}"
+# The app's custom scheme, used to reach an installed GoBe from this page when
+# iOS didn't hand the universal link over (in-app browsers strip them, and a
+# "Safari" breadcrumb tap turns them off for the session).
+APP_SCHEME = "gobe"
 
 # Content-Security-Policy — everything same-origin, no scripts, no third parties.
 CSP = ("default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
@@ -132,6 +144,9 @@ footer.site a{color:var(--ink-muted)}
   border-bottom:2px solid var(--go-bright); padding-bottom:2px; transition:border-color .12s ease}
 .hero-cta a:not(.btn):hover{border-bottom-color:var(--ink)}
 .note{font-size:13px; color:var(--ink-muted); letter-spacing:.4px; margin:14px 0 0}
+/* quiet links in a note line — underlined in GoBe green, never a raw blue link */
+.note a{color:var(--ink); font-weight:600; text-decoration:none;
+  border-bottom:2px solid var(--go-bright); padding-bottom:1px}
 
 /* Phone screenshot as a hand-placed sticker card */
 .shot{display:block; width:100%; height:auto; border-radius:26px;
@@ -189,9 +204,12 @@ GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
              '<rect width="100%" height="100%" filter="url(#n)"/></svg>')
 
 
-def page(title, body, active="", wrap_class="", base="", description=""):
+def page(title, body, active="", wrap_class="", base="", description="", csp=CSP, head=""):
     """Render a full page. `base` prefixes every internal link — pass "/" for
-    pages that don't live at the site root (e.g. /u/), so assets still resolve."""
+    pages that don't live at the site root (e.g. /u/), so assets still resolve.
+
+    `csp` and `head` exist for the one page that needs a script (/u/, which has
+    to reach an installed app); every other page keeps the script-free default."""
     def nav(href, label):
         cls = ' class="active"' if active == href else ""
         return f'<a href="{base}{href}"{cls}>{label}</a>'
@@ -202,7 +220,7 @@ def page(title, body, active="", wrap_class="", base="", description=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="{CSP}">
+<meta http-equiv="Content-Security-Policy" content="{csp}">
 <meta name="referrer" content="no-referrer">
 <title>{html.escape(title)} · GoBe</title>
 <meta name="description" content="{html.escape(desc)}">
@@ -215,7 +233,7 @@ def page(title, body, active="", wrap_class="", base="", description=""):
 <link rel="icon" type="image/png" href="{base}assets/icon.png">
 <link rel="apple-touch-icon" href="{base}assets/icon.png">
 <link rel="stylesheet" href="{base}assets/style.css">
-</head>
+{head}</head>
 <body>
 <div class="{wrap}">
 <header class="site">
@@ -464,31 +482,109 @@ it works and how we look after your data.</p>
 print("wrote index.html")
 
 # --- Profile handoff (/u/) ---
-# Where a shared profile link lands when the GoBe app isn't installed to catch
-# it. On a device with GoBe, iOS matches the apple-app-site-association above and
-# opens the app instead, so this page is never seen.
+# Where a shared profile link lands when iOS didn't hand it to the app. Ideally
+# it never loads at all: the apple-app-site-association above claims /u/, so on a
+# device with GoBe the universal link opens the app directly. It loads when the
+# app isn't installed, when the link was tapped inside an in-app browser
+# (Instagram, WhatsApp and friends strip universal links), or after someone taps
+# the "Safari" breadcrumb, which switches universal links off for that site.
 #
-# It shows NO profile data — not the name, avatar, or traces. Profiles in GoBe
-# are behind sign-in and bond-gated, and a public web page would quietly undo
-# that. The handle sits in the URL and that's as far as it goes. This is also why
-# the page needs no JavaScript, so the site's script-free CSP stays intact.
-profile = """<section class="handoff">
+# So the page has exactly two jobs, and it now does both rather than telling
+# people to "tap the link again":
+#   1. Installed? Reach the app over the gobe:// scheme, handle and all.
+#   2. Not installed? Land on the App Store product page.
+# Both are attempted in that order: fire the scheme, and if we're still here a
+# beat later, the app isn't there to take it, so go to the App Store.
+#
+# It still shows NO profile data — not the name, avatar, or traces. Profiles in
+# GoBe are behind sign-in and bond-gated, and a public web page would quietly
+# undo that. The handle sits in the URL, is passed to the app, and is never
+# rendered here.
+#
+# The one script on the whole site lives here, because only JavaScript can read
+# ?h= out of the URL and time the fallback. It is inline and pinned by a
+# sha256 CSP hash computed below, so the page still loads nothing external and
+# no other script can run on it. Without JavaScript, both buttons are plain
+# links to the App Store, which is the right destination for anyone who can't
+# be handed to the app.
+HANDOFF_JS = f"""(function(){{
+  var STORE = {json.dumps(APP_STORE_URL)};
+  var q = new URLSearchParams(location.search);
+  // Accept both link shapes: /u/?h=ada (what we share) and /u/ada (older links).
+  var raw = q.get('h');
+  if (!raw) {{
+    try {{ raw = decodeURIComponent(location.pathname.replace(/^\\/u\\/?/, '')); }}
+    catch (e) {{ raw = ''; }}
+  }}
+  var handle = (raw || '').trim().replace(/^@/, '').replace(/\\/+$/, '');
+  // Only ever hand the app a plain handle, so nothing from the URL can steer
+  // the scheme link somewhere else.
+  var ok = /^[A-Za-z0-9._-]{{1,40}}$/.test(handle);
+  var appURL = ok ? '{APP_SCHEME}://u/?h=' + encodeURIComponent(handle) : null;
+  var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  // Try the app, then the App Store. The timer is cancelled if the page gets
+  // hidden or unloaded, which is what happens the instant iOS switches to GoBe,
+  // so someone who has the app never gets bounced to the store behind it.
+  function reach(event) {{
+    if (!appURL) return;             // no handle: the button is already the store
+    if (event) event.preventDefault();
+    var timer = setTimeout(function () {{
+      if (document.visibilityState !== 'hidden') location.replace(STORE);
+    }}, 1400);
+    function cancel() {{ clearTimeout(timer); }}
+    document.addEventListener('visibilitychange', function () {{
+      if (document.hidden) cancel();
+    }});
+    window.addEventListener('pagehide', cancel);
+    location.href = appURL;
+  }}
+
+  // This runs in <head>, so wait for the button to exist before wiring it.
+  function start() {{
+    var openBtn = document.getElementById('open-in-app');
+    if (openBtn) {{
+      if (appURL) openBtn.href = appURL;
+      openBtn.addEventListener('click', reach);
+    }}
+    // On an iPhone the whole point of the link is to land in the app, so don't
+    // wait for a second tap. Elsewhere (desktop, Android) there's no app to
+    // reach, so the page just explains itself and offers the App Store.
+    // ?noauto=1 turns the automatic attempt off, for looking at this page.
+    if (iOS && appURL && !q.has('noauto')) reach();
+  }}
+
+  if (document.readyState === 'loading') {{
+    document.addEventListener('DOMContentLoaded', start);
+  }} else {{
+    start();
+  }}
+}})();"""
+
+HANDOFF_CSP = (
+    "default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+    "script-src 'sha256-{hash}'; base-uri 'none'; form-action 'none'"
+).format(hash=base64.b64encode(hashlib.sha256(HANDOFF_JS.encode("utf-8")).digest()).decode())
+
+profile = f"""<section class="handoff">
 <div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
 <p class="eyebrow">Someone shared their GoBe</p>
 <h1>Open this profile in GoBe.</h1>
-<p class="lede">Profile links open straight in the app. If you have GoBe installed,
-tap the link again on your iPhone and it'll take you there.</p>
+<p class="lede">Profile links open straight in the app. If GoBe isn't on this
+iPhone yet, you'll be taken to the App Store to get it.</p>
 <div class="hero-cta">
-<a class="btn" href="/index.html">What is GoBe?</a>
-<a href="/support.html">Need a hand? &rsaquo;</a>
+<a class="btn" id="open-in-app" href="{APP_STORE_URL}">Open in GoBe</a>
+<a class="btn" href="{APP_STORE_URL}">Get GoBe</a>
 </div>
-<p class="note">GoBe is coming to the App Store · Made in the UK · For ages 16+</p>
+<p class="note">Free on the App Store · Made in the UK · For ages 16+</p>
+<p class="note"><a href="/index.html">What is GoBe?</a> · <a href="/support.html">Need a hand?</a></p>
 </section>
 
 <div class="card">
 <h2>Why can't I see the profile here?</h2>
 <p>GoBe profiles aren't public web pages. What someone has posted is visible inside
-the app, to people they've added — not to anyone holding a link. So this page hands
+the app, to people they've added, not to anyone holding a link. So this page hands
 you over to the app rather than showing you their traces.</p>
 <p class="flush">More on how we handle your data in our
 <a href="/privacy.html">Privacy Policy</a>.</p>
@@ -501,7 +597,54 @@ you over to the app rather than showing you their traces.</p>
         profile,
         base="/",
         description="Open this GoBe profile in the app. GoBe — leave and find traces of daily moments.",
+        csp=HANDOFF_CSP,
+        head=f"<script>{HANDOFF_JS}</script>\n",
     ),
     encoding="utf-8",
 )
 print("wrote u/index.html")
+
+# --- 404 ---
+# The site is a set of real files, so the pretty profile form (/u/ada) has no
+# file behind it and 404s. That form predates the ?h= query and is still out
+# there in already-sent messages, and the app happily parses it, so a visitor
+# without the app shouldn't hit a dead end. This page sends those straight to
+# the canonical /u/?h= handoff, which then does the app-then-App-Store dance.
+# Everything else gets an ordinary, on-brand "not found".
+NOT_FOUND_JS = """(function(){
+  var m = location.pathname.match(/^\\/u\\/([^\\/?#]+)\\/?$/);
+  if (!m) return;
+  var handle = decodeURIComponent(m[1]).trim().replace(/^@/, '');
+  if (!/^[A-Za-z0-9._-]{1,40}$/.test(handle)) return;
+  location.replace('/u/?h=' + encodeURIComponent(handle));
+})();"""
+
+NOT_FOUND_CSP = (
+    "default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+    "script-src 'sha256-{hash}'; base-uri 'none'; form-action 'none'"
+).format(hash=base64.b64encode(hashlib.sha256(NOT_FOUND_JS.encode("utf-8")).digest()).decode())
+
+not_found = """<section class="handoff">
+<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<p class="eyebrow">Page not found</p>
+<h1>That page isn't here.</h1>
+<p class="lede">The link may be old, or mistyped. Everything on the site is one
+tap away below.</p>
+<div class="hero-cta">
+<a class="btn" href="/index.html">Home</a>
+<a class="btn" href="/support.html">Support</a>
+</div>
+</section>
+"""
+(HERE / "404.html").write_text(
+    page(
+        "Not found",
+        not_found,
+        base="/",
+        description="That page isn't here. GoBe — leave and find traces of daily moments.",
+        csp=NOT_FOUND_CSP,
+        head=f"<script>{NOT_FOUND_JS}</script>\n",
+    ),
+    encoding="utf-8",
+)
+print("wrote 404.html")

@@ -92,6 +92,9 @@ footer.site a{color:var(--ink-muted)}
   border-bottom:2px solid var(--go-bright); padding-bottom:2px; transition:border-color .12s ease}
 .hero-cta a:not(.btn):hover{border-bottom-color:var(--ink)}
 .note{font-size:13px; color:var(--ink-muted); letter-spacing:.4px; margin:14px 0 0}
+/* quiet links in a note line — underlined in GoBe green, never a raw blue link */
+.note a{color:var(--ink); font-weight:600; text-decoration:none;
+  border-bottom:2px solid var(--go-bright); padding-bottom:1px}
 
 /* Phone screenshot as a hand-placed sticker card */
 .shot{display:block; width:100%; height:auto; border-radius:26px;
