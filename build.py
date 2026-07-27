@@ -36,11 +36,12 @@ TEAM_ID = "DN2QB9489H"
 BUNDLE_ID = "com.gobeapp.gobe"
 APP_ID = f"{TEAM_ID}.{BUNDLE_ID}"
 
-# Where someone without the app has to end up. The numeric id is GoBe's App
-# Store id (apps.apple.com/gb/app/gobe/id6779702391); it never changes, while
-# the "/gobe" slug is cosmetic, so the id is what the fallback is keyed on.
+# Where someone without the app has to end up. The numeric id is what identifies
+# the listing; the "/gobe" slug is cosmetic. The /gb/ storefront is not: GoBe is
+# only released in the UK, and the country-less form (apps.apple.com/app/id…)
+# 404s for it, so the store link has to name the storefront it's actually in.
 APP_STORE_ID = "6779702391"
-APP_STORE_URL = f"https://apps.apple.com/app/id{APP_STORE_ID}"
+APP_STORE_URL = f"https://apps.apple.com/gb/app/gobe/id{APP_STORE_ID}"
 # The app's custom scheme, used to reach an installed GoBe from this page when
 # iOS didn't hand the universal link over (in-app browsers strip them, and a
 # "Safari" breadcrumb tap turns them off for the session).
