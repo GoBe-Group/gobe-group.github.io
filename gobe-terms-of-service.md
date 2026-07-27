@@ -1,12 +1,12 @@
 # GoBe — Terms of Service
 
-**Last updated:** 4 July 2026
+**Last updated:** 27 July 2026
 
 > This is the hosted version of GoBe's Terms of Service. It is kept word-for-word in sync with the in-app version (`Legal/TermsOfServiceContent.swift`). Change both together.
 
 ## 1. Acceptance of Terms
 
-These Terms of Service ("Terms") govern your access to and use of the GoBe mobile application (the "App"), operated by Hamed Bakayoko, an individual sole trader (trading as "GoBe") based at 35 Cheshire Close, CR4 1XF, United Kingdom ("GoBe," "we," "us," or "our"). By creating an account or otherwise using the App, you agree to be bound by these Terms and by our Privacy Policy, which is incorporated by reference. If you do not agree, do not use the App.
+These Terms of Service ("Terms") govern your access to and use of the GoBe mobile application (the "App"), operated by Hamed Bakayoko, an individual sole trader (trading as "GoBe") based at 124 City Road, London EC1V 2NX, United Kingdom ("GoBe," "we," "us," or "our"). By creating an account or otherwise using the App, you agree to be bound by these Terms and by our Privacy Policy, which is incorporated by reference. If you do not agree, do not use the App.
 
 ## 2. Eligibility
 
@@ -18,7 +18,7 @@ GoBe lets you record "Trails" — routes you travel, tracked via your device's l
 
 ## 4. Your Account
 
-You are responsible for maintaining the confidentiality of your account and for all activity that occurs under it. Notify us promptly at hamedibakayoko82@gmail.com if you suspect unauthorised use of your account. We may suspend or terminate accounts that violate these Terms.
+You are responsible for maintaining the confidentiality of your account and for all activity that occurs under it. Notify us promptly at contact@gobeapp.co.uk if you suspect unauthorised use of your account. We may suspend or terminate accounts that violate these Terms.
 
 ## 5. Acceptable Use
 
@@ -37,7 +37,7 @@ We may remove content or suspend or terminate accounts that we believe, in good 
 
 We operate systems and processes to help keep GoBe safe and to detect and remove illegal content and content that breaches these Terms, in line with our duties under the Online Safety Act 2023.
 
-You can report any Trace, Trail, profile, or user that you believe is illegal, harmful, or in breach of these Terms — use the in-app reporting tools, or email us at hamedibakayoko82@gmail.com. Tell us what the content is, where you found it, and why you are reporting it. We aim to review reports of serious harm without undue delay, and we will remove content we find to be illegal or in breach of these Terms.
+You can report any Trace, Trail, profile, or user that you believe is illegal, harmful, or in breach of these Terms — use the in-app reporting tools, or email us at contact@gobeapp.co.uk. Tell us what the content is, where you found it, and why you are reporting it. We aim to review reports of serious harm without undue delay, and we will remove content we find to be illegal or in breach of these Terms.
 
 If you believe content on GoBe infringes your intellectual property or privacy rights, contact us at the same address with enough detail to identify the content and your rights, and we will deal with it under our notice-and-takedown process. We may remove content, restrict features, or suspend or close accounts where we reasonably believe this is necessary to comply with the law or to protect users.
 
@@ -83,4 +83,4 @@ These Terms are governed by the laws of England and Wales. You and we agree that
 
 ## 15. Contact Us
 
-GoBe is operated by Hamed Bakayoko, trading as GoBe, of 35 Cheshire Close, CR4 1XF, United Kingdom. Questions or complaints about these Terms can be sent to hamedibakayoko82@gmail.com.
+GoBe is operated by Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom. Questions or complaints about these Terms can be sent to contact@gobeapp.co.uk.

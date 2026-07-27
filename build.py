@@ -25,8 +25,8 @@ import re
 from pathlib import Path
 
 HERE = Path(__file__).parent
-CONTACT = "hamedibakayoko82@gmail.com"
-ORIGIN = "https://gobe-group.github.io"
+CONTACT = "contact@gobeapp.co.uk"
+ORIGIN = "https://gobeapp.co.uk"
 
 # Universal-link identity. APP_ID is <App ID Prefix>.<bundle id> — the prefix is
 # normally the Team ID (Xcode: DEVELOPMENT_TEAM on the GoBe target).
@@ -224,7 +224,7 @@ def page(title, body, active="", wrap_class="", base="", description=""):
 </header>
 {body}
 <footer class="site">
-<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 35 Cheshire Close, CR4 1XF, United Kingdom.<br>
+<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.<br>
 Contact: <a href="mailto:{CONTACT}">{CONTACT}</a> · Governing law: England &amp; Wales.</p>
 </footer>
 </div>

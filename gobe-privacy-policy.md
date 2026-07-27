@@ -1,12 +1,12 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 24 July 2026
+**Last updated:** 27 July 2026
 
 > This is the hosted version of GoBe's Privacy Policy. It is kept word-for-word in sync with the in-app version (`Legal/PrivacyPolicyContent.swift`). Change both together. Once registered with the ICO (ico.org.uk — the data protection fee), add back to section 1: "…, and we are registered with the UK Information Commissioner's Office (ICO) under registration number <number>."
 
 ## 1. Introduction
 
-This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 35 Cheshire Close, CR4 1XF, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data, and we are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This policy is provided under, and should be read together with, the UK GDPR and the Data Protection Act 2018. By using the App you agree to this Privacy Policy. If you do not agree, please do not use the App.
+This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 124 City Road, London EC1V 2NX, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data, and we are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This policy is provided under, and should be read together with, the UK GDPR and the Data Protection Act 2018. By using the App you agree to this Privacy Policy. If you do not agree, please do not use the App.
 
 GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy goes into specific detail about the location, motion, and content data the App collects.
 
@@ -82,6 +82,7 @@ We share information with a limited number of service providers who help us run 
 - **Apple** — provides "Sign in with Apple" authentication and, if you choose, relays your email through its private-relay service.
 - **Supabase** — provides our database, file storage, and authentication (GoTrue) infrastructure, and stores the data described in this policy on our behalf, hosted in the EU.
 - **PostHog** — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email.
+- **Cloudflare** — provides DNS, content delivery, and security filtering for our public website, which hosts this policy, our terms, and our support pages. When you visit that website, Cloudflare processes your IP address and basic request information (such as the page requested and your browser type) in order to serve the page and to block abusive traffic. Cloudflare has no access to your GoBe account, trails, or traces.
 
 We do not share your personal information with advertisers or data brokers. We may disclose information if required by law, to protect the rights and safety of GoBe or its users, or in connection with a sale of the business, in which case we'll make reasonable efforts to notify you.
 
@@ -96,7 +97,7 @@ Under the UK GDPR you have rights to access, correct, export, or delete your per
 - Review and edit your profile information directly in the App.
 - Delete your account and associated data at any time using "Delete Account" in the App's Account screen — this permanently removes your account, trails, and traces from our systems.
 - Revoke location, motion, or photo-library permissions at any time in iOS Settings (note this will limit or disable core features).
-- Contact us at hamedibakayoko82@gmail.com to make a data access, correction, or deletion request, or with any privacy question.
+- Contact us at contact@gobeapp.co.uk to make a data access, correction, or deletion request, or with any privacy question.
 
 We will respond to verified requests within the timeframe required by law (usually one month). You also have the right to complain to the ICO at [ico.org.uk](https://ico.org.uk) if you are unhappy with how we handle your data.
 
@@ -104,7 +105,7 @@ We will respond to verified requests within the timeframe required by law (usual
 
 GoBe is not for anyone under 16, and we ask for your date of birth at sign-up to enforce this. We do not knowingly collect personal information from anyone under 16, and we will delete such data if we discover it.
 
-Because some of our users are 16 or 17 — who are still "children" under UK data protection law — we follow the ICO's Age Appropriate Design Code (the "Children's Code"). For users we understand to be under 18, we aim to apply high-privacy defaults, collect the minimum data needed, and keep location sharing limited by default. We have assessed, and keep under review, the risks our processing poses to younger users. If you are a parent or guardian with concerns, contact us at hamedibakayoko82@gmail.com.
+Because some of our users are 16 or 17 — who are still "children" under UK data protection law — we follow the ICO's Age Appropriate Design Code (the "Children's Code"). For users we understand to be under 18, we aim to apply high-privacy defaults, collect the minimum data needed, and keep location sharing limited by default. We have assessed, and keep under review, the risks our processing poses to younger users. If you are a parent or guardian with concerns, contact us at contact@gobeapp.co.uk.
 
 ## 14. Security
 
@@ -120,4 +121,4 @@ We may update this Privacy Policy from time to time. If we make material changes
 
 ## 17. Contact Us
 
-If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 35 Cheshire Close, CR4 1XF, United Kingdom, at hamedibakayoko82@gmail.com.
+If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom, at contact@gobeapp.co.uk.
