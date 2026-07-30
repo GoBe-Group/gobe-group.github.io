@@ -1,12 +1,12 @@
 # GoBe — Terms of Service
 
-**Last updated:** 27 July 2026
+**Last updated:** 30 July 2026
 
-> This is the hosted version of GoBe's Terms of Service. It is kept word-for-word in sync with the in-app version (`Legal/TermsOfServiceContent.swift`). Change both together.
+> This is the hosted version of GoBe's Terms of Service. It is generated from and kept in sync with the in-app version.
 
 ## 1. Acceptance of Terms
 
-These Terms of Service ("Terms") govern your access to and use of the GoBe mobile application (the "App"), operated by Hamed Bakayoko, an individual sole trader (trading as "GoBe") based at 124 City Road, London EC1V 2NX, United Kingdom ("GoBe," "we," "us," or "our"). By creating an account or otherwise using the App, you agree to be bound by these Terms and by our Privacy Policy, which is incorporated by reference. If you do not agree, do not use the App.
+These Terms of Service ("Terms") govern your access to and use of the GoBe mobile application (the "App"), operated by Hamed Bakayoko, an individual sole trader (trading as "GoBe") based at 124 City Road, London EC1V 2NX, United Kingdom ("GoBe," "we," "us," or "our"). By selecting the account-creation action and creating an account, you agree to these Terms. Our Privacy Policy is provided alongside these Terms and explains how we process personal information; it is a notice, not part of this contract. If you do not agree to these Terms, do not create an account or use the App.
 
 ## 2. Eligibility
 
@@ -35,11 +35,11 @@ We may remove content or suspend or terminate accounts that we believe, in good 
 
 ## 6. Content Moderation, Reporting & Illegal Content
 
-We operate systems and processes to help keep GoBe safe and to detect and remove illegal content and content that breaches these Terms, in line with our duties under the Online Safety Act 2023.
+We operate systems and processes to help keep GoBe safe and to detect and remove illegal content and content that breaches these Terms, including under the UK Online Safety Act 2023 and other platform-safety laws that apply where we offer the App.
 
 You can report any Trace, Trail, profile, or user that you believe is illegal, harmful, or in breach of these Terms — use the in-app reporting tools, or email us at contact@gobeapp.co.uk. Tell us what the content is, where you found it, and why you are reporting it. We aim to review reports of serious harm without undue delay, and we will remove content we find to be illegal or in breach of these Terms.
 
-If you believe content on GoBe infringes your intellectual property or privacy rights, contact us at the same address with enough detail to identify the content and your rights, and we will deal with it under our notice-and-takedown process. We may remove content, restrict features, or suspend or close accounts where we reasonably believe this is necessary to comply with the law or to protect users.
+If we remove content, restrict features, or suspend or close an account, we will explain the main reason where the law requires and provide any review or appeal route required in your country. If you believe content on GoBe infringes your intellectual property or privacy rights, contact us at the same address with enough detail to identify the content and your rights, and we will deal with it under our notice-and-takedown process.
 
 ## 7. Your Content & Licence to GoBe
 
@@ -67,7 +67,7 @@ Subject to that paragraph, and to the fullest extent permitted by law: we provid
 
 ## 11. Your Consumer Rights
 
-As a consumer, you have legal rights that these Terms do not affect. Where GoBe is supplied as a digital service, you have rights under the Consumer Rights Act 2015 — including that the service is provided with reasonable care and skill. Nothing in these Terms excludes or limits those rights. For more information about your rights, contact your local Citizens Advice service or Trading Standards office.
+As a consumer, you have legal rights that these Terms do not affect. In the UK, these include rights under the Consumer Rights Act 2015, including that a digital service is provided with reasonable care and skill. If you live elsewhere, you retain any mandatory warranties, remedies, cancellation rights, or other protections that the law of your usual residence gives you and does not allow a contract to exclude. Nothing in these Terms excludes or limits those rights.
 
 ## 12. Termination
 
@@ -75,12 +75,24 @@ You may stop using the App and delete your account at any time using the "Delete
 
 ## 13. Changes to These Terms
 
-We may update these Terms from time to time. If we make material changes, we will update the "Last Updated" date above and, where appropriate, notify you in the App. Continuing to use GoBe after a change takes effect means you accept the updated Terms.
+We may update these Terms from time to time. If we make material changes, we will update the "Last Updated" date above and notify you in the App or by email before they take effect where reasonably possible. If applicable law requires fresh agreement, we will ask you to accept the updated Terms. Otherwise, continued use after the effective date constitutes acceptance of the updated Terms.
 
 ## 14. Governing Law & Jurisdiction
 
-These Terms are governed by the laws of England and Wales. You and we agree that the courts of England and Wales have jurisdiction over any dispute. If you are a consumer resident outside England and Wales, you keep the benefit of any mandatory consumer-protection rules of your country of residence, and you may be able to bring proceedings in your local courts where the law allows.
+These Terms are governed by the laws of England and Wales. The courts of England and Wales have non-exclusive jurisdiction. If you are a consumer resident elsewhere, this choice does not deprive you of mandatory protections provided by the law of your usual residence, and you may bring proceedings in your local courts where applicable law permits. Nothing in this section requires a consumer to use arbitration or waive a right to bring an eligible claim before a court or public authority.
 
-## 15. Contact Us
+## 15. Regional Terms
+
+European Economic Area. If we specifically offer GoBe to consumers in the EEA, mandatory EU and national consumer protections apply. Content-moderation decisions and complaints will be handled with any explanation, review, and redress rights required by applicable platform law.
+
+United States and Canada. Mandatory federal, state, provincial, and territorial consumer protections remain unaffected. Nothing in these Terms limits rights that cannot lawfully be waived, including rights concerning unfair or deceptive practices.
+
+Brazil. Consumers retain all mandatory rights under the Brazilian Consumer Defence Code and other applicable law, including access to competent Brazilian consumer authorities and courts where required.
+
+Australia. Nothing in these Terms excludes, restricts, or modifies consumer guarantees, rights, or remedies that cannot be excluded under the Australian Consumer Law.
+
+Japan. Nothing in these Terms excludes mandatory protections under Japanese consumer law. Any provision that unlawfully excludes liability or is otherwise invalid applies only to the maximum extent permitted by law.
+
+## 16. Contact Us
 
 GoBe is operated by Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom. Questions or complaints about these Terms can be sent to contact@gobeapp.co.uk.

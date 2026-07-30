@@ -1,21 +1,21 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 27 July 2026
+**Last updated:** 30 July 2026
 
-> This is the hosted version of GoBe's Privacy Policy. It is kept word-for-word in sync with the in-app version (`Legal/PrivacyPolicyContent.swift`). Change both together. Once registered with the ICO (ico.org.uk — the data protection fee), add back to section 1: "…, and we are registered with the UK Information Commissioner's Office (ICO) under registration number <number>."
+> This is the hosted version of GoBe's Privacy Policy. It is generated from and kept in sync with the in-app version.
 
 ## 1. Introduction
 
-This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 124 City Road, London EC1V 2NX, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data, and we are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This policy is provided under, and should be read together with, the UK GDPR and the Data Protection Act 2018. By using the App you agree to this Privacy Policy. If you do not agree, please do not use the App.
+This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 124 City Road, London EC1V 2NX, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data and are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This is a privacy notice, not a contract. Creating an account confirms that you were shown this notice; where we rely on consent, we ask for that consent separately.
 
-GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy goes into specific detail about the location, motion, and content data the App collects.
+GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy gives specific detail about location, motion, and content data.
 
 ## 2. Account & Sign-In Information
 
 GoBe offers two ways to create and authenticate your account.
 
-- **Sign in with Apple** — Apple shares your name and email address with us, including the private, randomly generated "relay" email Apple provides if you choose to hide your real email address.
-- **Email and username sign-up** — we collect the email address you give us (confirmed with a one-time code sent to it), and the username and password you choose. Passwords are handled by our authentication provider and are never stored in plain text.
+- Sign in with Apple — Apple shares your name and email address with us, including the private, randomly generated "relay" email Apple provides if you choose to hide your real email address.
+- Email and username sign-up — we collect the email address you give us (confirmed with a one-time code sent to it), and the username and password you choose. Passwords are handled by our authentication provider and are never stored in plain text.
 
 We use this information to create your GoBe account, to sign you in, and to identify you across sessions.
 
@@ -50,7 +50,7 @@ GoBe stores the content you create:
 
 This content is stored on our servers (described below) so it can sync across your sessions and, where the App's sharing features allow it, be viewed by other users. Traces may be visible to other signed-in users; Trails are private to you by default.
 
-Choosing photos. When you set a profile picture or attach a photo to a Trace, the App accesses your device's photo library so you can pick an image. iOS lets you share your whole library or only the specific photos you select; either way, GoBe only ever receives the individual image you choose, and only that image is uploaded.
+Choosing photos. When you set a profile picture, Apple's system photo picker lets you browse your Photos albums without giving GoBe general access to your library. GoBe receives only the individual image you choose, and only that image is uploaded. If another photo feature asks for library permission, iOS lets you limit access to selected photos.
 
 Reports and blocks. If you report a Trace, we keep a record of the report: your account, the reported content and its author, the reason you chose, and when you filed it. We use this to review the report and to meet our content moderation duties under the Online Safety Act 2023. Reports are visible only to us, never to other users. If you block someone, we store your block list (your account and the accounts you have blocked) so that their content stays hidden from you. Your block list is private to you, and the people you block are not told about it.
 
@@ -58,16 +58,19 @@ Friends, invites and your GoBe Score. When you add another user as a friend (a m
 
 ## 7. How We Use Your Information
 
-We use the information described above to: operate the App's core features (recording trails, placing traces, displaying your map); create and secure your account; authenticate you across devices and sessions; display your profile and content to you and, where applicable, to other users; moderate content and keep the service safe; maintain and improve the App's reliability and features; respond to support requests; and meet legal obligations. We also use it to send you notifications about activity that involves you — such as a like, comment, or retrace on your trace, or a friend request — which you can turn off at any time in the App's profile screen or in iOS Settings. We do not sell your personal information, and we do not use your location or content data for third-party advertising.
+We use the information described above to: operate the App's core features (recording trails, placing traces, displaying your map); create and secure your account; authenticate you across devices and sessions; display your profile and content to you and, where applicable, to other users; moderate content and keep the service safe; maintain and improve the App's reliability and features; respond to support requests; and meet legal obligations. We also use it to send you notifications about activity that involves you — such as a like, comment, or retrace on your trace, or a friend request — and occasional GoBe progress or exploration prompts such as territory recaps, ranking movement, milestone prompts and return reminders. These are controlled together by the single Notifications switch in the App's profile screen and by iOS Settings. GoBe's progress and exploration prompts use your activity, GoBe Score and area standing. We do not sell your personal information, and we do not use your location or content data for third-party advertising.
 
 ## 8. Our Legal Bases for Using Your Data
 
-Under the UK GDPR, we rely on the following legal bases:
+Where the UK GDPR, EU GDPR, or a similar law requires a legal basis, we rely on:
 
-- **Contract** — to create and run your account and provide the core features you ask for (recording trails, placing traces, showing your map).
-- **Consent** — for access to your precise and background location and your motion/step data. You can withdraw consent at any time in iOS Settings; this will not affect processing already carried out, but may disable the related feature.
-- **Legitimate interests** — to keep GoBe secure, prevent abuse, moderate content, and improve the App, balanced against your rights and freedoms.
-- **Legal obligation** — to meet our duties under data protection law and the Online Safety Act 2023, and to respond to lawful requests.
+- Contract — to create and run your account and provide the core features you request.
+- Consent — for device access to precise and background location, motion/step data, and optional promotional notifications where consent is required. You can withdraw consent in the App or iOS Settings without affecting earlier lawful processing, although the related feature may stop working.
+- Legitimate interests — to secure and improve GoBe, prevent abuse, calculate service statistics, and moderate content, after balancing those interests against your rights.
+- Legal obligation — to comply with privacy, safety, consumer, and other applicable laws and lawful requests.
+- Vital interests or public interest — only in the exceptional circumstances in which applicable law permits and the basis genuinely applies.
+
+Where another privacy law uses different grounds, we process information only for purposes permitted by that law.
 
 ## 9. Where Your Information Is Stored
 
@@ -79,10 +82,10 @@ These photo storage buckets are private: photos are not publicly accessible and 
 
 We share information with a limited number of service providers who help us run GoBe:
 
-- **Apple** — provides "Sign in with Apple" authentication and, if you choose, relays your email through its private-relay service.
-- **Supabase** — provides our database, file storage, and authentication (GoTrue) infrastructure, and stores the data described in this policy on our behalf, hosted in the EU.
-- **PostHog** — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email.
-- **Cloudflare** — provides DNS, content delivery, and security filtering for our public website, which hosts this policy, our terms, and our support pages. When you visit that website, Cloudflare processes your IP address and basic request information (such as the page requested and your browser type) in order to serve the page and to block abusive traffic. Cloudflare has no access to your GoBe account, trails, or traces.
+- Apple — provides "Sign in with Apple" authentication and, if you choose, relays your email through its private-relay service.
+- Supabase — provides our database, file storage, and authentication (GoTrue) infrastructure, and stores the data described in this policy on our behalf, hosted in the EU.
+- PostHog — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email.
+- Cloudflare — provides DNS, content delivery, and security filtering for our public website, which hosts this policy, our terms, and our support pages. When you visit that website, Cloudflare processes your IP address and basic request information (such as the page requested and your browser type) in order to serve the page and to block abusive traffic. Cloudflare has no access to your GoBe account, trails, or traces.
 
 We do not share your personal information with advertisers or data brokers. We may disclose information if required by law, to protect the rights and safety of GoBe or its users, or in connection with a sale of the business, in which case we'll make reasonable efforts to notify you.
 
@@ -92,33 +95,44 @@ We keep your account, profile, trail, and trace data for as long as your account
 
 ## 12. Your Rights & Choices
 
-Under the UK GDPR you have rights to access, correct, export, or delete your personal information, and to object to or restrict certain processing, and to withdraw consent. You can:
+Depending on where you live, you may have rights to know or access the information we hold about you; correct, delete, or receive a portable copy of it; object to or restrict processing; withdraw consent; opt out of certain disclosures, targeted advertising, or profiling; appeal a refused request; and complain to a privacy authority. We do not sell personal information or use it for third-party targeted advertising.
 
-- Review and edit your profile information directly in the App.
-- Delete your account and associated data at any time using "Delete Account" in the App's Account screen — this permanently removes your account, trails, and traces from our systems.
-- Revoke location, motion, or photo-library permissions at any time in iOS Settings (note this will limit or disable core features).
-- Contact us at contact@gobeapp.co.uk to make a data access, correction, or deletion request, or with any privacy question.
-
-We will respond to verified requests within the timeframe required by law (usually one month). You also have the right to complain to the ICO at [ico.org.uk](https://ico.org.uk) if you are unhappy with how we handle your data.
+You can review and edit profile information in the App, delete your account using "Delete Account," and revoke device permissions in iOS Settings. You may also email contact@gobeapp.co.uk. We may verify your identity before completing a request and will respond within the period required by the law that applies to you. We will not discriminate against you for exercising a privacy right.
 
 ## 13. Children & Users Under 18
 
-GoBe is not for anyone under 16, and we ask for your date of birth at sign-up to enforce this. We do not knowingly collect personal information from anyone under 16, and we will delete such data if we discover it.
+GoBe is not for anyone under 16. We use the date of birth entered at sign-up to enforce that rule and do not permit an account to be created when the stated age is under 16. If we discover that we collected information from an under-16 user, we will close the account and delete the information unless law requires limited retention.
 
-Because some of our users are 16 or 17 — who are still "children" under UK data protection law — we follow the ICO's Age Appropriate Design Code (the "Children's Code"). For users we understand to be under 18, we aim to apply high-privacy defaults, collect the minimum data needed, and keep location sharing limited by default. We have assessed, and keep under review, the risks our processing poses to younger users. If you are a parent or guardian with concerns, contact us at contact@gobeapp.co.uk.
+For users aged 16 or 17, we apply high-privacy defaults, minimise collection, and limit location sharing by default. In the UK we take account of the ICO's Age Appropriate Design Code. In the United States, GoBe is a general-audience service and is not directed to children under 13; if we gain actual knowledge that we collected a child's information, we will delete it and take the action required by COPPA. Parents or guardians may contact contact@gobeapp.co.uk.
 
 ## 14. Security
 
-We use reasonable technical and organisational measures — including encrypted connections (HTTPS/TLS) between the App and our backend, and access controls on our database and storage — to protect your information. Supabase, our infrastructure provider, maintains its own security program for the systems it operates on our behalf. No method of transmission or storage is completely secure, however, and we cannot guarantee absolute security. If a personal data breach is likely to result in a risk to your rights, we will notify the ICO, and you where required, in line with our legal obligations.
+We use reasonable technical and organisational measures — including encrypted connections (HTTPS/TLS) and database and storage access controls — to protect your information. Supabase maintains its own security programme for the systems it operates on our behalf. No method is completely secure. If a personal data breach occurs, we will notify affected people and the appropriate authorities where and within the time required by applicable law.
 
 ## 15. International Data Transfers
 
-Our servers are hosted in the EU (eu-central-1 / Frankfurt). Transfers of personal data from the UK to the EEA are permitted under the UK's adequacy arrangements. If we transfer personal data anywhere that is not covered by a UK adequacy decision, we put appropriate safeguards (such as the ICO's International Data Transfer Agreement) in place.
+Our primary Supabase servers are hosted in the EU (eu-central-1 / Frankfurt). Information may also be processed in other countries by the providers listed above. Depending on the originating country, we rely on adequacy decisions, contractual safeguards such as approved standard contractual clauses or the UK International Data Transfer Agreement/Addendum, or another lawful transfer mechanism. You may contact us for information about the safeguard relevant to your data.
 
 ## 16. Changes to This Policy
 
-We may update this Privacy Policy from time to time. If we make material changes, we will update the "Last Updated" date above and, where appropriate, notify you in the App. Your continued use of GoBe after a change takes effect means you accept the updated policy.
+We may update this Privacy Policy when our practices or legal obligations change. We will update the "Last Updated" date and notify you in the App or by email when a change is material. If a change requires consent, we will ask for it separately. Continued use is not treated as consent to new processing that legally requires consent.
 
-## 17. Contact Us
+## 17. Regional Privacy Information
+
+United Kingdom. UK residents may exercise UK GDPR rights and complain to the Information Commissioner's Office at ico.org.uk.
+
+European Economic Area. If the EU GDPR applies, you may exercise the rights described above and complain to the supervisory authority where you live, work, or believe an infringement occurred. Before specifically offering GoBe to people in the EEA, we will publish the details of any EU representative required by Article 27. EEA launch remains subject to completing that appointment assessment.
+
+United States. Residents of states with applicable comprehensive privacy laws may request access, correction, deletion, or portability and may opt out of sale, targeted advertising, or qualifying profiling as provided by their state law. GoBe does not sell personal information, share it for cross-context behavioural advertising, or use it for third-party targeted advertising. We process precise route location only to provide requested GoBe features, security, and legal compliance. Where required, you may appeal a decision by replying to our response. California residents may also request the categories of information, sources, purposes, and recipients described in this Policy. These rights apply when the relevant law covers GoBe.
+
+Canada. You may request access to and correction of personal information and challenge our compliance through the contact below. We use consent or another lawful basis recognised by applicable federal or provincial law.
+
+Brazil. Where the LGPD applies, you may request confirmation of processing, access, correction, anonymisation, blocking or deletion where applicable, portability, information about sharing, withdrawal of consent, and review of qualifying automated decisions. Contact is available at contact@gobeapp.co.uk.
+
+Australia. Where the Privacy Act 1988 and Australian Privacy Principles apply, you may request access or correction and complain to us. If unresolved, you may contact the Office of the Australian Information Commissioner.
+
+Japan. Where the APPI applies, you may request disclosure, correction, suspension of use, or deletion as provided by law and ask about cross-border handling through the contact below.
+
+## 18. Contact Us
 
 If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom, at contact@gobeapp.co.uk.
