@@ -1,6 +1,6 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 30 July 2026
+**Last updated:** 2 August 2026
 
 > This is the hosted version of GoBe's Privacy Policy. It is generated from and kept in sync with the in-app version.
 
@@ -24,6 +24,8 @@ Authentication and session management are handled by Supabase (specifically its 
 ## 3. Profile Information
 
 When you set up your profile, we collect the display name and username you choose, your date of birth (the App requires you to confirm you are at least 16 years old), and, optionally, an avatar photo you upload. This information is shown to you within the App and, depending on the feature, may be visible to other users — for example, your display name and avatar on a Trail or Trace.
+
+Being found. Other signed-in users can search for people by display name or username, so your profile can be reached by someone who has not crossed paths with you in the App. Search results show only your display name, username, avatar and profile line — never your location. Anyone you have blocked, and anyone who has blocked you, is excluded from your search results and you from theirs.
 
 ## 4. Location Information
 
@@ -55,6 +57,8 @@ Choosing photos. When you set a profile picture, Apple's system photo picker let
 Reports and blocks. If you report a Trace, we keep a record of the report: your account, the reported content and its author, the reason you chose, and when you filed it. We use this to review the report and to meet our content moderation duties under the Online Safety Act 2023. Reports are visible only to us, never to other users. If you block someone, we store your block list (your account and the accounts you have blocked) so that their content stays hidden from you. Your block list is private to you, and the people you block are not told about it.
 
 Friends, invites and your GoBe Score. When you add another user as a friend (a mutual "bond"), we store the connection between your two accounts so we can show it to you both and deliver friend requests. If you invite someone with your personal invite code, or join using a friend's code, we store the link between the inviting account and the joining account so we can attribute the referral. We also calculate a "GoBe Score" — a single number derived from your own activity (traces, trails, retraces, likes, comments and successful invites) and the reactions your traces receive. Your GoBe Score is shown on your profile and is visible to other signed-in users; it does not reveal your location or the content of any private Trail.
+
+Achievements. We record the milestones your account passes — for example your first Trace, ten Trails, or a number of steps walked — along with the date each was reached. They are worked out from activity we already hold (your traces, trails, steps, friends, the likes and retraces your traces receive, and your GoBe Score) and are shown on your profile to other signed-in users. An achievement shows what you have done, never where: it does not name a place or reveal the content of any Trace or Trail.
 
 ## 7. How We Use Your Information
 
