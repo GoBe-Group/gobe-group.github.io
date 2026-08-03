@@ -238,7 +238,7 @@ def page(title, body, active="", wrap_class="", base="", description="", csp=CSP
 <body>
 <div class="{wrap}">
 <header class="site">
-<a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="84" height="56"></a>
+<a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="140" height="56"></a>
 <nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
 </header>
 {body}
