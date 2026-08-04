@@ -1,6 +1,6 @@
 # GoBe — Privacy Policy
 
-**Last updated:** 2 August 2026
+**Last updated:** 4 August 2026
 
 > This is the hosted version of GoBe's Privacy Policy. It is generated from and kept in sync with the in-app version.
 
@@ -8,7 +8,7 @@
 
 This Privacy Policy explains what information Hamed Bakayoko, an individual sole trader (trading as "GoBe," "we," "us," or "our") of 124 City Road, London EC1V 2NX, United Kingdom, collects through the GoBe mobile app (the "App"), how we use and store it, who we share it with, and the choices and rights you have. We are the data controller for your personal data and are registered with the UK Information Commissioner's Office (ICO) under registration number C1991885. This is a privacy notice, not a contract. Creating an account confirms that you were shown this notice; where we rely on consent, we ask for that consent separately.
 
-GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy gives specific detail about location, motion, and content data.
+GoBe's core feature lets you record a "Trail" — the path you walk, run, or travel — and drop "Traces" — short notes, optional photos or videos, any text you add on top of them, and pinned locations — along the way, then view them on a map. Because that feature depends on your real-world location and movement, this policy gives specific detail about location, motion, and content data.
 
 ## 2. Account & Sign-In Information
 
@@ -47,7 +47,7 @@ GoBe reads step-count data from your device's motion co-processor (via Apple's C
 
 GoBe stores the content you create:
 
-- Traces — text notes, an optional photo, and an approximate (coarsely rounded) location near where you created them. We do not store the exact coordinate of a Trace.
+- Traces — text notes, an optional photo or short video, any caption or text you place on that photo or video (before or after posting), and an approximate (coarsely rounded) location near where you created them. We do not store the exact coordinate of a Trace.
 - Trails — the sequence of GPS coordinates and timestamps that make up a recorded route, along with any title or metadata you add.
 
 This content is stored on our servers (described below) so it can sync across your sessions and, where the App's sharing features allow it, be viewed by other users. Traces may be visible to other signed-in users; Trails are private to you by default.

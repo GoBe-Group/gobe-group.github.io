@@ -1,6 +1,6 @@
 # GoBe — Terms of Service
 
-**Last updated:** 30 July 2026
+**Last updated:** 4 August 2026
 
 > This is the hosted version of GoBe's Terms of Service. It is generated from and kept in sync with the in-app version.
 
@@ -14,7 +14,7 @@ You must be at least 16 years old to create a GoBe account or use the App. Durin
 
 ## 3. Description of the Service
 
-GoBe lets you record "Trails" — routes you travel, tracked via your device's location services — and create "Traces" — notes, optional photos, and pinned locations along your route — and view them on a map. You use GoBe signed in — with an Apple ID, or with an email-verified username and password. GoBe is a user-to-user service: content you share may be visible to other users where the App's features allow.
+GoBe lets you record "Trails" — routes you travel, tracked via your device's location services — and create "Traces" — notes, optional photos or short videos, text you add on top of them, and pinned locations along your route — and view them on a map. You use GoBe signed in — with an Apple ID, or with an email-verified username and password. GoBe is a user-to-user service: content you share may be visible to other users where the App's features allow.
 
 ## 4. Your Account
 
