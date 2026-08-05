@@ -37,11 +37,13 @@ BUNDLE_ID = "com.gobeapp.gobe"
 APP_ID = f"{TEAM_ID}.{BUNDLE_ID}"
 
 # Where someone without the app has to end up. The numeric id is what identifies
-# the listing; the "/gobe" slug is cosmetic. The /gb/ storefront is not: GoBe is
-# only released in the UK, and the country-less form (apps.apple.com/app/id…)
-# 404s for it, so the store link has to name the storefront it's actually in.
+# the listing; the slug is cosmetic, but it's the one Apple prints on the listing
+# so it's the one we use. The /gb/ storefront is not cosmetic: GoBe is only
+# released in the UK, and the country-less form (apps.apple.com/app/id…) 404s
+# for it, so the store link has to name the storefront it's actually in.
 APP_STORE_ID = "6779702391"
-APP_STORE_URL = f"https://apps.apple.com/gb/app/gobe/id{APP_STORE_ID}"
+APP_STORE_SLUG = "gobe-a-local-social-network"
+APP_STORE_URL = f"https://apps.apple.com/gb/app/{APP_STORE_SLUG}/id{APP_STORE_ID}"
 # The app's custom scheme, used to reach an installed GoBe from this page when
 # iOS didn't hand the universal link over (in-app browsers strip them, and a
 # "Safari" breadcrumb tap turns them off for the session).
@@ -94,9 +96,13 @@ header.site::before{
 .brand{display:inline-flex; align-items:center; text-decoration:none}
 .brand img{height:56px; width:auto; display:block}
 nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
-nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px; border-bottom:2px solid transparent}
+nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px;
+  border-bottom:2px solid transparent; display:inline-block; white-space:nowrap; line-height:2.1}
 nav.top a:hover{color:var(--ink)}
 nav.top a.active{color:var(--ink); border-bottom-color:var(--go-bright)}
+/* the store link is the only outward one up here, so it carries GoBe blue */
+nav.top a.get{color:var(--be); border-bottom-color:var(--be); margin-right:0}
+nav.top a.get:hover{color:var(--be-dark); border-bottom-color:var(--be-dark)}
 
 h1{font-family:var(--serif); font-weight:700; font-size:44px; line-height:1.08; letter-spacing:.2px; margin:0 0 10px}
 h2{font-family:var(--serif); font-weight:700; font-size:27px; line-height:1.15; margin:40px 0 12px; color:var(--ink)}
@@ -128,6 +134,10 @@ footer.site a{color:var(--ink-muted)}
   box-shadow:0 4px 0 rgba(47,123,255,.38), 0 8px 14px var(--shadow); margin:8px 0 6px;
   transition:transform .08s ease, box-shadow .08s ease}
 .btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
+/* the one CTA that matters — same sticker, GoBe blue face, so it leads the row */
+.btn.primary{background:var(--be); color:#fff!important; border-color:var(--be-dark);
+  box-shadow:0 4px 0 var(--be-dark), 0 8px 14px var(--shadow)}
+.btn.primary:active{box-shadow:0 1px 0 var(--be-dark), 0 3px 6px var(--shadow)}
 .mono{font-family:var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
 .flush{margin:0}
 
@@ -239,7 +249,7 @@ def page(title, body, active="", wrap_class="", base="", description="", csp=CSP
 <div class="{wrap}">
 <header class="site">
 <a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="140" height="56"></a>
-<nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}</nav>
+<nav class="top">{nav('index.html','Home')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}<a class="get" href="{APP_STORE_URL}">Get the app</a></nav>
 </header>
 {body}
 <footer class="site">
@@ -410,10 +420,10 @@ home = f"""<section class="hero">
 <p>GoBe turns the places you go into a living map. Drop short notes and photos as
 you move, and discover the traces other people have left behind, all around you.</p>
 <div class="hero-cta">
-<a class="btn" href="support.html">Get in touch</a>
+<a class="btn primary" href="{APP_STORE_URL}">Download on the App Store</a>
 <a href="privacy.html">Read our privacy promise &rsaquo;</a>
 </div>
-<p class="note">Made in the UK · For ages 16+ · Coming to the App Store</p>
+<p class="note">Free for iPhone · Made in the UK · For ages 16+</p>
 </div>
 <div class="hero-media">
 <img class="shot" src="assets/screens/map.jpg" width="360" height="782"
@@ -473,7 +483,7 @@ No ads, and we never sell your data.</p>
 <p>GoBe is free on the App Store, for iPhone. Here's everything about how it works
 and how we look after your data.</p>
 <div class="hero-cta center">
-<a class="btn" href="{APP_STORE_URL}">Get GoBe</a>
+<a class="btn primary" href="{APP_STORE_URL}">Download on the App Store</a>
 <a class="btn" href="privacy.html">Privacy Policy</a>
 <a class="btn" href="terms.html">Terms</a>
 <a class="btn" href="support.html">Support</a>

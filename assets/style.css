@@ -41,9 +41,13 @@ header.site::before{
 .brand{display:inline-flex; align-items:center; text-decoration:none}
 .brand img{height:56px; width:auto; display:block}
 nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
-nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px; border-bottom:2px solid transparent}
+nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px;
+  border-bottom:2px solid transparent; display:inline-block; white-space:nowrap; line-height:2.1}
 nav.top a:hover{color:var(--ink)}
 nav.top a.active{color:var(--ink); border-bottom-color:var(--go-bright)}
+/* the store link is the only outward one up here, so it carries GoBe blue */
+nav.top a.get{color:var(--be); border-bottom-color:var(--be); margin-right:0}
+nav.top a.get:hover{color:var(--be-dark); border-bottom-color:var(--be-dark)}
 
 h1{font-family:var(--serif); font-weight:700; font-size:44px; line-height:1.08; letter-spacing:.2px; margin:0 0 10px}
 h2{font-family:var(--serif); font-weight:700; font-size:27px; line-height:1.15; margin:40px 0 12px; color:var(--ink)}
@@ -75,6 +79,10 @@ footer.site a{color:var(--ink-muted)}
   box-shadow:0 4px 0 rgba(47,123,255,.38), 0 8px 14px var(--shadow); margin:8px 0 6px;
   transition:transform .08s ease, box-shadow .08s ease}
 .btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
+/* the one CTA that matters — same sticker, GoBe blue face, so it leads the row */
+.btn.primary{background:var(--be); color:#fff!important; border-color:var(--be-dark);
+  box-shadow:0 4px 0 var(--be-dark), 0 8px 14px var(--shadow)}
+.btn.primary:active{box-shadow:0 1px 0 var(--be-dark), 0 3px 6px var(--shadow)}
 .mono{font-family:var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
 .flush{margin:0}
 
