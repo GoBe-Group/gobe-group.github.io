@@ -13,6 +13,22 @@
           {
             "/": "/u/*",
             "comment": "profile links (path form)"
+          },
+          {
+            "/": "/g/",
+            "comment": "gathering links"
+          },
+          {
+            "/": "/g/*",
+            "comment": "gathering links (path form)"
+          },
+          {
+            "/": "/i/",
+            "comment": "invite links"
+          },
+          {
+            "/": "/i/*",
+            "comment": "invite links (path form)"
           }
         ]
       }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-0E/vH9dt/oMZgva0hYM+VyoOuzI2keXvjuTqBijxHZk='; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-t9n9n3LAowdle+kCDvi8p0quRL7QKUXAYZ5BBotW72U='; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Not found · GoBe</title>
 <meta name="description" content="That page isn&#x27;t here. GoBe — leave and find traces of daily moments.">
@@ -17,18 +17,33 @@
 <link rel="apple-touch-icon" href="/assets/icon.png">
 <link rel="stylesheet" href="/assets/style.css">
 <script>(function(){
-  var m = location.pathname.match(/^\/u\/([^\/?#]+)\/?$/);
-  if (!m) return;
-  var handle = decodeURIComponent(m[1]).trim().replace(/^@/, '');
-  if (!/^[A-Za-z0-9._-]{1,40}$/.test(handle)) return;
-  location.replace('/u/?h=' + encodeURIComponent(handle));
+  var u = location.pathname.match(/^\/u\/([^\/?#]+)\/?$/);
+  if (u) {
+    var handle = decodeURIComponent(u[1]).trim().replace(/^@/, '');
+    if (!/^[A-Za-z0-9._-]{1,40}$/.test(handle)) return;
+    location.replace('/u/?h=' + encodeURIComponent(handle));
+    return;
+  }
+  var g = location.pathname.match(/^\/g\/([^\/?#]+)\/?$/);
+  if (g) {
+    var id = decodeURIComponent(g[1]).trim().toLowerCase();
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)) return;
+    location.replace('/g/?id=' + encodeURIComponent(id));
+    return;
+  }
+  var i = location.pathname.match(/^\/i\/([^\/?#]+)\/?$/);
+  if (i) {
+    var token = decodeURIComponent(i[1]).trim();
+    if (!/^[A-Za-z0-9_-]{16,128}$/.test(token)) return;
+    location.replace('/i/?t=' + encodeURIComponent(token));
+  }
 })();</script>
 </head>
 <body>
 <div class="wrap">
 <header class="site">
 <a class="brand" href="/index.html"><img src="/assets/gobe-logo.png" alt="GoBe" width="140" height="56"></a>
-<nav class="top"><a href="/index.html">Home</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a><a class="get" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get the app</a></nav>
+<nav class="top"><a href="/index.html">Home</a><a href="/index.html#how">How it works</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a><a class="get" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get the app</a></nav>
 </header>
 <section class="handoff">
 <div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>

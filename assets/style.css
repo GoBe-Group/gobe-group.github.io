@@ -87,12 +87,22 @@ footer.site a{color:var(--ink-muted)}
 .flush{margin:0}
 
 /* ---------- Landing page ---------- */
+/* The whole page argues one thing, in this order: what GoBe is, the three
+   moves it is made of, what those moves add up to, and why that is not a feed.
+   Every section below is one beat of that argument, so the markup reads in the
+   same order somebody scrolling meets it. */
 .eyebrow{font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--go); margin:0 0 8px}
-.wrap.home{max-width:940px}
+.wrap.home{max-width:1040px}
 
-.hero{display:grid; grid-template-columns:1fr minmax(220px,300px); gap:38px; align-items:center; margin:8px 0 20px}
-.hero h1{font-size:clamp(38px,6vw,60px); margin:0 0 16px}
-.hero p{font-size:20px; color:var(--ink-muted); line-height:1.5; margin:0 0 22px; max-width:36ch}
+/* Section heading with the paper rule under it, used to open each beat */
+.beat{margin:74px 0 26px; max-width:52ch}
+.beat.mid{margin-left:auto; margin-right:auto; text-align:center}
+.beat h2{margin:0 0 10px; font-size:clamp(28px,3.8vw,38px)}
+.beat p{margin:0; font-size:18px; color:var(--ink-muted); line-height:1.5}
+
+.hero{display:grid; grid-template-columns:1fr minmax(230px,310px); gap:44px; align-items:center; margin:8px 0 20px}
+.hero h1{font-size:clamp(38px,6vw,62px); margin:0 0 18px}
+.hero p{font-size:20px; color:var(--ink-muted); line-height:1.5; margin:0 0 22px; max-width:40ch}
 .hero-cta{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center}
 .hero-cta.center{justify-content:center}
 /* secondary text link next to a chunky button — quiet, on-brand, not a raw blue link */
@@ -110,22 +120,95 @@ footer.site a{color:var(--ink-muted)}
   background:#fff}
 .hero .shot{transform:rotate(2deg)}
 
-.features{display:grid; gap:30px; margin:56px 0 12px}
-.feature{display:grid; grid-template-columns:minmax(220px,300px) 1fr; gap:36px; align-items:center;
-  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:28px;
+/* The sentence the rest of the page is an expansion of. Set big, on its own,
+   so a visitor who reads nothing else still leaves knowing what GoBe is. */
+.thesis{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:30px;
+  padding:44px 40px; margin:52px 0 0; text-align:center;
   box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset}
-.feature.rev{grid-template-columns:1fr minmax(220px,300px)}
-.feature.rev .feat-media{order:2}
-.feature h2{margin:0 0 12px; font-size:30px}
-.feature p{margin:0; font-size:17px; line-height:1.55; color:var(--ink)}
-.feature .shot{transform:rotate(-1.5deg)}
-.feature.rev .shot{transform:rotate(1.5deg)}
+.thesis p:not(.eyebrow){font-family:var(--serif); font-size:clamp(24px,3.4vw,34px); line-height:1.26;
+  margin:0 auto; max-width:27ch; color:var(--ink)}
+.thesis .eyebrow{margin-bottom:16px}
+.thesis em{font-style:normal; color:var(--go); }
 
-.values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:48px 0 8px}
+/* The three moves, numbered, because the order is the product */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:0 0 8px}
+.step{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:24px;
+  padding:24px 22px 26px; box-shadow:0 12px 26px rgba(43,36,29,.11), 0 2px 0 rgba(255,255,255,.55) inset;
+  display:flex; flex-direction:column}
+.step .num{font-family:var(--serif); font-weight:700; font-size:22px; color:#fff;
+  background:var(--go); width:38px; height:38px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; margin:0 0 14px;
+  box-shadow:0 3px 0 var(--cardboard-dark)}
+.step h3{font-family:var(--serif); font-weight:700; font-size:25px; line-height:1.14; margin:0 0 9px}
+.step p{margin:0; font-size:15.5px; line-height:1.5; color:var(--ink-muted)}
+.step .word{color:var(--ink); font-weight:700}
+
+/* Alternating screenshot / copy rows for the beats that need showing */
+.split{display:grid; grid-template-columns:minmax(200px,262px) 1fr; gap:42px; align-items:center;
+  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:30px;
+  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset; margin:0 0 20px}
+.split.rev{grid-template-columns:1fr minmax(200px,262px)}
+.split.rev .split-media{order:2}
+.split h3{font-family:var(--serif); font-weight:700; font-size:clamp(24px,3vw,31px); line-height:1.14; margin:0 0 12px}
+.split p{margin:0 0 14px; font-size:17px; line-height:1.55; color:var(--ink)}
+.split p:last-child{margin-bottom:0}
+.split .shot{transform:rotate(-1.5deg)}
+.split.rev .shot{transform:rotate(1.5deg)}
+/* Two screenshots in one media slot, laid down like a pair of prints. The slot
+   is widened to carry them, or each phone lands too small to read. */
+.split.duo{grid-template-columns:minmax(240px,346px) 1fr}
+.split.duo.rev{grid-template-columns:1fr minmax(240px,346px)}
+.pair{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start}
+.pair .shot{border-width:4px; border-radius:20px}
+.pair .shot:first-child{transform:rotate(-2deg)}
+.pair .shot:last-child{transform:rotate(2deg); margin-top:16px}
+
+/* A screen that is wider than it is tall, so it gets a landscape slot rather
+   than being squeezed into the portrait phone shape the other shots use. */
+.wide{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:38px; align-items:center;
+  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:30px;
+  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset; margin:0}
+.wide .shot{transform:rotate(-1deg)}
+.wide-copy p:not(.eyebrow){margin:0; font-size:17px; line-height:1.55; color:var(--ink)}
+
+/* Feed on the left, GoBe on the right. The clearest way to say what this is
+   instead of describing it twice. */
+.contrast{display:grid; grid-template-columns:1fr 1fr; gap:0; margin:0;
+  border:1px solid var(--border-soft); border-radius:26px; overflow:hidden;
+  box-shadow:0 16px 34px rgba(43,36,29,.12)}
+.col{padding:26px 26px 30px}
+.col.was{background:var(--paper-aged)}
+.col.is{background:#fff}
+.col h3{font-family:var(--serif); font-weight:700; font-size:24px; margin:0 0 4px}
+.col .ceyebrow{font-size:11.5px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--ink-muted); margin:0 0 12px}
+.col.is .ceyebrow{color:var(--go)}
+.col ul{list-style:none; margin:0; padding:0}
+.col li{margin:0 0 11px; font-size:15.5px; line-height:1.45; padding-left:20px; position:relative}
+.col li::before{content:""; position:absolute; left:0; top:.62em; width:9px; height:2px; background:var(--cardboard)}
+.col.is li::before{background:var(--go-bright); height:3px}
+.col.was li{color:var(--ink-muted)}
+
+.values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 8px}
 .value{background:#fff; border:1px solid var(--border-soft); border-radius:16px; padding:18px 16px;
   box-shadow:0 6px 14px var(--shadow)}
 .value .vtitle{font-family:var(--serif); font-weight:700; font-size:22px; margin:0 0 4px}
 .value p{margin:0; font-size:13.5px; color:var(--ink-muted); line-height:1.4}
+
+/* The band for people reading this as a business rather than an app */
+.brief{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px;
+  padding:32px 30px; margin:0;
+  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset}
+.brief h3{font-family:var(--serif); font-weight:700; font-size:28px; margin:0 0 10px}
+.brief p{font-size:17px; line-height:1.55; margin:0 0 16px}
+.facts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 26px; margin:20px 0 0;
+  border-top:1px solid var(--border-soft); padding-top:20px}
+.fact{display:flex; gap:12px; font-size:15px; line-height:1.4}
+.fact .k{font-size:11.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase;
+  color:var(--ink-muted); min-width:112px; padding-top:3px}
+.fact .v{color:var(--ink)}
+/* the contact line sits under the facts, not in them, so it needs its own air */
+.brief .note{margin-top:22px}
 
 /* ---------- Profile handoff (/u/) ---------- */
 /* The page a shared profile link lands on when GoBe isn't installed to catch it.
@@ -144,11 +227,25 @@ footer.site a{color:var(--ink-muted)}
 .closer h2{font-size:34px; margin:0 0 10px}
 .closer p{color:var(--ink-muted); font-size:18px; margin:0 auto 22px; max-width:44ch}
 
+@media (max-width:860px){
+  .steps{grid-template-columns:1fr}
+  .step{padding:20px 20px 22px}
+}
 @media (max-width:720px){
+  .wrap{padding:30px 18px 64px}
   .hero{grid-template-columns:1fr; gap:26px}
   .hero .shot{max-width:280px; margin:0 auto}
-  .feature,.feature.rev{grid-template-columns:1fr; gap:22px}
-  .feature.rev .feat-media{order:0}
-  .feature .shot{max-width:260px; margin:0 auto}
+  .beat{margin:52px 0 20px}
+  .thesis{padding:32px 22px}
+  /* .duo carries a wider media slot, and a higher specificity with it, so the
+     stack has to name it or the two-print rows never collapse. */
+  .split,.split.rev,.split.duo,.split.duo.rev{grid-template-columns:1fr; gap:22px}
+  .split.rev .split-media{order:0}
+  .split .shot{max-width:260px; margin:0 auto}
+  .pair{max-width:340px; margin:0 auto}
+  .wide{grid-template-columns:1fr; gap:22px}
+  .contrast{grid-template-columns:1fr}
   .values{grid-template-columns:repeat(2,1fr)}
+  .facts{grid-template-columns:1fr}
+  .fact{flex-direction:column; gap:2px}
 }
