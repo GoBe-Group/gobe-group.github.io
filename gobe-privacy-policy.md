@@ -25,7 +25,7 @@ Authentication and session management are handled by Supabase (specifically its 
 
 When you set up your profile, we collect the display name and username you choose, your date of birth (the App requires you to confirm you are at least 16 years old), your phone number, and, optionally, an avatar photo you upload. This information is shown to you within the App and, depending on the feature, may be visible to other users — for example, your display name and avatar on a Trail or Trace.
 
-Your phone number. Setting up an account requires a phone number; there is no way to finish signing up without giving one. We store it in international format and use it to secure and recover your account, to contact you about your account where email is not enough, and to help prevent one person from creating many accounts. It is never shown on your profile, never returned to another user by search or by any other feature in the App, and never shared with advertisers or data brokers. Technically it is held in a separate table from the rest of your profile, readable only by your own account, precisely so that it cannot be read by other users the way your display name and avatar can. We do not verify it by sending you a code, so it is a number you told us rather than one we have confirmed. We do not use it to send you marketing, and the separate, off-by-default feature that lets friends find you by number does not use it — that feature uses a one-way digest you would have to turn on yourself, and signing up does not turn it on. Your number is deleted with your account.
+Your phone number. Setting up an account requires a phone number; there is no way to finish signing up without giving one. We store it in international format and use it to secure and recover your account, to contact you about your account where email is not enough, and to help prevent one person from creating many accounts. It is never shown on your profile, never returned to another user by search or by any other feature in the App, and never shared with advertisers or data brokers. Technically it is held in a separate table from the rest of your profile, readable only by your own account, precisely so that it cannot be read by other users the way your display name and avatar can. We confirm it by texting you a one-time code when you sign up (or later, from People you know), so that a number on an account belongs to the person using it; a number can be confirmed on only one GoBe account. We do not use it to send you marketing. Once your number is confirmed, people who already have it in their contacts can find you on GoBe, as described in section 6, and you can switch that off at any time. Your number is deleted with your account.
 
 Being found. Other signed-in users can search for people by display name or username, so your profile can be reached by someone who has not crossed paths with you in the App. The App may also suggest your profile to other signed-in users as somebody they could connect with, either because you left a Trace near them or simply because you have an account; a suggestion shows the same details a search does and never says where you are or have been. Search results and suggestions show only your display name, username, avatar and profile line — never your location. Anyone you have blocked, and anyone who has blocked you, is excluded from your search results and you from theirs.
 
@@ -49,14 +49,14 @@ GoBe reads step-count data from your device's motion co-processor (via Apple's C
 
 ## 6. Contacts & Finding People You Know
 
-GoBe can help you find people you already know who are also on GoBe. This is optional and off unless you turn it on.
+GoBe can help you find people you already know who are also on GoBe.
 
-- Being findable — if you choose to be findable, you give us your phone number. Your device converts it into an irreversible scrambled value (a salted cryptographic hash) before it is sent, and that scrambled value is what we store. We never receive or store your phone number itself. You can leave at any time, which deletes the stored value.
-- Finding others — if you ask GoBe to check your contacts, the App requests access to your address book and reads it on your device only. Your contacts are never uploaded. The App downloads a deliberately incomplete list of scrambled values, compares it against your contacts on the device, and sends back only the small number of entries that already appear to match, in scrambled form, so that we can tell you who they are. Contacts that do not match are never disclosed to us in any form.
+- Being findable. Once your phone number has been confirmed by a code (see section 3), people who already have that number in their contacts can find you on GoBe. This is on by default, and you can switch it off at any time in the App under Profile, People you know. For this, our servers keep an irreversible scrambled version of your number (a salted cryptographic hash), and that is what the matching uses: it never shows your number to anyone. Switching it off deletes that value.
+- Finding others. If you ask GoBe to check your contacts, the App asks for access to your address book and reads it on your device only. Your contacts are never uploaded. The App downloads a deliberately incomplete list of scrambled values, compares it against your contacts on the device, and sends back only the small number of entries that already appear to match, in scrambled form, so that we can tell you who they are. Contacts that do not match are never disclosed to us in any form.
 
-We use this only to show you people you may know. We do not use it to build a social graph of people who are not GoBe users, we do not retain your address book, and we do not share any of it with third parties.
+We use this only to show you people you may know. We do not use it to build a social graph of people who are not GoBe users, we do not keep your address book, and we do not share any of it with third parties. Because being findable is on by default, we rely on our legitimate interest in helping people who already know each other find one another on GoBe; you can object at any time by switching it off.
 
-## 6. Your Content
+## 7. Your Content
 
 GoBe stores the content you create:
 
@@ -83,7 +83,7 @@ Feedback. Now and then the App asks how GoBe is going. If you answer that it cou
 
 Achievements. We record the milestones your account passes — for example your first Trace, ten Trails, or a number of steps walked — along with the date each was reached. They are worked out from activity we already hold (your traces, trails, steps, friends, the likes and retraces your traces receive, and your GoBe Score) and are shown on your profile to other signed-in users. An achievement shows what you have done, never where: it does not name a place or reveal the content of any Trace or Trail.
 
-## 7. How We Use Your Information
+## 8. How We Use Your Information
 
 We use the information described above to: operate the App's core features (recording trails, placing traces, displaying your map); create and secure your account; authenticate you across devices and sessions; display your profile and content to you and, where applicable, to other users; moderate content and keep the service safe; maintain and improve the App's reliability and features; respond to support requests; and meet legal obligations. We also use it to send you notifications about activity that involves you — such as a like, comment, or retrace on your trace, or a friend request; about what the people you have added have been doing, such as leaving a trace, liking or commenting on one, or starting a community or event, which we tell you with their username on it because adding someone is mutual and both of you agreed to it; about new messages sent to you or to a community or event you have joined, which you can mute for each conversation; about activity in an area you have left a trace in yourself, which never names the person and says only that someone left a trace and which area it was in; about a trace left on the grounds of a university you have joined on GoBe, which likewise never names the person and says only that someone left a trace and which campus it was on, at most once every three hours for each campus; a weekly summary, on Sunday evening, of how many times your traces were walked to, liked or commented on that week, which names nobody and is not sent when nothing happened; and occasional GoBe progress or exploration prompts such as territory recaps, ranking movement, milestone prompts and return reminders. These are controlled together by the single Notifications switch in the App's profile screen and by iOS Settings. GoBe's progress and exploration prompts use your activity, GoBe Score and area standing.
 
@@ -98,7 +98,7 @@ Email. We use the email address on your account for two different purposes, and 
 
 We do not sell your personal information, we do not share your email address with advertisers or data brokers, and we do not use your location or content data for third-party advertising.
 
-## 8. Our Legal Bases for Using Your Data
+## 9. Our Legal Bases for Using Your Data
 
 Where the UK GDPR, EU GDPR, or a similar law requires a legal basis, we rely on:
 
@@ -110,54 +110,55 @@ Where the UK GDPR, EU GDPR, or a similar law requires a legal basis, we rely on:
 
 Where another privacy law uses different grounds, we process information only for purposes permitted by that law.
 
-## 9. Where Your Information Is Stored
+## 10. Where Your Information Is Stored
 
 GoBe's backend runs on Supabase. Your account record, profile, trails, and trace data are stored in a Supabase Postgres database. Photos you upload — avatars and trace photos — are stored in Supabase Storage, in buckets named "avatars" and "post-images." Our Supabase project is hosted in the EU (eu-central-1 / Frankfurt region).
 
 These photo storage buckets are private: photos are not publicly accessible and can only be retrieved by signed-in users through an access-controlled endpoint, governed by row-level security policies. A photo cannot be viewed by someone simply because they have guessed or obtained a storage link.
 
-## 10. Third Parties & Sub-Processors
+## 11. Third Parties & Sub-Processors
 
 We share information with a limited number of service providers who help us run GoBe:
 
 - Apple — provides "Sign in with Apple" authentication and, if you choose, relays your email through its private-relay service.
 - Supabase — provides our database, file storage, and authentication (GoTrue) infrastructure, and stores the data described in this policy on our behalf, hosted in the EU.
-- PostHog — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email.
+- Twilio: sends the one-time codes that confirm your phone number, by text message. Twilio receives your phone number and the code, and nothing else about your account.
+- PostHog — provides anonymous usage statistics and crash reporting, hosted in the EU. We record a small set of app events (for example that a trail was started, or that the app crashed and where in the code it happened) so we can fix problems and see which features are used. These events are anonymous: we configure PostHog so that no user profile is built about you, and no event ever includes your location, your content, your name, or your email. We also record some sessions in the App as a replay, a picture of the screens you move through and where you tap, so we can see where the App is confusing or broken. Maps, photos, and anything you type are blacked out on your phone before a replay is sent, and messages, settings, sign-in, and the trace composer are not recorded at all. Replays are kept for 30 days and are deleted with your account.
 - Cloudflare — provides DNS, content delivery, and security filtering for our public website, which hosts this policy, our terms, and our support pages. When you visit that website, Cloudflare processes your IP address and basic request information (such as the page requested and your browser type) in order to serve the page and to block abusive traffic. Cloudflare has no access to your GoBe account, trails, or traces.
 
 We do not share your personal information with advertisers or data brokers. We may disclose information if required by law, to protect the rights and safety of GoBe or its users, or in connection with a sale of the business, in which case we'll make reasonable efforts to notify you.
 
-## 11. Data Retention
+## 12. Data Retention
 
 We keep your account, profile, trail, and trace data for as long as your account is active, so the App can show you your history and keep your content in sync. If you delete your account (see below), we delete or anonymise this data within 30 days, except where we are required to keep limited records longer for legal, security, or fraud-prevention purposes — in which case we keep only what is necessary, for no longer than required.
 
 Marketing consent records. If you turn marketing email on or off, we keep a dated record of that change for as long as your account exists, so that we can evidence the consent we relied on when we sent you something. The record holds the change itself, its date and how it was made — it does not hold the content of any email. It is deleted with your account.
 
-## 12. Your Rights & Choices
+## 13. Your Rights & Choices
 
 Depending on where you live, you may have rights to know or access the information we hold about you; correct, delete, or receive a portable copy of it; object to or restrict processing; withdraw consent; opt out of certain disclosures, targeted advertising, or profiling; appeal a refused request; and complain to a privacy authority. We do not sell personal information or use it for third-party targeted advertising.
 
 You can review and edit profile information in the App, delete your account using "Delete Account," revoke device permissions in iOS Settings, and stop marketing email with the unsubscribe link in any such email, which works without signing in. You may also email contact@gobeapp.co.uk. We may verify your identity before completing a request and will respond within the period required by the law that applies to you. We will not discriminate against you for exercising a privacy right.
 
-## 13. Children & Users Under 18
+## 14. Children & Users Under 18
 
 GoBe is not for anyone under 16. We use the date of birth entered at sign-up to enforce that rule and do not permit an account to be created when the stated age is under 16. If we discover that we collected information from an under-16 user, we will close the account and delete the information unless law requires limited retention.
 
 For users aged 16 or 17, we apply high-privacy defaults, minimise collection, and limit location sharing by default. In the UK we take account of the ICO's Age Appropriate Design Code. In the United States, GoBe is a general-audience service and is not directed to children under 13; if we gain actual knowledge that we collected a child's information, we will delete it and take the action required by COPPA. Parents or guardians may contact contact@gobeapp.co.uk.
 
-## 14. Security
+## 15. Security
 
 We use reasonable technical and organisational measures — including encrypted connections (HTTPS/TLS) and database and storage access controls — to protect your information. Supabase maintains its own security programme for the systems it operates on our behalf. No method is completely secure. If a personal data breach occurs, we will notify affected people and the appropriate authorities where and within the time required by applicable law.
 
-## 15. International Data Transfers
+## 16. International Data Transfers
 
 Our primary Supabase servers are hosted in the EU (eu-central-1 / Frankfurt). Information may also be processed in other countries by the providers listed above. Depending on the originating country, we rely on adequacy decisions, contractual safeguards such as approved standard contractual clauses or the UK International Data Transfer Agreement/Addendum, or another lawful transfer mechanism. You may contact us for information about the safeguard relevant to your data.
 
-## 16. Changes to This Policy
+## 17. Changes to This Policy
 
 We may update this Privacy Policy when our practices or legal obligations change. We will update the "Last Updated" date and notify you in the App or by email when a change is material. If a change requires consent, we will ask for it separately. Continued use is not treated as consent to new processing that legally requires consent.
 
-## 17. Regional Privacy Information
+## 18. Regional Privacy Information
 
 United Kingdom. UK residents may exercise UK GDPR rights and complain to the Information Commissioner's Office at ico.org.uk.
 
@@ -173,6 +174,6 @@ Australia. Where the Privacy Act 1988 and Australian Privacy Principles apply, y
 
 Japan. Where the APPI applies, you may request disclosure, correction, suspension of use, or deletion as provided by law and ask about cross-border handling through the contact below.
 
-## 18. Contact Us
+## 19. Contact Us
 
 If you have questions about this Privacy Policy, want to exercise your privacy rights, or want to request deletion of your data, contact Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom, at contact@gobeapp.co.uk.
