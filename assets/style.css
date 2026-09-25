@@ -222,6 +222,9 @@ footer.site a{color:var(--ink-muted)}
   box-shadow:0 16px 34px rgba(43,36,29,.2), 0 0 0 1px var(--border-soft);
   transform:rotate(-2deg); margin:0 0 26px; line-height:0}
 .handoff-mark img{width:96px; height:96px; border-radius:20px; display:block}
+.invite-code{font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:2.4rem; font-weight:800;
+  letter-spacing:.18em; margin:.2em 0 .5em; padding:.35em .6em; display:inline-block;
+  background:#c6ec5a; border:2px solid #0c1470; border-radius:14px; color:#111114}
 
 .closer{text-align:center; margin:56px 0 8px}
 .closer h2{font-size:34px; margin:0 0 10px}

@@ -277,6 +277,9 @@ footer.site a{color:var(--ink-muted)}
   box-shadow:0 16px 34px rgba(43,36,29,.2), 0 0 0 1px var(--border-soft);
   transform:rotate(-2deg); margin:0 0 26px; line-height:0}
 .handoff-mark img{width:96px; height:96px; border-radius:20px; display:block}
+.invite-code{font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:2.4rem; font-weight:800;
+  letter-spacing:.18em; margin:.2em 0 .5em; padding:.35em .6em; display:inline-block;
+  background:#c6ec5a; border:2px solid #0c1470; border-radius:14px; color:#111114}
 
 .closer{text-align:center; margin:56px 0 8px}
 .closer h2{font-size:34px; margin:0 0 10px}
@@ -457,6 +460,8 @@ wk.mkdir(exist_ok=True)
                             {"/": "/g/*", "comment": "gathering links (path form)"},
                             {"/": "/i/", "comment": "invite links"},
                             {"/": "/i/*", "comment": "invite links (path form)"},
+                            {"/": "/f/", "comment": "friend invite links"},
+                            {"/": "/f/*", "comment": "friend invite links (path form)"},
                         ],
                     }
                 ]
@@ -746,8 +751,22 @@ we look after your data.</p>
 </div>
 </div>
 """
+# Invites shared before the /f/ page existed read gobeapp.co.uk/?invite=CODE.
+# They land here; this sends them on to the page that does the job.
+HOME_JS = """(function(){
+  var c = new URLSearchParams(location.search).get('invite');
+  if (c && /^[A-Za-z0-9]{4,12}$/.test(c)) {
+    location.replace('/f/?c=' + encodeURIComponent(c.toUpperCase()));
+  }
+})();"""
+HOME_CSP = (
+    "default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+    "script-src 'sha256-{hash}'; base-uri 'none'; form-action 'none'"
+).format(hash=base64.b64encode(hashlib.sha256(HOME_JS.encode("utf-8")).digest()).decode())
+
 (HERE / "index.html").write_text(
-    page(HOME_TITLE, home, "index.html", "home", description=HOME_DESC),
+    page(HOME_TITLE, home, "index.html", "home", description=HOME_DESC,
+         csp=HOME_CSP, head=f"<script>{HOME_JS}</script>\n"),
     encoding="utf-8",
 )
 print("wrote index.html")
@@ -1084,6 +1103,93 @@ looks exactly like one that was never real, which is the point.</p>
     encoding="utf-8",
 )
 print("wrote i/index.html")
+
+# --- /f/ : a friend's invite code ------------------------------------------
+#
+# Where a friend's invite link lands (/f/?c=CODE). It is how GoBe is
+# downloaded from an invite: the code is shown big, the App Store button
+# copies it on the way out (a tap is the only moment a page may write to the
+# clipboard), and the sign-up page's code field has a Paste button for it.
+# If GoBe is already on the phone, the universal link opens the app instead
+# (the association file claims /f/), and the app fills the code in itself.
+#
+# A code is not a secret the way a gathering invite is: it is meant to be
+# typed and shown, so showing it here costs nothing.
+FRIEND_JS = f"""(function(){{
+  var STORE = {json.dumps(APP_STORE_URL)};
+  var q = new URLSearchParams(location.search);
+  var raw = q.get('c');
+  if (!raw) {{
+    try {{ raw = decodeURIComponent(location.pathname.replace(/^\\/f\\/?/, '')); }}
+    catch (e) {{ raw = ''; }}
+  }}
+  var code = (raw || '').trim().replace(/\\/+$/, '').toUpperCase();
+  var ok = /^[A-Z0-9]{{4,12}}$/.test(code);
+
+  function start() {{
+    var shown = document.getElementById('invite-code');
+    var get = document.getElementById('get-gobe');
+    var open = document.getElementById('open-in-app');
+    if (shown) shown.textContent = ok ? code : '';
+    if (!ok) {{
+      var box = document.getElementById('code-box');
+      if (box) box.hidden = true;
+    }}
+    if (open && ok) open.href = '{APP_SCHEME}://f/?c=' + encodeURIComponent(code);
+    if (get) {{
+      get.addEventListener('click', function (event) {{
+        if (!ok || !navigator.clipboard) return;
+        event.preventDefault();
+        var go = function () {{ location.href = STORE; }};
+        navigator.clipboard.writeText(code).then(go, go);
+      }});
+    }}
+  }}
+
+  if (document.readyState === 'loading') {{
+    document.addEventListener('DOMContentLoaded', start);
+  }} else {{
+    start();
+  }}
+}})();"""
+
+FRIEND_CSP = (
+    "default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+    "script-src 'sha256-{hash}'; base-uri 'none'; form-action 'none'"
+).format(hash=base64.b64encode(hashlib.sha256(FRIEND_JS.encode("utf-8")).digest()).decode())
+
+friend = f"""<section class="handoff">
+<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<p class="eyebrow">A friend invited you</p>
+<h1>Get GoBe, and bring their code.</h1>
+<div id="code-box">
+<p class="lede">Your invite code</p>
+<p class="invite-code" id="invite-code"></p>
+<p class="note">Get GoBe copies it for you. When you make your account, tap
+<strong>Paste</strong> by the invite code: it puts points on your GoBe Score
+straight away, and on theirs once you leave your first trace.</p>
+</div>
+<div class="hero-cta">
+<a class="btn" id="get-gobe" href="{APP_STORE_URL}">Get GoBe</a>
+<a class="btn" id="open-in-app" href="{APP_STORE_URL}">Already have it? Open GoBe</a>
+</div>
+<p class="note">Free on the App Store · Made in the UK · For ages 16+</p>
+<p class="note"><a href="/index.html">What is GoBe?</a> · <a href="/support.html">Need a hand?</a></p>
+</section>
+"""
+(HERE / "f").mkdir(exist_ok=True)
+(HERE / "f" / "index.html").write_text(
+    page(
+        "You're invited",
+        friend,
+        base="/",
+        description="A friend invited you to GoBe. Get the app and bring their invite code.",
+        csp=FRIEND_CSP,
+        head=f"<script>{FRIEND_JS}</script>\n",
+    ),
+    encoding="utf-8",
+)
+print("wrote f/index.html")
 
 # --- 404 ---
 # The site is a set of real files, so the pretty profile form (/u/ada) has no

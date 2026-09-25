@@ -29,6 +29,14 @@
           {
             "/": "/i/*",
             "comment": "invite links (path form)"
+          },
+          {
+            "/": "/f/",
+            "comment": "friend invite links"
+          },
+          {
+            "/": "/f/*",
+            "comment": "friend invite links (path form)"
           }
         ]
       }
