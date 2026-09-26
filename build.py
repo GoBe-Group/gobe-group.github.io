@@ -223,7 +223,7 @@ section{position:relative}
 .move:nth-child(2){transform:rotate(.5deg) translateY(10px)}
 .move:nth-child(3){transform:rotate(-.3deg)}
 .move .rank{width:58px; height:58px; margin:-52px 0 12px -8px}
-.move .sticker{position:absolute; right:18px; top:-30px; width:58px; height:58px; object-fit:contain; transform:rotate(6deg)}
+.move .sticker{position:absolute; right:14px; top:-34px; width:66px; height:66px; object-fit:contain; transform:rotate(6deg); z-index:2}
 .move h3{padding-right:52px}
 .move p{margin:0; color:var(--muted); font-size:16px}
 
@@ -732,7 +732,7 @@ stood there.</p>
 <div class="move">
 <img class="rank" src="assets/rank-1.png" alt="1" width="120" height="120">
 {deco('blue-sparkle','d-move-sparkle')}
-<img class="sticker" src="assets/play.png" alt="" width="160" height="160">
+<img class="sticker" src="assets/play.png" alt="" width="330" height="330">
 <h3>Press play and walk</h3>
 <p>GoBe draws your route as a <span class="word">trail</span> and the fog lifts behind you.
 The ground you clear stays clear all day.</p>
@@ -740,7 +740,7 @@ The ground you clear stays clear all day.</p>
 <div class="move">
 <img class="rank" src="assets/rank-2.png" alt="2" width="120" height="120">
 {deco('pixel-heart','d-move-heart')}
-<img class="sticker" src="assets/plus.png" alt="" width="160" height="160">
+<img class="sticker" src="assets/plus.png" alt="" width="330" height="330">
 <h3>Leave a trace</h3>
 <p>Write a line, snap a photo or film something. Your <span class="word">trace</span> sits on
 the spot for whoever comes along next.</p>
