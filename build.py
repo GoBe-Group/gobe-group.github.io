@@ -54,258 +54,315 @@ CSP = ("default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
        "base-uri 'none'; form-action 'none'")
 
 CSS = """
-@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;
-  font-display:swap;src:url('fonts/cormorant-regular.woff') format('woff')}
-@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:700;
-  font-display:swap;src:url('fonts/cormorant-bold.woff') format('woff')}
+/* GoBe 1.5: the physical internet.
+   Foil is the screen's layer, the technology wrapped round everyday life.
+   Paper is the person's: what you walked, what you left. The page is paper,
+   the foil is torn wherever the site says "go outside", and a biro line goes
+   round the whole window the way the app draws one round its pages. */
+
+@font-face{font-family:'Martian Mono';font-style:normal;font-weight:600;
+  font-display:swap;src:url('fonts/martian-mono-semibold.woff2') format('woff2')}
+@font-face{font-family:'Martian Mono';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/martian-mono-regular.woff2') format('woff2')}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/caveat-bold.woff2') format('woff2')}
 
 :root{
-  /* Exact GoBe design-system values (GoBeColors.swift) */
-  --paper:#E8DCC4; --paper-light:#F5EBD3; --paper-aged:#D6C49F;
-  --cardboard:#B88C58; --cardboard-dark:#7E5A32;
-  --ink:#2B241D; --ink-muted:#6F675A;
-  --go:#5E8205; --go-bright:#90C808; --be:#2F7BFF; --be-dark:#154AA8;
-  --stamp:#E89135; --red:#E84C3D;
-  --border:rgba(126,90,50,.35); --border-soft:rgba(126,90,50,.25);
-  --shadow:rgba(43,36,29,.16);
-  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  /* GoBeColors.swift, 1.5 */
+  --paper:#F8FAFC; --paper-base:#EEF1F5; --paper-aged:#DFE4EC;
+  --ink:#111114; --muted:#52535A; --faint:#7A8298;
+  --biro:#0C1470; --ballpoint:#0A1BB0;
+  --go:#90C808; --go-glow:#C4F03C; --go-dark:#4E7A00; --highlighter:#B4E02E;
+  --be:#254BE0; --be-dark:#162C9A; --red:#E84C3D;
+  --line:rgba(12,20,112,.16);
+  --mono:'Martian Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   --sans:'Avenir Next','Avenir','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  --hand:'Caveat','Bradley Hand','Segoe Print',cursive;
+  --gutter:clamp(18px,4vw,40px);
+  --max:1160px;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:var(--sans); font-size:17px; line-height:1.62;
-  -webkit-font-smoothing:antialiased;
+  font-family:var(--sans); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
-/* barely-there paper fibre grain, matching the app's paperGrain() pass */
+/* paper fibre, as the app's paperGrain() */
 body::before{
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:90;
   opacity:.035; mix-blend-mode:multiply; background-image:url('grain.svg');
 }
-.wrap{max-width:700px; margin:0 auto; padding:38px 22px 80px}
-
-header.site{position:relative; border-bottom:1px solid var(--border); padding-bottom:18px; margin-bottom:34px}
-/* washi-tape strip taped over the header, like the app's card headers */
-header.site::before{
-  content:""; position:absolute; top:-14px; right:26px; width:76px; height:17px;
-  background:var(--go-bright); opacity:.72; transform:rotate(-2.5deg);
-  box-shadow:inset 0 0 0 .5px rgba(126,90,50,.4);
-  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1px,transparent 1px 8px);
+/* the biro line round the window */
+.frame{
+  position:fixed; inset:7px; z-index:100; pointer-events:none;
+  border:3.5px solid var(--biro); border-radius:30px;
+  box-shadow:inset 1px -1px 0 rgba(12,20,112,.35);
 }
-.brand{display:inline-flex; align-items:center; text-decoration:none}
-.brand img{height:56px; width:auto; display:block}
-nav.top{margin-top:13px; font-size:12px; text-transform:uppercase; letter-spacing:1.2px; font-weight:600}
-nav.top a{color:var(--ink-muted); text-decoration:none; margin-right:20px; padding-bottom:3px;
-  border-bottom:2px solid transparent; display:inline-block; white-space:nowrap; line-height:2.1}
-nav.top a:hover{color:var(--ink)}
-nav.top a.active{color:var(--ink); border-bottom-color:var(--go-bright)}
-/* the store link is the only outward one up here, so it carries GoBe blue */
-nav.top a.get{color:var(--be); border-bottom-color:var(--be); margin-right:0}
-nav.top a.get:hover{color:var(--be-dark); border-bottom-color:var(--be-dark)}
-
-h1{font-family:var(--serif); font-weight:700; font-size:44px; line-height:1.08; letter-spacing:.2px; margin:0 0 10px}
-h2{font-family:var(--serif); font-weight:700; font-size:27px; line-height:1.15; margin:40px 0 12px; color:var(--ink)}
+img,video{max-width:100%; height:auto; display:block}
+a{color:var(--be)}
+a:hover{color:var(--be-dark)}
 p{margin:0 0 16px}
 ul{margin:0 0 16px; padding-left:22px}
 li{margin:0 0 9px}
-a{color:var(--be)}
 strong{font-weight:700}
+h1,h2,h3{font-family:var(--mono); font-weight:600; letter-spacing:-.035em; margin:0; color:var(--ink)}
+h1{font-size:clamp(34px,5.6vw,62px); line-height:1.04}
+h2{font-size:clamp(25px,3.4vw,38px); line-height:1.1; margin:0 0 14px}
+h3{font-size:clamp(18px,2vw,22px); line-height:1.2; margin:0 0 10px}
+.bar{max-width:var(--max); margin:0 auto; padding:0 var(--gutter)}
 
-/* Passport-style stamp, used for the "Last updated" line */
-.stamp{display:inline-block; font-size:12px; font-weight:700; letter-spacing:1.4px;
-  text-transform:uppercase; color:var(--stamp); border:1.5px solid rgba(232,145,53,.55);
-  border-radius:4px; padding:5px 10px; transform:rotate(-1.5deg); margin:0 0 26px}
-
-/* paperLight card with warm printed edge + soft ink shadow */
-.card{background:var(--paper-light); border:1px solid var(--border-soft);
-  border-radius:26px; padding:26px 28px; margin:0 0 24px;
-  box-shadow:0 16px 34px rgba(43,36,29,.14), 0 2px 0 rgba(255,255,255,.55) inset}
-.card h2{margin-top:0}
-.lede{font-size:20px; color:var(--ink-muted); margin:0 0 26px; line-height:1.45}
-
-footer.site{border-top:1px solid var(--border); margin-top:56px; padding-top:20px; color:var(--ink-muted); font-size:13.5px; line-height:1.55}
-footer.site a{color:var(--ink-muted)}
-
-/* Chunky sticker CTA — white die-cut face, coloured under-edge, uppercase ink label */
-.btn{display:inline-block; background:#fff; color:var(--ink)!important; text-decoration:none;
-  text-transform:uppercase; letter-spacing:.09em; font-weight:700; font-size:13px;
-  padding:14px 24px; border-radius:14px; border:1px solid var(--border-soft);
-  box-shadow:0 4px 0 rgba(47,123,255,.38), 0 8px 14px var(--shadow); margin:8px 0 6px;
-  transition:transform .08s ease, box-shadow .08s ease}
-.btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(47,123,255,.38), 0 3px 6px var(--shadow)}
-/* the one CTA that matters — same sticker, GoBe blue face, so it leads the row */
-.btn.primary{background:var(--be); color:#fff!important; border-color:var(--be-dark);
-  box-shadow:0 4px 0 var(--be-dark), 0 8px 14px var(--shadow)}
-.btn.primary:active{box-shadow:0 1px 0 var(--be-dark), 0 3px 6px var(--shadow)}
-.mono{font-family:var(--sans); font-size:15px; color:var(--ink-muted); letter-spacing:.3px}
-.flush{margin:0}
-
-/* ---------- Landing page ---------- */
-/* The whole page argues one thing, in this order: what GoBe is, the three
-   moves it is made of, what those moves add up to, and why that is not a feed.
-   Every section below is one beat of that argument, so the markup reads in the
-   same order somebody scrolling meets it. */
-.eyebrow{font-size:12px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--go); margin:0 0 8px}
-.wrap.home{max-width:1040px}
-
-/* Section heading with the paper rule under it, used to open each beat */
-.beat{margin:74px 0 26px; max-width:52ch}
-.beat.mid{margin-left:auto; margin-right:auto; text-align:center}
-.beat h2{margin:0 0 10px; font-size:clamp(28px,3.8vw,38px)}
-.beat p{margin:0; font-size:18px; color:var(--ink-muted); line-height:1.5}
-
-.hero{display:grid; grid-template-columns:1fr minmax(230px,310px); gap:44px; align-items:center; margin:8px 0 20px}
-.hero h1{font-size:clamp(38px,6vw,62px); margin:0 0 18px}
-.hero p{font-size:20px; color:var(--ink-muted); line-height:1.5; margin:0 0 22px; max-width:40ch}
-.hero-cta{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center}
-.hero-cta.center{justify-content:center}
-/* secondary text link next to a chunky button — quiet, on-brand, not a raw blue link */
-.hero-cta a:not(.btn){color:var(--ink); font-weight:600; font-size:15px; text-decoration:none;
-  border-bottom:2px solid var(--go-bright); padding-bottom:2px; transition:border-color .12s ease}
-.hero-cta a:not(.btn):hover{border-bottom-color:var(--ink)}
-.note{font-size:13px; color:var(--ink-muted); letter-spacing:.4px; margin:14px 0 0}
-/* quiet links in a note line — underlined in GoBe green, never a raw blue link */
-.note a{color:var(--ink); font-weight:600; text-decoration:none;
-  border-bottom:2px solid var(--go-bright); padding-bottom:1px}
-
-/* Phone screenshot as a hand-placed sticker card */
-.shot{display:block; width:100%; height:auto; border-radius:26px;
-  border:5px solid #fff; box-shadow:0 20px 40px rgba(43,36,29,.22), 0 0 0 1px var(--border-soft);
-  background:#fff}
-.hero .shot{transform:rotate(2deg)}
-
-/* The sentence the rest of the page is an expansion of. Set big, on its own,
-   so a visitor who reads nothing else still leaves knowing what GoBe is. */
-.thesis{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:30px;
-  padding:44px 40px; margin:52px 0 0; text-align:center;
-  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset}
-.thesis p:not(.eyebrow){font-family:var(--serif); font-size:clamp(24px,3.4vw,34px); line-height:1.26;
-  margin:0 auto; max-width:27ch; color:var(--ink)}
-.thesis .eyebrow{margin-bottom:16px}
-.thesis em{font-style:normal; color:var(--go); }
-
-/* The three moves, numbered, because the order is the product */
-.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:0 0 8px}
-.step{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:24px;
-  padding:24px 22px 26px; box-shadow:0 12px 26px rgba(43,36,29,.11), 0 2px 0 rgba(255,255,255,.55) inset;
-  display:flex; flex-direction:column}
-.step .num{font-family:var(--serif); font-weight:700; font-size:22px; color:#fff;
-  background:var(--go); width:38px; height:38px; border-radius:12px;
-  display:flex; align-items:center; justify-content:center; margin:0 0 14px;
-  box-shadow:0 3px 0 var(--cardboard-dark)}
-.step h3{font-family:var(--serif); font-weight:700; font-size:25px; line-height:1.14; margin:0 0 9px}
-.step p{margin:0; font-size:15.5px; line-height:1.5; color:var(--ink-muted)}
-.step .word{color:var(--ink); font-weight:700}
-
-/* Alternating screenshot / copy rows for the beats that need showing */
-.split{display:grid; grid-template-columns:minmax(200px,262px) 1fr; gap:42px; align-items:center;
-  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:30px;
-  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset; margin:0 0 20px}
-.split.rev{grid-template-columns:1fr minmax(200px,262px)}
-.split.rev .split-media{order:2}
-.split h3{font-family:var(--serif); font-weight:700; font-size:clamp(24px,3vw,31px); line-height:1.14; margin:0 0 12px}
-.split p{margin:0 0 14px; font-size:17px; line-height:1.55; color:var(--ink)}
-.split p:last-child{margin-bottom:0}
-.split .shot{transform:rotate(-1.5deg)}
-.split.rev .shot{transform:rotate(1.5deg)}
-/* Two screenshots in one media slot, laid down like a pair of prints. The slot
-   is widened to carry them, or each phone lands too small to read. */
-.split.duo{grid-template-columns:minmax(240px,346px) 1fr}
-.split.duo.rev{grid-template-columns:1fr minmax(240px,346px)}
-.pair{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start}
-.pair .shot{border-width:4px; border-radius:20px}
-.pair .shot:first-child{transform:rotate(-2deg)}
-.pair .shot:last-child{transform:rotate(2deg); margin-top:16px}
-
-/* A screen that is wider than it is tall, so it gets a landscape slot rather
-   than being squeezed into the portrait phone shape the other shots use. */
-.wide{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:38px; align-items:center;
-  background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px; padding:30px;
-  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset; margin:0}
-.wide .shot{transform:rotate(-1deg)}
-.wide-copy p:not(.eyebrow){margin:0; font-size:17px; line-height:1.55; color:var(--ink)}
-
-/* Feed on the left, GoBe on the right. The clearest way to say what this is
-   instead of describing it twice. */
-.contrast{display:grid; grid-template-columns:1fr 1fr; gap:0; margin:0;
-  border:1px solid var(--border-soft); border-radius:26px; overflow:hidden;
-  box-shadow:0 16px 34px rgba(43,36,29,.12)}
-.col{padding:26px 26px 30px}
-.col.was{background:var(--paper-aged)}
-.col.is{background:#fff}
-.col h3{font-family:var(--serif); font-weight:700; font-size:24px; margin:0 0 4px}
-.col .ceyebrow{font-size:11.5px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
-  color:var(--ink-muted); margin:0 0 12px}
-.col.is .ceyebrow{color:var(--go)}
-.col ul{list-style:none; margin:0; padding:0}
-.col li{margin:0 0 11px; font-size:15.5px; line-height:1.45; padding-left:20px; position:relative}
-.col li::before{content:""; position:absolute; left:0; top:.62em; width:9px; height:2px; background:var(--cardboard)}
-.col.is li::before{background:var(--go-bright); height:3px}
-.col.was li{color:var(--ink-muted)}
-
-.values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:24px 0 8px}
-.value{background:#fff; border:1px solid var(--border-soft); border-radius:16px; padding:18px 16px;
-  box-shadow:0 6px 14px var(--shadow)}
-.value .vtitle{font-family:var(--serif); font-weight:700; font-size:22px; margin:0 0 4px}
-.value p{margin:0; font-size:13.5px; color:var(--ink-muted); line-height:1.4}
-
-/* The band for people reading this as a business rather than an app */
-.brief{background:var(--paper-light); border:1px solid var(--border-soft); border-radius:26px;
-  padding:32px 30px; margin:0;
-  box-shadow:0 16px 34px rgba(43,36,29,.12), 0 2px 0 rgba(255,255,255,.55) inset}
-.brief h3{font-family:var(--serif); font-weight:700; font-size:28px; margin:0 0 10px}
-.brief p{font-size:17px; line-height:1.55; margin:0 0 16px}
-.facts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 26px; margin:20px 0 0;
-  border-top:1px solid var(--border-soft); padding-top:20px}
-.fact{display:flex; gap:12px; font-size:15px; line-height:1.4}
-.fact .k{font-size:11.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase;
-  color:var(--ink-muted); min-width:112px; padding-top:3px}
-.fact .v{color:var(--ink)}
-/* the contact line sits under the facts, not in them, so it needs its own air */
-.brief .note{margin-top:22px}
-
-/* ---------- Profile handoff (/u/) ---------- */
-/* The page a shared profile link lands on when GoBe isn't installed to catch it.
-   Deliberately shows no profile data — just the handoff. */
-.handoff{text-align:center; margin:26px 0 8px}
-.handoff h1{font-size:clamp(32px,5.4vw,46px); margin:0 0 14px}
-.handoff .lede{max-width:40ch; margin:0 auto 26px}
-.handoff .hero-cta{justify-content:center}
-/* Die-cut sticker window holding the app mark, same language as the app's share artefact */
-.handoff-mark{display:inline-block; background:#fff; border:5px solid #fff; border-radius:24px;
-  box-shadow:0 16px 34px rgba(43,36,29,.2), 0 0 0 1px var(--border-soft);
-  transform:rotate(-2deg); margin:0 0 26px; line-height:0}
-.handoff-mark img{width:96px; height:96px; border-radius:20px; display:block}
-.invite-code{font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:2.4rem; font-weight:800;
-  letter-spacing:.18em; margin:.2em 0 .5em; padding:.35em .6em; display:inline-block;
-  background:#c6ec5a; border:2px solid #0c1470; border-radius:14px; color:#111114}
-
-.closer{text-align:center; margin:56px 0 8px}
-.closer h2{font-size:34px; margin:0 0 10px}
-.closer p{color:var(--ink-muted); font-size:18px; margin:0 auto 22px; max-width:44ch}
-
-@media (max-width:860px){
-  .steps{grid-template-columns:1fr}
-  .step{padding:20px 20px 22px}
+/* Buttons: a drawn box and a pen shadow, pressed when you press them. */
+.btn{
+  display:inline-flex; align-items:center; gap:10px; justify-content:center;
+  font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:-.01em;
+  color:var(--biro); background:var(--paper); text-decoration:none;
+  border:2px solid var(--biro); border-radius:14px; padding:13px 20px 12px;
+  box-shadow:3px 3px 0 var(--biro); transition:transform .08s ease, box-shadow .08s ease;
 }
-@media (max-width:720px){
-  .wrap{padding:30px 18px 64px}
-  .hero{grid-template-columns:1fr; gap:26px}
-  .hero .shot{max-width:280px; margin:0 auto}
-  .beat{margin:52px 0 20px}
-  .thesis{padding:32px 22px}
-  /* .duo carries a wider media slot, and a higher specificity with it, so the
-     stack has to name it or the two-print rows never collapse. */
-  .split,.split.rev,.split.duo,.split.duo.rev{grid-template-columns:1fr; gap:22px}
-  .split.rev .split-media{order:0}
-  .split .shot{max-width:260px; margin:0 auto}
-  .pair{max-width:340px; margin:0 auto}
-  .wide{grid-template-columns:1fr; gap:22px}
-  .contrast{grid-template-columns:1fr}
-  .values{grid-template-columns:repeat(2,1fr)}
+.btn:hover{color:var(--biro); transform:translate(1px,1px); box-shadow:2px 2px 0 var(--biro)}
+.btn:active{transform:translate(3px,3px); box-shadow:0 0 0 var(--biro)}
+.btn.primary{background:var(--biro); color:#fff; box-shadow:3px 3px 0 var(--go)}
+.btn.primary:hover{color:#fff; box-shadow:2px 2px 0 var(--go)}
+.btn.primary:active{box-shadow:0 0 0 var(--go)}
+.btn .apple{width:15px; height:18px; flex:none}
+
+.eyebrow{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.02em;
+  color:var(--biro); margin:0 0 14px; text-transform:lowercase}
+.eyebrow::before{content:""; display:inline-block; width:22px; height:3px; border-radius:2px;
+  background:var(--go); vertical-align:middle; margin:-2px 10px 0 0}
+.lede{font-size:clamp(18px,1.6vw,20px); color:var(--muted); max-width:36em}
+.note{font-size:13px; color:var(--faint)}
+.note a{color:var(--muted)}
+.whisper{font-family:var(--hand); font-weight:700; font-size:clamp(24px,2.4vw,30px);
+  color:var(--biro); line-height:1.1; transform:rotate(-2deg); display:inline-block}
+.mono{font-family:var(--mono); font-size:14px}
+.word{background:linear-gradient(transparent 58%,rgba(180,224,46,.6) 58%,rgba(180,224,46,.6) 90%,transparent 90%);
+  padding:0 2px; font-weight:600; color:var(--ink)}
+
+/* ---------- The header ---------- */
+header.site{position:relative; z-index:20; padding:28px 0 18px}
+header.site .bar{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap}
+/* the wordmark on a scrap of paper, so its thin green Go holds on foil too */
+.brand{display:inline-flex; text-decoration:none; background:var(--paper); border-radius:14px;
+  padding:6px 14px 4px; transform:rotate(-2deg); box-shadow:0 8px 18px -10px rgba(12,20,60,.45),
+  0 0 0 1px rgba(12,20,112,.08)}
+.brand img{height:44px; width:auto}
+nav.top{display:flex; align-items:center; gap:6px 22px; flex-wrap:wrap;
+  font-family:var(--mono); font-size:12.5px; font-weight:600}
+nav.top a{color:var(--ink); text-decoration:none; padding:4px 0; border-bottom:2.5px solid transparent}
+nav.top a:hover{border-bottom-color:var(--go)}
+nav.top a.active{border-bottom-color:var(--go)}
+nav.top a.get{border:2px solid var(--biro); border-radius:12px; padding:8px 14px 7px;
+  color:var(--biro); background:var(--paper); box-shadow:2px 2px 0 var(--biro)}
+nav.top a.get:hover{transform:translate(1px,1px); box-shadow:1px 1px 0 var(--biro)}
+
+/* ---------- Foil, and where it tears ---------- */
+/* The wash is a layer of the background itself, so type holds on the
+   brightest folds and both pseudo-elements are free for the torn edges. */
+.foil{
+  position:relative; color:var(--ink);
+  background:linear-gradient(rgba(248,250,252,.42),rgba(248,250,252,.42)),
+    #c9cbd2 url('foil.jpg') center/620px repeat;
+}
+.foil > .bar{position:relative; z-index:1}
+.hero.foil{
+  background:linear-gradient(100deg,rgba(248,250,252,.66) 0%,rgba(248,250,252,.36) 46%,rgba(248,250,252,0) 70%),
+    #c9cbd2 url('foil.jpg') center/620px repeat;
+}
+.torn-below{padding-bottom:70px}
+.torn-below::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:90px; pointer-events:none;
+  background:url('torn.png') center bottom/1600px 90px repeat-x;
+}
+.torn-above{padding-top:90px}
+.torn-above::before{
+  content:""; position:absolute; left:0; right:0; top:-1px; height:90px; pointer-events:none;
+  background:url('torn-top.png') center top/1600px 90px repeat-x;
+}
+
+/* ---------- Home ---------- */
+main.home header.site{position:absolute; left:0; right:0; top:0}
+.hero{padding-top:118px}
+.hero .bar{position:relative; display:grid; grid-template-columns:1.12fr .88fr; gap:clamp(24px,5vw,72px); align-items:center}
+.hero h1{margin:0 0 20px}
+.hero .lede{color:#2a2b33}
+.hero .btns{display:flex; flex-wrap:wrap; gap:14px 18px; align-items:center; margin:28px 0 18px}
+.hero .note{color:#3c3e48}
+.hero-media{position:relative; justify-self:center; width:min(100%,360px); margin-bottom:-120px; z-index:3}
+.hero-media .whisper{position:absolute; left:-215px; bottom:150px; z-index:4; color:var(--biro); white-space:nowrap}
+
+/* A phone: black glass round a capture, the capture cut to its corners. */
+.phone{position:relative; background:#0b0b0e; border-radius:13.5% / 6.3%; padding:3.2%;
+  box-shadow:0 0 0 1.5px #6b6d75, 0 0 0 3px #26272c, 0 26px 50px -18px rgba(12,20,60,.45)}
+.phone img{border-radius:10.8% / 5%; width:100%; height:auto}
+.phone::after{ /* the island */
+  content:""; position:absolute; left:50%; top:3.9%; width:27%; height:3.1%;
+  transform:translateX(-50%); background:#000; border-radius:99px}
+
+section{position:relative}
+.band{padding:clamp(64px,9vw,120px) 0}
+.band.tight{padding-top:clamp(40px,6vw,72px)}
+.center{text-align:center}
+.center .lede{margin-left:auto; margin-right:auto}
+
+/* The idea, over the photograph of a route torn through foil. */
+.idea .bar{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,70px); align-items:center}
+.idea .pic{position:relative}
+.idea .pic img{border-radius:22px; width:100%; aspect-ratio:1/1; object-fit:cover;
+  box-shadow:0 22px 44px -20px rgba(12,20,60,.4)}
+.idea .pic .tape{position:absolute; top:-18px; left:36%; width:140px; transform:rotate(-4deg)}
+.idea h2{font-size:clamp(26px,3.2vw,40px)}
+.idea .whisper{margin-top:8px}
+
+/* Three moves */
+.moves{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2.4vw,28px); margin-top:44px}
+.move{position:relative; background:#fff; border:2px solid var(--biro); border-radius:22px;
+  padding:26px 24px 22px; box-shadow:4px 4px 0 var(--biro); text-align:left}
+.move:nth-child(1){transform:rotate(-.6deg)}
+.move:nth-child(2){transform:rotate(.5deg) translateY(10px)}
+.move:nth-child(3){transform:rotate(-.3deg)}
+.move .rank{width:58px; height:58px; margin:-52px 0 12px -8px}
+.move .sticker{position:absolute; right:18px; top:-30px; width:58px; height:58px; object-fit:contain; transform:rotate(6deg)}
+.move h3{padding-right:52px}
+.move p{margin:0; color:var(--muted); font-size:16px}
+
+/* Films, taped down like photographs */
+.films{display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,40px); margin-top:40px}
+.film{position:relative; background:#fff; padding:12px 12px 16px; border-radius:6px;
+  box-shadow:0 18px 36px -18px rgba(12,20,60,.45), 0 0 0 1px rgba(12,20,112,.08)}
+.film:nth-child(1){transform:rotate(-1.2deg)}
+.film:nth-child(2){transform:rotate(1deg)}
+.film video{width:100%; height:auto; aspect-ratio:660/450; border-radius:3px; background:var(--paper-aged)}
+.film .tape{position:absolute; top:-16px; left:50%; width:120px; transform:translateX(-50%) rotate(-3deg)}
+.film figcaption{font-family:var(--hand); font-weight:700; font-size:26px; color:var(--biro);
+  line-height:1.1; margin:12px 6px 0}
+.film figcaption span{display:block; font-family:var(--sans); font-weight:400; font-size:14px; color:var(--muted); margin-top:6px}
+
+/* Feature rows: phones one side, words the other */
+.row{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,6vw,90px); align-items:center}
+.row + .row{margin-top:clamp(64px,9vw,120px)}
+.row.rev .media{order:2}
+.row .media{display:flex; justify-content:center; gap:clamp(12px,2vw,24px)}
+.row .media .phone{width:min(100%,300px)}
+.row .media.pair .phone{width:min(47%,270px)}
+.row .media.pair .phone:nth-child(2){margin-top:60px}
+.row .copy p{color:var(--muted)}
+.row .copy h3{font-size:clamp(22px,2.6vw,30px); margin-bottom:14px}
+.row .copy .extra{display:flex; align-items:center; gap:14px; margin-top:18px}
+.row .copy .extra img{width:70px; height:auto; transform:rotate(-6deg)}
+.row .copy .extra p{margin:0; font-size:14px}
+
+/* A feed, on foil, against GoBe, on paper */
+.versus{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,3vw,32px); margin-top:40px}
+.side{border-radius:24px; padding:30px 28px 20px; text-align:left}
+.side h3{font-size:22px}
+.side .who{font-family:var(--mono); font-size:12px; font-weight:600; margin:0 0 10px; text-transform:lowercase}
+.side ul{list-style:none; padding:0; margin:18px 0 0}
+.side li{padding:0 0 12px 30px; position:relative; margin:0}
+.side.feed{background:#c9cbd2 url('foil.jpg') center/520px; color:#1e1f26; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.side.feed li::before{content:"\\00D7"; position:absolute; left:4px; top:-1px; font-family:var(--mono); color:#5a5c66}
+.side.gobe{background:#fff; border:2px solid var(--biro); box-shadow:4px 4px 0 var(--biro)}
+.side.gobe li::before{content:""; position:absolute; left:2px; top:9px; width:16px; height:5px;
+  background:var(--go); border-radius:3px; transform:rotate(-8deg)}
+
+/* Privacy card and values */
+.privacy .two{display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(24px,5vw,64px); align-items:start}
+.privacy .lede{margin-top:10px}
+.sheet{background:#fff; border:2px solid var(--biro); border-radius:24px; padding:30px 30px 14px;
+  box-shadow:4px 4px 0 var(--biro)}
+.sheet p{color:var(--muted)}
+.values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:44px}
+.value{border-top:3px solid var(--biro); padding-top:14px}
+.value .vtitle{font-family:var(--mono); font-weight:600; font-size:15px; margin-bottom:6px}
+.value p{font-size:14px; color:var(--muted); margin:0}
+
+/* Reading it as a business */
+.brief p{color:var(--muted); max-width:46em}
+.facts{display:grid; grid-template-columns:1fr 1fr; gap:0 28px; margin:26px 0 18px;
+  border-top:2px solid var(--biro)}
+.fact{display:flex; justify-content:space-between; gap:18px; padding:12px 0; border-bottom:1px solid var(--line)}
+.fact .k{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--biro); text-transform:lowercase; white-space:nowrap}
+.fact .v{font-size:15px; text-align:right}
+
+/* The last word, on foil again */
+.closer{padding-bottom:clamp(90px,10vw,130px); text-align:center}
+.closer .bar{position:relative}
+.closer .icon{width:128px; margin:0 auto 22px; filter:drop-shadow(0 18px 28px rgba(12,20,60,.5))}
+.closer .lede{margin:0 auto; color:#2a2b33}
+.closer h2{font-size:clamp(32px,5vw,58px)}
+.closer .btns{display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:26px}
+
+/* ---------- Reading pages (legal, support) ---------- */
+main.col{max-width:780px; margin:0 auto; padding:26px var(--gutter) 70px}
+main.col h1{font-size:clamp(32px,5vw,50px); margin:0 0 12px}
+main.col h2{font-size:clamp(20px,2.4vw,25px); margin:42px 0 12px}
+main.col h3{font-size:18px; margin:26px 0 8px}
+main.col .lede{margin-bottom:28px}
+.stamp{display:inline-block; font-family:var(--mono); font-size:12px; font-weight:600;
+  color:var(--biro); border:2px solid var(--biro); border-radius:10px; padding:6px 12px 5px;
+  transform:rotate(-1.5deg); margin:6px 0 28px; background:#fff}
+.card{background:#fff; border:2px solid var(--biro); border-radius:22px; padding:24px 26px 10px;
+  box-shadow:4px 4px 0 var(--biro); margin:0 0 26px}
+.card h2{margin-top:0}
+.flush{margin-bottom:12px}
+main.col table{border-collapse:collapse; width:100%; margin:0 0 20px; font-size:15px}
+main.col th,main.col td{border-bottom:1px solid var(--line); padding:9px 8px; text-align:left; vertical-align:top}
+main.col th{font-family:var(--mono); font-size:12px; color:var(--biro)}
+main.col blockquote{margin:0 0 16px; padding:4px 0 4px 18px; border-left:3px solid var(--go); color:var(--muted)}
+
+/* ---------- Handoff pages (/u/, /g/, /i/, /f/, 404) ---------- */
+.handoff{text-align:center; padding:12px 0 18px}
+.handoff-mark img{width:108px; height:108px; margin:0 auto 22px; border-radius:24px;
+  box-shadow:0 14px 28px -12px rgba(12,20,60,.45)}
+.handoff h1{font-size:clamp(28px,4.6vw,42px); margin:0 0 12px}
+.handoff .lede{margin:0 auto 22px}
+.hero-cta{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:24px 0 18px}
+.invite-code{display:inline-block; font-family:var(--mono); font-weight:600; font-size:clamp(30px,6vw,44px);
+  letter-spacing:.12em; color:var(--ink); padding:6px 22px 4px; margin:4px 0 14px; border-radius:14px;
+  background:linear-gradient(transparent 12%,rgba(180,224,46,.75) 12%,rgba(180,224,46,.75) 92%,transparent 92%)}
+
+/* ---------- Footer ---------- */
+footer.site{border-top:2px solid var(--biro); margin-top:0; padding:26px 0 44px; font-size:13px; color:var(--muted)}
+footer.site .bar{display:flex; justify-content:space-between; gap:18px 40px; flex-wrap:wrap; align-items:flex-start}
+footer.site p{margin:0; max-width:560px}
+footer.site nav{display:flex; gap:18px; font-family:var(--mono); font-size:12px; font-weight:600}
+footer.site nav a{color:var(--biro); text-decoration:none}
+footer.site nav a:hover{text-decoration:underline}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width:900px){
+  .hero .bar,.idea .bar,.row,.privacy .two{grid-template-columns:1fr}
+  .hero{padding-top:124px}
+  .hero-media{width:min(78%,300px); margin-bottom:-90px}
+  .hero-media .whisper{display:none}
+  .row.rev .media{order:0}
+  .moves{grid-template-columns:1fr; gap:34px; margin-top:52px}
+  .move:nth-child(n){transform:none}
+  .films,.versus{grid-template-columns:1fr}
+  .values{grid-template-columns:1fr 1fr}
   .facts{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .frame{inset:4px; border-width:3px; border-radius:22px}
+  header.site{padding-top:22px}
+  .brand img{height:38px}
+  /* one row on a phone: the wordmark and the way to the App Store; the
+     rest is in the footer and the hero */
+  header.site .bar{flex-wrap:nowrap}
+  nav.top a:not(.get){display:none}
+  nav.top a.get{padding:7px 12px 6px; font-size:12px}
+  .hero{padding-top:108px}
+  .row .media.pair .phone{width:48%}
+  .values{grid-template-columns:1fr}
   .fact{flex-direction:column; gap:2px}
+  .fact .v{text-align:left}
+  .btn{padding:12px 16px 11px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,nav.top a.get{transition:none}
 }
 """
 
@@ -324,8 +381,8 @@ def page(title, body, active="", wrap_class="", base="", description="", csp=CSP
     def nav(href, label):
         cls = ' class="active"' if active == href else ""
         return f'<a href="{base}{href}"{cls}>{label}</a>'
-    wrap = "wrap" + (f" {wrap_class}" if wrap_class else "")
-    desc = description or f"GoBe — leave and find traces of daily moments. {title}."
+    main_class = wrap_class or "col"
+    desc = description or f"GoBe: leave and find traces of daily moments. {title}."
     return f"""<!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -342,21 +399,23 @@ def page(title, body, active="", wrap_class="", base="", description="", csp=CSP
 <meta property="og:image" content="{ORIGIN}/assets/icon.png">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/png" href="{base}assets/icon.png">
-<link rel="apple-touch-icon" href="{base}assets/icon.png">
+<link rel="apple-touch-icon" href="{base}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="{base}assets/style.css">
 {head}</head>
 <body>
-<div class="{wrap}">
-<header class="site">
-<a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="140" height="56"></a>
-<nav class="top">{nav('index.html','Home')}{nav('index.html#how','How it works')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}<a class="get" href="{APP_STORE_URL}">Get the app</a></nav>
-</header>
+<div class="frame" aria-hidden="true"></div>
+<main class="{main_class}">
+<header class="site"><div class="bar">
+<a class="brand" href="{base}index.html"><img src="{base}assets/gobe-logo.png" alt="GoBe" width="520" height="231"></a>
+<nav class="top">{nav('index.html#how','How it works')}{nav('privacy.html','Privacy')}{nav('terms.html','Terms')}{nav('support.html','Support')}<a class="get" href="{APP_STORE_URL}">Get the app</a></nav>
+</div></header>
 {body}
-<footer class="site">
-<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.<br>
+</main>
+<footer class="site"><div class="bar">
+<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.
 Contact: <a href="mailto:{CONTACT}">{CONTACT}</a> · Governing law: England &amp; Wales.</p>
-</footer>
-</div>
+<nav><a href="{base}privacy.html">Privacy</a><a href="{base}terms.html">Terms</a><a href="{base}support.html">Support</a></nav>
+</div></footer>
 </body>
 </html>
 """
@@ -523,211 +582,273 @@ print("wrote support.html")
 # is made of, what those moves add up to, why that is not a feed, and how it
 # stays safe. Anyone who reads only the hero and the line under it should still
 # be able to say what the app does, which is the test this page has to pass.
-HOME_TITLE = "A social network on a map, not in a feed"
+HOME_TITLE = "The social network on a map"
 HOME_DESC = (
-    "GoBe is a social network for meeting people and enjoying experiences local to you, "
-    "offline. Record your journeys as trails, leave location-pinned posts called traces, "
-    "and find the people whose lives cross the same streets."
+    "GoBe is the social network on a map. Press play and walk, leave traces where you stood, "
+    "and find what people have left round here. Free on iPhone."
 )
 
-home = f"""<section class="hero">
+home = f"""<section class="hero foil torn-below">
+<div class="bar">
 <div class="hero-copy">
-<p class="eyebrow">A local social network</p>
-<h1>The social network on a map, not in a feed.</h1>
-<p>GoBe helps you meet people and enjoy experiences local to you, offline. People record
-their everyday journeys as <strong>trails</strong> and leave location-pinned posts, called
-<strong>traces</strong>, for others to discover where they were created.</p>
-<div class="hero-cta">
+<p class="eyebrow">The social network on a map</p>
+<h1>Go beyond the screen.</h1>
+<p class="lede">Press play and walk. The fog lifts behind you, and the <strong>traces</strong>
+people have left round here turn up underneath: notes, photos and moments pinned to the spot
+they happened.</p>
+<div class="btns">
 <a class="btn primary" href="{APP_STORE_URL}">Download on the App Store</a>
-<a href="#how">See how it works &rsaquo;</a>
+<a class="btn" href="#how">How it works</a>
 </div>
-<p class="note">Free for iPhone · Made in the UK · For ages 16+</p>
+<p class="note">Free on iPhone · Made in the UK · Ages 16+</p>
 </div>
 <div class="hero-media">
-<img class="shot" src="assets/screens/map.jpg" width="720" height="1565"
-  alt="The GoBe map of central London, covered in traces left by people nearby">
+<span class="whisper">see you out there.</span>
+<div class="phone"><img src="assets/screens/fog-walk.jpg" width="720" height="1564"
+  alt="The GoBe map of Soho under iridescent foil, torn open along a walk, with a green trail running through the cleared streets"></div>
+</div>
 </div>
 </section>
 
-<div class="thesis">
-<p class="eyebrow">The whole idea</p>
-<p>As trails overlap, GoBe reveals the people whose lives <em>cross the same streets</em>.</p>
+<section class="band idea">
+<div class="bar">
+<div class="pic">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<img src="assets/cut-through.jpg" width="1100" height="1100" loading="lazy"
+  alt="A green route and a blue dot on a paper map, showing through a tear in crumpled holographic foil">
 </div>
+<div>
+<p class="eyebrow">The idea</p>
+<h2>Everything on GoBe is somewhere. You find it by going there.</h2>
+<p class="lede">Every trace is pinned to the spot it was left. Your map starts under fog and
+you clear it on foot. Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
+<span class="whisper">you have to go outside to cut through it.</span>
+</div>
+</div>
+</section>
 
-<div class="beat mid" id="how">
-<h2>Three moves, and that is the whole app.</h2>
-<p>No ranking, no recommendations, no infinite scroll. Where you went, what you left,
-and who else has been there.</p>
+<section class="band tight center" id="how">
+<div class="bar">
+<p class="eyebrow">How it works</p>
+<h2>Walk. Leave a trace. Go and find one.</h2>
+<p class="lede">That's the whole app. Everything you see on the map was left by someone who
+stood there.</p>
+<div class="moves">
+<div class="move">
+<img class="rank" src="assets/rank-1.png" alt="1" width="120" height="120">
+<img class="sticker" src="assets/play.png" alt="" width="160" height="160">
+<h3>Press play and walk</h3>
+<p>GoBe draws your route as a <span class="word">trail</span> and the fog lifts behind you.
+The ground you clear stays clear all day.</p>
 </div>
-
-<div class="steps">
-<div class="step">
-<div class="num">1</div>
-<h3>Walk your day</h3>
-<p>Press play and GoBe quietly records the route you take as a <span class="word">trail</span>.
-When you finish you keep the line you walked, how far you went and how long you were outside.</p>
-</div>
-<div class="step">
-<div class="num">2</div>
+<div class="move">
+<img class="rank" src="assets/rank-2.png" alt="2" width="120" height="120">
+<img class="sticker" src="assets/plus.png" alt="" width="160" height="160">
 <h3>Leave a trace</h3>
-<p>A <span class="word">trace</span> is a post pinned to the spot it belongs to: a note, a photo,
-a video, or nothing at all. An empty trace still says the truest thing there is, that you were here.</p>
+<p>Write a line, snap a photo or film something. Your <span class="word">trace</span> sits on
+the spot for whoever comes along next.</p>
 </div>
-<div class="step">
-<div class="num">3</div>
-<h3>Be found there</h3>
-<p>Traces stay where they were made. They are read by whoever gets to that spot, which means
-the only way to reach one another is to actually <span class="word">turn up</span>.</p>
+<div class="move">
+<img class="rank" src="assets/rank-3.png" alt="3" width="120" height="120">
+<img class="sticker" src="assets/sealed.png" alt="" width="240" height="240">
+<h3>Go there to read it</h3>
+<p>Traces further off glow under the fog. Walk up to one and it opens. You have to
+<span class="word">turn up</span>.</p>
 </div>
-</div>
-
-<div class="beat">
-<h2>Your day, kept as a line on the map.</h2>
-<p>A trail is a record of somewhere you actually went, not a post about it. Trails are
-private to you by default, and what they are for is what happens when they overlap.</p>
 </div>
 
-<div class="split duo">
-<div class="split-media"><div class="pair">
-<img class="shot" src="assets/screens/recording.jpg" width="720" height="1565" loading="lazy"
-  alt="A GoBe trail being recorded along Whitehall, the walked route drawn in green behind the walker">
-<img class="shot" src="assets/screens/trail.jpg" width="720" height="1565" loading="lazy"
-  alt="A finished GoBe trail along the South Bank, with distance travelled, time outside and a timeline of the traces left along the way">
-</div></div>
-<div class="split-copy">
+<div class="films">
+<figure class="film">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<video src="assets/films/walk.mp4" poster="assets/films/walk.jpg" width="660" height="450"
+  autoplay muted loop playsinline preload="metadata" aria-label="A walk along Whitehall tearing the foil open behind the walker"></video>
+<figcaption>the fog lifts as you walk.<span>What you clear stays clear all day. Tomorrow the fog rolls back in, so off you go again.</span></figcaption>
+</figure>
+<figure class="film">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<video src="assets/films/trace.mp4" poster="assets/films/trace.jpg" width="660" height="450"
+  autoplay muted loop playsinline preload="metadata" aria-label="A trace left on the map, holding open the ground around it as likes arrive"></video>
+<figcaption>a trace holds its ground.<span>Every like, comment and retrace pushes the fog further back round it.</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section class="band">
+<div class="bar">
+<div class="row">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/walk.jpg" width="720" height="1564" loading="lazy"
+  alt="A GoBe trail being recorded through Soho, the walked route drawn in green"></div>
+<div class="phone"><img src="assets/screens/trail.jpg" width="720" height="1564" loading="lazy"
+  alt="A finished GoBe trail, with the route on a map, the distance travelled and the time spent outside"></div>
+</div>
+<div class="copy">
 <p class="eyebrow">Trails</p>
-<h3>Recorded while you walk, kept when you stop.</h3>
-<p>GoBe follows the route in the background while a trail is running, up to twelve hours,
-and stops the moment you finish. What you get back is a keepsake of the day: the shape of
-the walk, the distance, the time you spent outside and every trace you left, in order.</p>
-<p>Turn location off part way through and the trail is discarded rather than half kept.
-It is a record of a real journey or it is nothing.</p>
+<h3>Press it again to keep it.</h3>
+<p>A trail records your route while you walk, for up to twelve hours. Press stop and you keep
+the lot: the line you walked, how far you went, how long you were outside and every trace you
+left on the way.</p>
+<p>Switch location off halfway and GoBe bins the trail. A trail is a real walk, start to finish.</p>
 </div>
 </div>
 
-<div class="split duo rev">
-<div class="split-media"><div class="pair">
-<img class="shot" src="assets/screens/trace.jpg" width="720" height="1565" loading="lazy"
-  alt="A GoBe trace opened on the map, reading &quot;Great spot for watching the world go by&quot;, with its author, likes and retraces">
-<img class="shot" src="assets/screens/compose.jpg" width="720" height="1565" loading="lazy"
-  alt="Leaving a trace in GoBe, a note being written on a paper card pinned to the spot on the map">
-</div></div>
-<div class="split-copy">
+<div class="row rev">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/compose.jpg" width="720" height="1564" loading="lazy"
+  alt="Leaving a trace in GoBe: a short note being written on a card pinned to the spot"></div>
+<div class="phone"><img src="assets/screens/trace.jpg" width="720" height="1564" loading="lazy"
+  alt="A trace opened in GoBe, reading &quot;They've put the tables out on the pavement again&quot;"></div>
+</div>
+<div class="copy">
 <p class="eyebrow">Traces</p>
-<h3>Something small, left where it happened.</h3>
-<p>Tap a trace to read it, like it, or retrace it onto your own map. Reach one in person and
-you can <strong>pass</strong> it, which records that you made it to the same place rather than
-posting a copy of somebody else's moment.</p>
-<p>Your neighbourhood, described by the people who walk it, in the spots they were describing.</p>
+<h3>Leave a trace where you stood.</h3>
+<p>Write something: a tip, a thought, whatever's going on here. Or snap a photo. Whoever gets
+to that spot can read it, like it, comment and retrace it onto their own map.</p>
+<p>The more people like it, the further it reaches. Your street, written by the people on it.</p>
 </div>
 </div>
 
-<div class="beat">
-<h2>Then the map starts introducing you.</h2>
-<p>This is the part a feed cannot do. Geography, not an algorithm, decides who you meet.</p>
+<div class="row">
+<div class="media">
+<div class="phone"><img src="assets/screens/sealed.jpg" width="720" height="1564" loading="lazy"
+  alt="The GoBe drawer, where traces beyond a short walk are dealt wrapped in iridescent foil"></div>
+</div>
+<div class="copy">
+<p class="eyebrow">Sealed</p>
+<h3>Anything past a short walk stays sealed.</h3>
+<p>On the map it glows under the fog in its own colour: blue for a trace, yellow for a place,
+green for a community. In the drawer it comes wrapped in foil.</p>
+<p>Tap it and GoBe tells you how many minutes away it is. Walk there and it opens.</p>
+<div class="extra"><img src="assets/sealed.png" alt="" width="240" height="240">
+<p>Who left it and what it says: that's what the walk is for.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="band foil torn-above torn-below">
+<div class="bar center">
+<p class="eyebrow">Who's around</p>
+<h2>You meet the people who walk your streets.</h2>
+<p class="lede">Everyone whose traces you can read has stood where you're standing.
+The streets decide who you run into.</p>
+</div>
+</section>
+
+<section class="band">
+<div class="bar">
+<div class="row rev">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/map.jpg" width="720" height="1564" loading="lazy"
+  alt="The GoBe map of central London with traces, places and events laid on the streets"></div>
+<div class="phone"><img src="assets/screens/event.jpg" width="720" height="1564" loading="lazy"
+  alt="An event board in GoBe, Records in the Square, with Going, Maybe and Can't go"></div>
+</div>
+<div class="copy">
+<p class="eyebrow">What's around you</p>
+<h3>Everything round here lives on the map.</h3>
+<p>Places to eat, drink, read, train and shop sit between the traces. Communities and events
+are pinned where they meet.</p>
+<p>Say you're going, turn up, and leave a trace while you're there.</p>
+</div>
 </div>
 
-<div class="split">
-<div class="split-media">
-<img class="shot" src="assets/screens/places.jpg" width="720" height="1565" loading="lazy"
-  alt="The GoBe map showing the traces sitting around the reader: a cafe window, a park path, a bookshop, a sunset spot and somewhere to have lunch">
+<div class="row">
+<div class="media">
+<div class="phone"><img src="assets/screens/board.jpg" width="720" height="1564" loading="lazy"
+  alt="GoBe's leaderboard for Westminster: who's around, ranked, with the reader fourth"></div>
 </div>
-<div class="split-copy">
-<p class="eyebrow">People, places, communities</p>
-<h3>The people whose lives cross the same streets.</h3>
-<p>Everyone whose traces are within reach of you is somebody who has been standing where you
-are standing. GoBe can also notice when another person has walked a street you walked, and
-tell you both, if you have each chosen to be told.</p>
-<p>Alongside them sits what is actually around you: places to eat, drink, read, train, shop
-and do something, so the map answers the ordinary question of what to do this afternoon as
-well as the bigger one of who is out there.</p>
+<div class="copy">
+<p class="eyebrow">Your ground</p>
+<h3>Tap it and see how you rank.</h3>
+<p>Every trail and trace counts towards your neighbourhood, your borough and your city. The
+board shows who's around and who has left the most.</p>
+<p>Get out more, climb higher. The map of a place is made by the people who walk it.</p>
 </div>
 </div>
 
-<div class="beat">
-<h2>Every trace adds up to somewhere.</h2>
-<p>A trail travelled and a trace left are not just yours. They are a contribution to the life
-of a neighbourhood, a borough and a city, which is the reason to keep participating in the
-place you already live.</p>
+<div class="row rev">
+<div class="media">
+<div class="phone"><img src="assets/screens/invite.jpg" width="720" height="1564" loading="lazy"
+  alt="GoBe's invite page, with a personal link to share with friends"></div>
 </div>
+<div class="copy">
+<p class="eyebrow">Friends</p>
+<h3>GoBe's better with your people.</h3>
+<p>Send your invite link. A friend who joins with it gets points on their GoBe Score straight
+away, and you get yours when they leave their first trace.</p>
+</div>
+</div>
+</div>
+</section>
 
-<div class="wide">
-<img class="shot" src="assets/screens/areas.jpg" width="720" height="836" loading="lazy"
-  alt="GoBe's areas screen, showing the reader standing second of forty-seven in Mitcham and fifth of a hundred and thirty-two in Merton">
-<div class="wide-copy">
-<p class="eyebrow">Neighbourhood, borough, city</p>
-<p>The same walking, counted at every scale it belongs to. Not a score for its own sake:
-a way of showing that turning up in your own area is worth something, and that the map of
-a place is built by the people who live in it.</p>
-</div>
-</div>
-
-<div class="contrast">
-<div class="col was">
-<p class="ceyebrow">A feed</p>
-<h3>Rewards attention</h3>
+<section class="band tight">
+<div class="bar center">
+<p class="eyebrow">A feed, and GoBe</p>
+<h2>A feed keeps you scrolling. GoBe gets you out.</h2>
+<div class="versus">
+<div class="side feed">
+<p class="who">A feed</p>
+<h3>Keeps you in</h3>
 <ul>
-<li>Ranked by an algorithm optimising for time spent</li>
-<li>Everybody's content, from everywhere, all at once</li>
-<li>The best outcome is that you keep scrolling</li>
+<li>An algorithm picks what you see</li>
+<li>Posts from everywhere, all at once</li>
+<li>Built to keep you scrolling</li>
 <li>Ends on the screen</li>
 </ul>
 </div>
-<div class="col is">
-<p class="ceyebrow">GoBe</p>
-<h3>Rewards turning up</h3>
+<div class="side gobe">
+<p class="who">GoBe</p>
+<h3>Gets you out</h3>
 <ul>
-<li>Arranged by geography, so distance decides what you see</li>
-<li>What was left here, found by whoever gets here</li>
-<li>The best outcome is that you go somewhere</li>
-<li>Ends outside, in your own area, with people from it</li>
+<li>Distance decides what you see</li>
+<li>What was left here, for whoever gets here</li>
+<li>Built to get you somewhere</li>
+<li>Ends outside, round here, with people from here</li>
 </ul>
 </div>
 </div>
-
-<div class="beat">
-<h2>Built so that being outside stays safe.</h2>
-<p>A social network made of real places only works if it never becomes a way to find a
-person at one.</p>
 </div>
+</section>
 
-<div class="split rev">
-<div class="split-media">
-<img class="shot" src="assets/screens/privacy.jpg" width="720" height="1565" loading="lazy"
-  alt="GoBe's privacy screen, where protected areas such as home or work are set and kept off the map">
-</div>
-<div class="split-copy">
+<section class="band privacy">
+<div class="bar two">
+<div>
 <p class="eyebrow">Privacy</p>
-<h3>Your map, not your whereabouts.</h3>
-<p>Traces are saved to an approximate spot, rounded to a grid roughly thirty metres across,
-and the exact coordinate is never stored, on your device or on our servers. The route of a
-trail is more detailed, and that is exactly why a trail stays private to you.</p>
-<p>Mark protected areas such as home or work and GoBe refuses to place a trace inside them.
-Those areas are kept on your device only. No ads, and we never sell your data.</p>
+<h2>Your exact location stays off the map.</h2>
+<p class="lede">A map of real places has to keep people safe at them. Here's how GoBe does it.</p>
+</div>
+<div class="sheet">
+<p>Traces are saved to a rough spot on a grid about thirty metres across. The exact point is
+never stored, on your phone or on our servers.</p>
+<p>Trails are more precise, so trails stay private to you.</p>
+<p>Mark home, work or anywhere else as protected and GoBe keeps traces out of it. Protected
+areas stay on your phone.</p>
+<p>GoBe is free, carries no ads and never sells your data. The detail is in the
+<a href="privacy.html">Privacy Policy</a>.</p>
 </div>
 </div>
-
+<div class="bar">
 <div class="values">
-<div class="value"><div class="vtitle">No ads</div><p>Nothing following you around. GoBe is not built on attention.</p></div>
-<div class="value"><div class="vtitle">Your data</div><p>We never sell it. Delete your account and content any time.</p></div>
-<div class="value"><div class="vtitle">Made in the UK</div><p>A small, independent app, built with care in Britain.</p></div>
-<div class="value"><div class="vtitle">Ages 16+</div><p>Higher-privacy defaults for younger users, by design.</p></div>
+<div class="value"><div class="vtitle">Free</div><p>Nothing to pay and no ads.</p></div>
+<div class="value"><div class="vtitle">Your data is yours</div><p>We never sell it. Delete your account and everything in it whenever you like.</p></div>
+<div class="value"><div class="vtitle">Made in the UK</div><p>An independent app, made in Britain.</p></div>
+<div class="value"><div class="vtitle">16 and over</div><p>Younger users start on stricter privacy settings.</p></div>
 </div>
-
-<div class="beat" id="about">
-<h2>Reading this as a business?</h2>
 </div>
+</section>
 
-<div class="brief">
-<h3>The short version.</h3>
-<p>Social networks have spent fifteen years getting better at holding people in a feed and
-worse at getting them into a room. GoBe puts the network back on the ground: the unit of
-content is a place you stood in, the unit of distribution is how near you are to it, and the
-success condition is that somebody leaves the house.</p>
-<p>That geography is also the moat. A map filled in by the people who walk a neighbourhood
-cannot be bought or scraped into existence somewhere else, and it gets more useful to
-everybody in that neighbourhood with each trace left in it. GoBe grows the way a place does,
-street by street, rather than all at once and everywhere.</p>
+<section class="band tight brief" id="about">
+<div class="bar">
+<p class="eyebrow">For investors, partners and press</p>
+<h2>The short version.</h2>
+<p>Social networks got very good at keeping people on their phones. GoBe is built to get them
+out of the house. You post by standing somewhere, you see what's near you, and the app is
+working when somebody goes out.</p>
+<p>The map is the moat. It's filled in street by street by the people who walk them, it can't
+be copied into another city, and every trace makes it more useful to everyone nearby. GoBe
+grows the way a place does, one street at a time.</p>
 <div class="facts">
 <div class="fact"><div class="k">Status</div><div class="v">Live on the App Store, free, iPhone</div></div>
 <div class="fact"><div class="k">Category</div><div class="v">Social networking, location first</div></div>
@@ -738,18 +859,19 @@ street by street, rather than all at once and everywhere.</p>
 </div>
 <p class="note">Investors, partners and press: <a href="mailto:{CONTACT}">{CONTACT}</a></p>
 </div>
+</section>
 
-<div class="closer">
-<h2>Go be somewhere.</h2>
-<p>GoBe is free on the App Store, for iPhone. Here is everything about how it works and how
-we look after your data.</p>
-<div class="hero-cta center">
+<section class="closer foil torn-above">
+<div class="bar">
+<img class="icon" src="assets/icon-rounded.png" alt="" width="360" height="360">
+<h2>See you out there.</h2>
+<p class="lede">GoBe is free on the App Store for iPhone.</p>
+<div class="btns">
 <a class="btn primary" href="{APP_STORE_URL}">Download on the App Store</a>
-<a class="btn" href="privacy.html">Privacy Policy</a>
-<a class="btn" href="terms.html">Terms</a>
 <a class="btn" href="support.html">Support</a>
 </div>
 </div>
+</section>
 """
 # Invites shared before the /f/ page existed read gobeapp.co.uk/?invite=CODE.
 # They land here; this sends them on to the page that does the job.
@@ -760,7 +882,7 @@ HOME_JS = """(function(){
   }
 })();"""
 HOME_CSP = (
-    "default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; "
+    "default-src 'none'; img-src 'self'; media-src 'self'; style-src 'self'; font-src 'self'; "
     "script-src 'sha256-{hash}'; base-uri 'none'; form-action 'none'"
 ).format(hash=base64.b64encode(hashlib.sha256(HOME_JS.encode("utf-8")).digest()).decode())
 
@@ -858,7 +980,7 @@ HANDOFF_CSP = (
 ).format(hash=base64.b64encode(hashlib.sha256(HANDOFF_JS.encode("utf-8")).digest()).decode())
 
 profile = f"""<section class="handoff">
-<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
 <p class="eyebrow">Someone shared their GoBe</p>
 <h1>Open this profile in GoBe.</h1>
 <p class="lede">Profile links open straight in the app. If GoBe isn't on this
@@ -886,7 +1008,7 @@ you over to the app rather than showing you their traces.</p>
         "Profile",
         profile,
         base="/",
-        description="Open this GoBe profile in the app. GoBe — leave and find traces of daily moments.",
+        description="Open this GoBe profile in the app. GoBe: leave and find traces of daily moments.",
         csp=HANDOFF_CSP,
         head=f"<script>{HANDOFF_JS}</script>\n",
     ),
@@ -957,7 +1079,7 @@ GATHERING_CSP = (
 ).format(hash=base64.b64encode(hashlib.sha256(GATHERING_JS.encode("utf-8")).digest()).decode())
 
 gathering = f"""<section class="handoff">
-<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
 <p class="eyebrow">Someone shared a gathering</p>
 <h1>Open this in GoBe.</h1>
 <p class="lede">Community and event links open straight in the app. If GoBe isn't
@@ -989,7 +1111,7 @@ hands you over to the app rather than showing you what's there.</p>
         "Gathering",
         gathering,
         base="/",
-        description="Open this GoBe community or event in the app. GoBe — leave and find traces of daily moments.",
+        description="Open this GoBe community or event in the app. GoBe: leave and find traces of daily moments.",
         csp=GATHERING_CSP,
         head=f"<script>{GATHERING_JS}</script>\n",
     ),
@@ -1062,7 +1184,7 @@ INVITE_CSP = (
 ).format(hash=base64.b64encode(hashlib.sha256(INVITE_JS.encode("utf-8")).digest()).decode())
 
 invite = f"""<section class="handoff">
-<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
 <p class="eyebrow">You have been invited</p>
 <h1>Open this in GoBe.</h1>
 <p class="lede">An invite link opens straight in the app and takes you into the
@@ -1096,7 +1218,7 @@ looks exactly like one that was never real, which is the point.</p>
         "Invite",
         invite,
         base="/",
-        description="Open your GoBe invite in the app. GoBe — leave and find traces of daily moments.",
+        description="Open your GoBe invite in the app. GoBe: leave and find traces of daily moments.",
         csp=INVITE_CSP,
         head=f"<script>{INVITE_JS}</script>\n",
     ),
@@ -1159,7 +1281,7 @@ FRIEND_CSP = (
 ).format(hash=base64.b64encode(hashlib.sha256(FRIEND_JS.encode("utf-8")).digest()).decode())
 
 friend = f"""<section class="handoff">
-<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
 <p class="eyebrow">A friend invited you</p>
 <h1>Get GoBe, and bring their code.</h1>
 <div id="code-box">
@@ -1227,7 +1349,7 @@ NOT_FOUND_CSP = (
 ).format(hash=base64.b64encode(hashlib.sha256(NOT_FOUND_JS.encode("utf-8")).digest()).decode())
 
 not_found = """<section class="handoff">
-<div class="handoff-mark"><img src="/assets/icon.png" alt="" width="96" height="96"></div>
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
 <p class="eyebrow">Page not found</p>
 <h1>That page isn't here.</h1>
 <p class="lede">The link may be old, or mistyped. Everything on the site is one
@@ -1243,7 +1365,7 @@ tap away below.</p>
         "Not found",
         not_found,
         base="/",
-        description="That page isn't here. GoBe — leave and find traces of daily moments.",
+        description="That page isn't here. GoBe: leave and find traces of daily moments.",
         csp=NOT_FOUND_CSP,
         head=f"<script>{NOT_FOUND_JS}</script>\n",
     ),

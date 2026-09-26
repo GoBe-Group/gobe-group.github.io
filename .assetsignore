@@ -7,3 +7,4 @@ build.py
 wrangler.jsonc
 .gitignore
 .assetsignore
+.claude

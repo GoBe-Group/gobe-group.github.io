@@ -13,15 +13,13 @@ Note Workers serves pages without the `.html` suffix: `/privacy.html` 307s to
 - `privacy.html` — Privacy Policy (App Store "Privacy Policy URL")
 - `terms.html` — Terms of Service
 - `support.html` — Support & contact (App Store "Support URL")
-- `index.html` — landing page. It exists to make one argument, in this order:
-  what GoBe is (a social network on a map rather than in a feed), the three
-  moves it is made of (walk a trail, leave a trace, be found there), what those
-  moves add up to (people whose paths cross, and a neighbourhood built by the
-  people in it), why that is not a feed, and how it stays safe. A visitor who
-  reads only the hero and the line under it should still be able to say what the
-  app does; that is the test the page has to pass, and the reason the sections
-  are ordered the way they are rather than by feature. The last band is written
-  for someone reading the site as a business, and carries the contact address.
+- `index.html` — landing page, in the 1.5 look: the page is paper, the
+  iridescent foil is the fog (the screen wrapped round everyday life), torn
+  wherever the page says "go outside", with a biro line round the window as the
+  app draws round its pages. Martian Mono headings, Avenir body, Caveat for the
+  odd handwritten line, all fonts self-hosted. Copy is in the app's own voice:
+  plain, direct, second person, using its words (trace, trail, fog, sealed,
+  "Press play and walk", "Leave a trace where you stood", "Go there to read it").
   All of it is generated from the `home` block in `build.py`, **not** edited
   here — see the warning below.
 - `u/index.html` — where a shared profile link

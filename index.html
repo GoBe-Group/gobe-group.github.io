@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-oEoy8fxi2a8l94VcxmdRGE3MCil0uFfUREf/TikhL+g='; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; media-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-oEoy8fxi2a8l94VcxmdRGE3MCil0uFfUREf/TikhL+g='; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>A social network on a map, not in a feed · GoBe</title>
-<meta name="description" content="GoBe is a social network for meeting people and enjoying experiences local to you, offline. Record your journeys as trails, leave location-pinned posts called traces, and find the people whose lives cross the same streets.">
+<title>The social network on a map · GoBe</title>
+<meta name="description" content="GoBe is the social network on a map. Press play and walk, leave traces where you stood, and find what people have left round here. Free on iPhone.">
 <meta property="og:site_name" content="GoBe">
 <meta property="og:type" content="website">
-<meta property="og:title" content="A social network on a map, not in a feed · GoBe">
-<meta property="og:description" content="GoBe is a social network for meeting people and enjoying experiences local to you, offline. Record your journeys as trails, leave location-pinned posts called traces, and find the people whose lives cross the same streets.">
+<meta property="og:title" content="The social network on a map · GoBe">
+<meta property="og:description" content="GoBe is the social network on a map. Press play and walk, leave traces where you stood, and find what people have left round here. Free on iPhone.">
 <meta property="og:image" content="https://gobeapp.co.uk/assets/icon.png">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/png" href="assets/icon.png">
-<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css">
 <script>(function(){
   var c = new URLSearchParams(location.search).get('invite');
@@ -24,209 +24,273 @@
 })();</script>
 </head>
 <body>
-<div class="wrap home">
-<header class="site">
-<a class="brand" href="index.html"><img src="assets/gobe-logo.png" alt="GoBe" width="140" height="56"></a>
-<nav class="top"><a href="index.html" class="active">Home</a><a href="index.html#how">How it works</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a><a class="get" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get the app</a></nav>
-</header>
-<section class="hero">
+<div class="frame" aria-hidden="true"></div>
+<main class="home">
+<header class="site"><div class="bar">
+<a class="brand" href="index.html"><img src="assets/gobe-logo.png" alt="GoBe" width="520" height="231"></a>
+<nav class="top"><a href="index.html#how">How it works</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a><a class="get" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get the app</a></nav>
+</div></header>
+<section class="hero foil torn-below">
+<div class="bar">
 <div class="hero-copy">
-<p class="eyebrow">A local social network</p>
-<h1>The social network on a map, not in a feed.</h1>
-<p>GoBe helps you meet people and enjoy experiences local to you, offline. People record
-their everyday journeys as <strong>trails</strong> and leave location-pinned posts, called
-<strong>traces</strong>, for others to discover where they were created.</p>
-<div class="hero-cta">
+<p class="eyebrow">The social network on a map</p>
+<h1>Go beyond the screen.</h1>
+<p class="lede">Press play and walk. The fog lifts behind you, and the <strong>traces</strong>
+people have left round here turn up underneath: notes, photos and moments pinned to the spot
+they happened.</p>
+<div class="btns">
 <a class="btn primary" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Download on the App Store</a>
-<a href="#how">See how it works &rsaquo;</a>
+<a class="btn" href="#how">How it works</a>
 </div>
-<p class="note">Free for iPhone · Made in the UK · For ages 16+</p>
+<p class="note">Free on iPhone · Made in the UK · Ages 16+</p>
 </div>
 <div class="hero-media">
-<img class="shot" src="assets/screens/map.jpg" width="720" height="1565"
-  alt="The GoBe map of central London, covered in traces left by people nearby">
+<span class="whisper">see you out there.</span>
+<div class="phone"><img src="assets/screens/fog-walk.jpg" width="720" height="1564"
+  alt="The GoBe map of Soho under iridescent foil, torn open along a walk, with a green trail running through the cleared streets"></div>
+</div>
 </div>
 </section>
 
-<div class="thesis">
-<p class="eyebrow">The whole idea</p>
-<p>As trails overlap, GoBe reveals the people whose lives <em>cross the same streets</em>.</p>
+<section class="band idea">
+<div class="bar">
+<div class="pic">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<img src="assets/cut-through.jpg" width="1100" height="1100" loading="lazy"
+  alt="A green route and a blue dot on a paper map, showing through a tear in crumpled holographic foil">
 </div>
+<div>
+<p class="eyebrow">The idea</p>
+<h2>Everything on GoBe is somewhere. You find it by going there.</h2>
+<p class="lede">Every trace is pinned to the spot it was left. Your map starts under fog and
+you clear it on foot. Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
+<span class="whisper">you have to go outside to cut through it.</span>
+</div>
+</div>
+</section>
 
-<div class="beat mid" id="how">
-<h2>Three moves, and that is the whole app.</h2>
-<p>No ranking, no recommendations, no infinite scroll. Where you went, what you left,
-and who else has been there.</p>
+<section class="band tight center" id="how">
+<div class="bar">
+<p class="eyebrow">How it works</p>
+<h2>Walk. Leave a trace. Go and find one.</h2>
+<p class="lede">That's the whole app. Everything you see on the map was left by someone who
+stood there.</p>
+<div class="moves">
+<div class="move">
+<img class="rank" src="assets/rank-1.png" alt="1" width="120" height="120">
+<img class="sticker" src="assets/play.png" alt="" width="160" height="160">
+<h3>Press play and walk</h3>
+<p>GoBe draws your route as a <span class="word">trail</span> and the fog lifts behind you.
+The ground you clear stays clear all day.</p>
 </div>
-
-<div class="steps">
-<div class="step">
-<div class="num">1</div>
-<h3>Walk your day</h3>
-<p>Press play and GoBe quietly records the route you take as a <span class="word">trail</span>.
-When you finish you keep the line you walked, how far you went and how long you were outside.</p>
-</div>
-<div class="step">
-<div class="num">2</div>
+<div class="move">
+<img class="rank" src="assets/rank-2.png" alt="2" width="120" height="120">
+<img class="sticker" src="assets/plus.png" alt="" width="160" height="160">
 <h3>Leave a trace</h3>
-<p>A <span class="word">trace</span> is a post pinned to the spot it belongs to: a note, a photo,
-a video, or nothing at all. An empty trace still says the truest thing there is, that you were here.</p>
+<p>Write a line, snap a photo or film something. Your <span class="word">trace</span> sits on
+the spot for whoever comes along next.</p>
 </div>
-<div class="step">
-<div class="num">3</div>
-<h3>Be found there</h3>
-<p>Traces stay where they were made. They are read by whoever gets to that spot, which means
-the only way to reach one another is to actually <span class="word">turn up</span>.</p>
+<div class="move">
+<img class="rank" src="assets/rank-3.png" alt="3" width="120" height="120">
+<img class="sticker" src="assets/sealed.png" alt="" width="240" height="240">
+<h3>Go there to read it</h3>
+<p>Traces further off glow under the fog. Walk up to one and it opens. You have to
+<span class="word">turn up</span>.</p>
 </div>
-</div>
-
-<div class="beat">
-<h2>Your day, kept as a line on the map.</h2>
-<p>A trail is a record of somewhere you actually went, not a post about it. Trails are
-private to you by default, and what they are for is what happens when they overlap.</p>
 </div>
 
-<div class="split duo">
-<div class="split-media"><div class="pair">
-<img class="shot" src="assets/screens/recording.jpg" width="720" height="1565" loading="lazy"
-  alt="A GoBe trail being recorded along Whitehall, the walked route drawn in green behind the walker">
-<img class="shot" src="assets/screens/trail.jpg" width="720" height="1565" loading="lazy"
-  alt="A finished GoBe trail along the South Bank, with distance travelled, time outside and a timeline of the traces left along the way">
-</div></div>
-<div class="split-copy">
+<div class="films">
+<figure class="film">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<video src="assets/films/walk.mp4" poster="assets/films/walk.jpg" width="660" height="450"
+  autoplay muted loop playsinline preload="metadata" aria-label="A walk along Whitehall tearing the foil open behind the walker"></video>
+<figcaption>the fog lifts as you walk.<span>What you clear stays clear all day. Tomorrow the fog rolls back in, so off you go again.</span></figcaption>
+</figure>
+<figure class="film">
+<img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+<video src="assets/films/trace.mp4" poster="assets/films/trace.jpg" width="660" height="450"
+  autoplay muted loop playsinline preload="metadata" aria-label="A trace left on the map, holding open the ground around it as likes arrive"></video>
+<figcaption>a trace holds its ground.<span>Every like, comment and retrace pushes the fog further back round it.</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section class="band">
+<div class="bar">
+<div class="row">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/walk.jpg" width="720" height="1564" loading="lazy"
+  alt="A GoBe trail being recorded through Soho, the walked route drawn in green"></div>
+<div class="phone"><img src="assets/screens/trail.jpg" width="720" height="1564" loading="lazy"
+  alt="A finished GoBe trail, with the route on a map, the distance travelled and the time spent outside"></div>
+</div>
+<div class="copy">
 <p class="eyebrow">Trails</p>
-<h3>Recorded while you walk, kept when you stop.</h3>
-<p>GoBe follows the route in the background while a trail is running, up to twelve hours,
-and stops the moment you finish. What you get back is a keepsake of the day: the shape of
-the walk, the distance, the time you spent outside and every trace you left, in order.</p>
-<p>Turn location off part way through and the trail is discarded rather than half kept.
-It is a record of a real journey or it is nothing.</p>
+<h3>Press it again to keep it.</h3>
+<p>A trail records your route while you walk, for up to twelve hours. Press stop and you keep
+the lot: the line you walked, how far you went, how long you were outside and every trace you
+left on the way.</p>
+<p>Switch location off halfway and GoBe bins the trail. A trail is a real walk, start to finish.</p>
 </div>
 </div>
 
-<div class="split duo rev">
-<div class="split-media"><div class="pair">
-<img class="shot" src="assets/screens/trace.jpg" width="720" height="1565" loading="lazy"
-  alt="A GoBe trace opened on the map, reading &quot;Great spot for watching the world go by&quot;, with its author, likes and retraces">
-<img class="shot" src="assets/screens/compose.jpg" width="720" height="1565" loading="lazy"
-  alt="Leaving a trace in GoBe, a note being written on a paper card pinned to the spot on the map">
-</div></div>
-<div class="split-copy">
+<div class="row rev">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/compose.jpg" width="720" height="1564" loading="lazy"
+  alt="Leaving a trace in GoBe: a short note being written on a card pinned to the spot"></div>
+<div class="phone"><img src="assets/screens/trace.jpg" width="720" height="1564" loading="lazy"
+  alt="A trace opened in GoBe, reading &quot;They've put the tables out on the pavement again&quot;"></div>
+</div>
+<div class="copy">
 <p class="eyebrow">Traces</p>
-<h3>Something small, left where it happened.</h3>
-<p>Tap a trace to read it, like it, or retrace it onto your own map. Reach one in person and
-you can <strong>pass</strong> it, which records that you made it to the same place rather than
-posting a copy of somebody else's moment.</p>
-<p>Your neighbourhood, described by the people who walk it, in the spots they were describing.</p>
+<h3>Leave a trace where you stood.</h3>
+<p>Write something: a tip, a thought, whatever's going on here. Or snap a photo. Whoever gets
+to that spot can read it, like it, comment and retrace it onto their own map.</p>
+<p>The more people like it, the further it reaches. Your street, written by the people on it.</p>
 </div>
 </div>
 
-<div class="beat">
-<h2>Then the map starts introducing you.</h2>
-<p>This is the part a feed cannot do. Geography, not an algorithm, decides who you meet.</p>
+<div class="row">
+<div class="media">
+<div class="phone"><img src="assets/screens/sealed.jpg" width="720" height="1564" loading="lazy"
+  alt="The GoBe drawer, where traces beyond a short walk are dealt wrapped in iridescent foil"></div>
+</div>
+<div class="copy">
+<p class="eyebrow">Sealed</p>
+<h3>Anything past a short walk stays sealed.</h3>
+<p>On the map it glows under the fog in its own colour: blue for a trace, yellow for a place,
+green for a community. In the drawer it comes wrapped in foil.</p>
+<p>Tap it and GoBe tells you how many minutes away it is. Walk there and it opens.</p>
+<div class="extra"><img src="assets/sealed.png" alt="" width="240" height="240">
+<p>Who left it and what it says: that's what the walk is for.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="band foil torn-above torn-below">
+<div class="bar center">
+<p class="eyebrow">Who's around</p>
+<h2>You meet the people who walk your streets.</h2>
+<p class="lede">Everyone whose traces you can read has stood where you're standing.
+The streets decide who you run into.</p>
+</div>
+</section>
+
+<section class="band">
+<div class="bar">
+<div class="row rev">
+<div class="media pair">
+<div class="phone"><img src="assets/screens/map.jpg" width="720" height="1564" loading="lazy"
+  alt="The GoBe map of central London with traces, places and events laid on the streets"></div>
+<div class="phone"><img src="assets/screens/event.jpg" width="720" height="1564" loading="lazy"
+  alt="An event board in GoBe, Records in the Square, with Going, Maybe and Can't go"></div>
+</div>
+<div class="copy">
+<p class="eyebrow">What's around you</p>
+<h3>Everything round here lives on the map.</h3>
+<p>Places to eat, drink, read, train and shop sit between the traces. Communities and events
+are pinned where they meet.</p>
+<p>Say you're going, turn up, and leave a trace while you're there.</p>
+</div>
 </div>
 
-<div class="split">
-<div class="split-media">
-<img class="shot" src="assets/screens/places.jpg" width="720" height="1565" loading="lazy"
-  alt="The GoBe map showing the traces sitting around the reader: a cafe window, a park path, a bookshop, a sunset spot and somewhere to have lunch">
+<div class="row">
+<div class="media">
+<div class="phone"><img src="assets/screens/board.jpg" width="720" height="1564" loading="lazy"
+  alt="GoBe's leaderboard for Westminster: who's around, ranked, with the reader fourth"></div>
 </div>
-<div class="split-copy">
-<p class="eyebrow">People, places, communities</p>
-<h3>The people whose lives cross the same streets.</h3>
-<p>Everyone whose traces are within reach of you is somebody who has been standing where you
-are standing. GoBe can also notice when another person has walked a street you walked, and
-tell you both, if you have each chosen to be told.</p>
-<p>Alongside them sits what is actually around you: places to eat, drink, read, train, shop
-and do something, so the map answers the ordinary question of what to do this afternoon as
-well as the bigger one of who is out there.</p>
+<div class="copy">
+<p class="eyebrow">Your ground</p>
+<h3>Tap it and see how you rank.</h3>
+<p>Every trail and trace counts towards your neighbourhood, your borough and your city. The
+board shows who's around and who has left the most.</p>
+<p>Get out more, climb higher. The map of a place is made by the people who walk it.</p>
 </div>
 </div>
 
-<div class="beat">
-<h2>Every trace adds up to somewhere.</h2>
-<p>A trail travelled and a trace left are not just yours. They are a contribution to the life
-of a neighbourhood, a borough and a city, which is the reason to keep participating in the
-place you already live.</p>
+<div class="row rev">
+<div class="media">
+<div class="phone"><img src="assets/screens/invite.jpg" width="720" height="1564" loading="lazy"
+  alt="GoBe's invite page, with a personal link to share with friends"></div>
 </div>
+<div class="copy">
+<p class="eyebrow">Friends</p>
+<h3>GoBe's better with your people.</h3>
+<p>Send your invite link. A friend who joins with it gets points on their GoBe Score straight
+away, and you get yours when they leave their first trace.</p>
+</div>
+</div>
+</div>
+</section>
 
-<div class="wide">
-<img class="shot" src="assets/screens/areas.jpg" width="720" height="836" loading="lazy"
-  alt="GoBe's areas screen, showing the reader standing second of forty-seven in Mitcham and fifth of a hundred and thirty-two in Merton">
-<div class="wide-copy">
-<p class="eyebrow">Neighbourhood, borough, city</p>
-<p>The same walking, counted at every scale it belongs to. Not a score for its own sake:
-a way of showing that turning up in your own area is worth something, and that the map of
-a place is built by the people who live in it.</p>
-</div>
-</div>
-
-<div class="contrast">
-<div class="col was">
-<p class="ceyebrow">A feed</p>
-<h3>Rewards attention</h3>
+<section class="band tight">
+<div class="bar center">
+<p class="eyebrow">A feed, and GoBe</p>
+<h2>A feed keeps you scrolling. GoBe gets you out.</h2>
+<div class="versus">
+<div class="side feed">
+<p class="who">A feed</p>
+<h3>Keeps you in</h3>
 <ul>
-<li>Ranked by an algorithm optimising for time spent</li>
-<li>Everybody's content, from everywhere, all at once</li>
-<li>The best outcome is that you keep scrolling</li>
+<li>An algorithm picks what you see</li>
+<li>Posts from everywhere, all at once</li>
+<li>Built to keep you scrolling</li>
 <li>Ends on the screen</li>
 </ul>
 </div>
-<div class="col is">
-<p class="ceyebrow">GoBe</p>
-<h3>Rewards turning up</h3>
+<div class="side gobe">
+<p class="who">GoBe</p>
+<h3>Gets you out</h3>
 <ul>
-<li>Arranged by geography, so distance decides what you see</li>
-<li>What was left here, found by whoever gets here</li>
-<li>The best outcome is that you go somewhere</li>
-<li>Ends outside, in your own area, with people from it</li>
+<li>Distance decides what you see</li>
+<li>What was left here, for whoever gets here</li>
+<li>Built to get you somewhere</li>
+<li>Ends outside, round here, with people from here</li>
 </ul>
 </div>
 </div>
-
-<div class="beat">
-<h2>Built so that being outside stays safe.</h2>
-<p>A social network made of real places only works if it never becomes a way to find a
-person at one.</p>
 </div>
+</section>
 
-<div class="split rev">
-<div class="split-media">
-<img class="shot" src="assets/screens/privacy.jpg" width="720" height="1565" loading="lazy"
-  alt="GoBe's privacy screen, where protected areas such as home or work are set and kept off the map">
-</div>
-<div class="split-copy">
+<section class="band privacy">
+<div class="bar two">
+<div>
 <p class="eyebrow">Privacy</p>
-<h3>Your map, not your whereabouts.</h3>
-<p>Traces are saved to an approximate spot, rounded to a grid roughly thirty metres across,
-and the exact coordinate is never stored, on your device or on our servers. The route of a
-trail is more detailed, and that is exactly why a trail stays private to you.</p>
-<p>Mark protected areas such as home or work and GoBe refuses to place a trace inside them.
-Those areas are kept on your device only. No ads, and we never sell your data.</p>
+<h2>Your exact location stays off the map.</h2>
+<p class="lede">A map of real places has to keep people safe at them. Here's how GoBe does it.</p>
+</div>
+<div class="sheet">
+<p>Traces are saved to a rough spot on a grid about thirty metres across. The exact point is
+never stored, on your phone or on our servers.</p>
+<p>Trails are more precise, so trails stay private to you.</p>
+<p>Mark home, work or anywhere else as protected and GoBe keeps traces out of it. Protected
+areas stay on your phone.</p>
+<p>GoBe is free, carries no ads and never sells your data. The detail is in the
+<a href="privacy.html">Privacy Policy</a>.</p>
 </div>
 </div>
-
+<div class="bar">
 <div class="values">
-<div class="value"><div class="vtitle">No ads</div><p>Nothing following you around. GoBe is not built on attention.</p></div>
-<div class="value"><div class="vtitle">Your data</div><p>We never sell it. Delete your account and content any time.</p></div>
-<div class="value"><div class="vtitle">Made in the UK</div><p>A small, independent app, built with care in Britain.</p></div>
-<div class="value"><div class="vtitle">Ages 16+</div><p>Higher-privacy defaults for younger users, by design.</p></div>
+<div class="value"><div class="vtitle">Free</div><p>Nothing to pay and no ads.</p></div>
+<div class="value"><div class="vtitle">Your data is yours</div><p>We never sell it. Delete your account and everything in it whenever you like.</p></div>
+<div class="value"><div class="vtitle">Made in the UK</div><p>An independent app, made in Britain.</p></div>
+<div class="value"><div class="vtitle">16 and over</div><p>Younger users start on stricter privacy settings.</p></div>
 </div>
-
-<div class="beat" id="about">
-<h2>Reading this as a business?</h2>
 </div>
+</section>
 
-<div class="brief">
-<h3>The short version.</h3>
-<p>Social networks have spent fifteen years getting better at holding people in a feed and
-worse at getting them into a room. GoBe puts the network back on the ground: the unit of
-content is a place you stood in, the unit of distribution is how near you are to it, and the
-success condition is that somebody leaves the house.</p>
-<p>That geography is also the moat. A map filled in by the people who walk a neighbourhood
-cannot be bought or scraped into existence somewhere else, and it gets more useful to
-everybody in that neighbourhood with each trace left in it. GoBe grows the way a place does,
-street by street, rather than all at once and everywhere.</p>
+<section class="band tight brief" id="about">
+<div class="bar">
+<p class="eyebrow">For investors, partners and press</p>
+<h2>The short version.</h2>
+<p>Social networks got very good at keeping people on their phones. GoBe is built to get them
+out of the house. You post by standing somewhere, you see what's near you, and the app is
+working when somebody goes out.</p>
+<p>The map is the moat. It's filled in street by street by the people who walk them, it can't
+be copied into another city, and every trace makes it more useful to everyone nearby. GoBe
+grows the way a place does, one street at a time.</p>
 <div class="facts">
 <div class="fact"><div class="k">Status</div><div class="v">Live on the App Store, free, iPhone</div></div>
 <div class="fact"><div class="k">Category</div><div class="v">Social networking, location first</div></div>
@@ -237,23 +301,25 @@ street by street, rather than all at once and everywhere.</p>
 </div>
 <p class="note">Investors, partners and press: <a href="mailto:contact@gobeapp.co.uk">contact@gobeapp.co.uk</a></p>
 </div>
+</section>
 
-<div class="closer">
-<h2>Go be somewhere.</h2>
-<p>GoBe is free on the App Store, for iPhone. Here is everything about how it works and how
-we look after your data.</p>
-<div class="hero-cta center">
+<section class="closer foil torn-above">
+<div class="bar">
+<img class="icon" src="assets/icon-rounded.png" alt="" width="360" height="360">
+<h2>See you out there.</h2>
+<p class="lede">GoBe is free on the App Store for iPhone.</p>
+<div class="btns">
 <a class="btn primary" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Download on the App Store</a>
-<a class="btn" href="privacy.html">Privacy Policy</a>
-<a class="btn" href="terms.html">Terms</a>
 <a class="btn" href="support.html">Support</a>
 </div>
 </div>
+</section>
 
-<footer class="site">
-<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.<br>
+</main>
+<footer class="site"><div class="bar">
+<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.
 Contact: <a href="mailto:contact@gobeapp.co.uk">contact@gobeapp.co.uk</a> · Governing law: England &amp; Wales.</p>
-</footer>
-</div>
+<nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a></nav>
+</div></footer>
 </body>
 </html>

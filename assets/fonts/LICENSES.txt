@@ -1,0 +1,7 @@
+Fonts bundled with GoBe 1.5. Martian Mono: SIL Open Font License 1.1
+(https://openfontlicense.org/open-font-license-official-text/). 
+
+MartianMono-Regular.ttf: Copyright 2020 The Martian Mono Project Authors (https://github.com/evilmartians/mono)
+MartianMono-SemiBold.ttf: Copyright 2020 The Martian Mono Project Authors (https://github.com/evilmartians/mono)
+InterTight-Black.ttf: Copyright 2022 The Inter Project Authors (https://github.com/rsms/inter-tight), SIL Open Font License 1.1
+Caveat-Bold.ttf: Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat), SIL Open Font License 1.1
