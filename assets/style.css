@@ -146,7 +146,7 @@ main.home header.site{position:absolute; left:0; right:0; top:0}
   transform:translateX(-50%); background:#000; border-radius:99px}
 
 section{position:relative}
-.band{padding:clamp(64px,9vw,120px) 0}
+.band{padding:clamp(56px,7.5vw,104px) 0}
 .band.tight{padding-top:clamp(40px,6vw,72px)}
 .center{text-align:center}
 .center .lede{margin-left:auto; margin-right:auto}
@@ -186,13 +186,13 @@ section{position:relative}
 
 /* Feature rows: phones one side, words the other */
 .row{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,6vw,90px); align-items:center}
-.row + .row{margin-top:clamp(64px,9vw,120px)}
+.row + .row{margin-top:clamp(64px,8vw,104px)}
 .row.rev .media{order:2}
 .row .media{display:flex; justify-content:center; gap:clamp(12px,2vw,24px)}
 .row .media .phone{width:min(100%,300px)}
 .row .media.pair .phone{width:min(47%,270px)}
 .row .media.pair .phone:nth-child(2){margin-top:60px}
-.row .copy p{color:var(--muted)}
+.row .copy > p{color:var(--muted)}
 .row .copy h3{font-size:clamp(22px,2.6vw,30px); margin-bottom:14px}
 .row .copy .extra{display:flex; align-items:center; gap:14px; margin-top:18px}
 .row .copy .extra img{width:70px; height:auto; transform:rotate(-6deg)}
@@ -223,7 +223,7 @@ section{position:relative}
 .value p{font-size:14px; color:var(--muted); margin:0}
 
 /* Reading it as a business */
-.brief p{color:var(--muted); max-width:46em}
+.brief .note{max-width:none}
 .facts{display:grid; grid-template-columns:1fr 1fr; gap:0 28px; margin:26px 0 18px;
   border-top:2px solid var(--biro)}
 .fact{display:flex; justify-content:space-between; gap:18px; padding:12px 0; border-bottom:1px solid var(--line)}
@@ -381,6 +381,61 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
   .d-gobe-steps{width:56px}
   .d-friends-phone{width:56px; left:6%}
 }
+
+
+/* ---------- Handwritten notes on the screenshots ---------- */
+.callout{position:absolute; margin:0; z-index:5; pointer-events:none; white-space:nowrap;
+  font-family:var(--hand); font-weight:700; font-size:25px; line-height:1.02; color:var(--biro)}
+.callout img{position:absolute; width:104px; height:auto}
+.c-hero-sealed{right:-212px; top:86px; transform:rotate(-3deg)}
+.c-hero-sealed img{left:-104px; top:14px; transform:scaleX(-1) rotate(14deg)}
+.c-hero-walk{left:-226px; top:372px; text-align:right; transform:rotate(-4deg)}
+.c-hero-walk img{right:-104px; top:20px; transform:rotate(-8deg)}
+.c-trail{right:2%; bottom:-58px; transform:rotate(-3deg)}
+.c-trail img{left:-100px; top:-26px; transform:scaleX(-1) rotate(-28deg)}
+.c-trace{left:6%; bottom:-60px; transform:rotate(3deg)}
+.c-trace img{right:-104px; top:-18px; transform:rotate(-30deg)}
+
+/* ---------- Sealed, on foil ---------- */
+.sealed-band .copy p{color:#26272e}
+.sealed-band .copy .extra p{color:#26272e}
+
+/* ---------- The GoBe Score receipt ---------- */
+.receipt{position:relative; background:#fff; width:min(100%,360px); margin:24px 0 16px;
+  padding:22px 22px 16px; font-family:var(--mono); font-size:13px; color:var(--ink);
+  box-shadow:0 16px 30px -18px rgba(12,20,60,.45); transform:rotate(-1.4deg)}
+.receipt::before,.receipt::after{content:""; position:absolute; left:0; right:0; height:10px;
+  background:linear-gradient(135deg,#fff 25%,transparent 25%) -6px 0/12px 12px repeat-x,
+    linear-gradient(225deg,#fff 25%,transparent 25%) -6px 0/12px 12px repeat-x}
+.receipt::after{bottom:-10px}
+.receipt::before{top:-10px; transform:rotate(180deg)}
+.r-head{font-weight:600; font-size:15px; text-align:center; margin:0; letter-spacing:.06em; text-transform:uppercase}
+.r-sub{text-align:center; margin:2px 0 0; color:var(--faint); font-size:11.5px}
+.receipt ul{list-style:none; padding:0; margin:14px 0 6px; border-top:1.5px dashed rgba(12,20,112,.35)}
+.receipt li{display:flex; justify-content:space-between; gap:12px; margin:0; padding:8px 0;
+  border-bottom:1px dashed rgba(12,20,112,.2)}
+.receipt li b{color:var(--go-dark); font-weight:600}
+.r-foot{font-family:var(--hand); font-weight:700; font-size:23px; color:var(--biro); text-align:center; margin:8px 0 0}
+
+/* ---------- The invite link, as the app draws it ---------- */
+.linkpill{display:inline-block; font-family:var(--mono); font-size:14px; font-weight:600; color:var(--ink);
+  background:var(--go-glow); border:2px solid var(--biro); border-radius:14px; padding:12px 18px 11px;
+  box-shadow:3px 3px 0 var(--biro); margin-top:6px; transform:rotate(-1deg)}
+.linkpill span{color:var(--biro)}
+
+/* ---------- A Windows 98 window, gone over in biro ---------- */
+.win{position:relative; max-width:900px; margin:0 auto; background:#fff; border:2px solid var(--biro); border-radius:10px;
+  box-shadow:5px 5px 0 var(--biro); overflow:hidden}
+.win-bar{display:flex; align-items:center; gap:7px; background:var(--biro); color:#fff;
+  font-family:var(--mono); font-size:12px; font-weight:600; padding:8px 12px}
+.win-bar span{flex:1}
+.win-bar i{display:inline-block; width:17px; height:15px; border:1.5px solid #fff; border-radius:3px}
+.win-body{padding:28px 32px 20px}
+.brief .win-body > p{color:var(--muted); max-width:44em}
+.d-brief-signpost{z-index:3; right:max(1%, calc(50% - 540px)) !important; top:-34px !important}
+
+@media (max-width:1180px){ .callout{display:none} }
+@media (max-width:560px){ .win-body{padding:22px 18px 14px} .receipt{width:100%} }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

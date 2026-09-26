@@ -201,7 +201,7 @@ main.home header.site{position:absolute; left:0; right:0; top:0}
   transform:translateX(-50%); background:#000; border-radius:99px}
 
 section{position:relative}
-.band{padding:clamp(64px,9vw,120px) 0}
+.band{padding:clamp(56px,7.5vw,104px) 0}
 .band.tight{padding-top:clamp(40px,6vw,72px)}
 .center{text-align:center}
 .center .lede{margin-left:auto; margin-right:auto}
@@ -241,13 +241,13 @@ section{position:relative}
 
 /* Feature rows: phones one side, words the other */
 .row{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,6vw,90px); align-items:center}
-.row + .row{margin-top:clamp(64px,9vw,120px)}
+.row + .row{margin-top:clamp(64px,8vw,104px)}
 .row.rev .media{order:2}
 .row .media{display:flex; justify-content:center; gap:clamp(12px,2vw,24px)}
 .row .media .phone{width:min(100%,300px)}
 .row .media.pair .phone{width:min(47%,270px)}
 .row .media.pair .phone:nth-child(2){margin-top:60px}
-.row .copy p{color:var(--muted)}
+.row .copy > p{color:var(--muted)}
 .row .copy h3{font-size:clamp(22px,2.6vw,30px); margin-bottom:14px}
 .row .copy .extra{display:flex; align-items:center; gap:14px; margin-top:18px}
 .row .copy .extra img{width:70px; height:auto; transform:rotate(-6deg)}
@@ -278,7 +278,7 @@ section{position:relative}
 .value p{font-size:14px; color:var(--muted); margin:0}
 
 /* Reading it as a business */
-.brief p{color:var(--muted); max-width:46em}
+.brief .note{max-width:none}
 .facts{display:grid; grid-template-columns:1fr 1fr; gap:0 28px; margin:26px 0 18px;
   border-top:2px solid var(--biro)}
 .fact{display:flex; justify-content:space-between; gap:18px; padding:12px 0; border-bottom:1px solid var(--line)}
@@ -436,6 +436,61 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
   .d-gobe-steps{width:56px}
   .d-friends-phone{width:56px; left:6%}
 }
+
+
+/* ---------- Handwritten notes on the screenshots ---------- */
+.callout{position:absolute; margin:0; z-index:5; pointer-events:none; white-space:nowrap;
+  font-family:var(--hand); font-weight:700; font-size:25px; line-height:1.02; color:var(--biro)}
+.callout img{position:absolute; width:104px; height:auto}
+.c-hero-sealed{right:-212px; top:86px; transform:rotate(-3deg)}
+.c-hero-sealed img{left:-104px; top:14px; transform:scaleX(-1) rotate(14deg)}
+.c-hero-walk{left:-226px; top:372px; text-align:right; transform:rotate(-4deg)}
+.c-hero-walk img{right:-104px; top:20px; transform:rotate(-8deg)}
+.c-trail{right:2%; bottom:-58px; transform:rotate(-3deg)}
+.c-trail img{left:-100px; top:-26px; transform:scaleX(-1) rotate(-28deg)}
+.c-trace{left:6%; bottom:-60px; transform:rotate(3deg)}
+.c-trace img{right:-104px; top:-18px; transform:rotate(-30deg)}
+
+/* ---------- Sealed, on foil ---------- */
+.sealed-band .copy p{color:#26272e}
+.sealed-band .copy .extra p{color:#26272e}
+
+/* ---------- The GoBe Score receipt ---------- */
+.receipt{position:relative; background:#fff; width:min(100%,360px); margin:24px 0 16px;
+  padding:22px 22px 16px; font-family:var(--mono); font-size:13px; color:var(--ink);
+  box-shadow:0 16px 30px -18px rgba(12,20,60,.45); transform:rotate(-1.4deg)}
+.receipt::before,.receipt::after{content:""; position:absolute; left:0; right:0; height:10px;
+  background:linear-gradient(135deg,#fff 25%,transparent 25%) -6px 0/12px 12px repeat-x,
+    linear-gradient(225deg,#fff 25%,transparent 25%) -6px 0/12px 12px repeat-x}
+.receipt::after{bottom:-10px}
+.receipt::before{top:-10px; transform:rotate(180deg)}
+.r-head{font-weight:600; font-size:15px; text-align:center; margin:0; letter-spacing:.06em; text-transform:uppercase}
+.r-sub{text-align:center; margin:2px 0 0; color:var(--faint); font-size:11.5px}
+.receipt ul{list-style:none; padding:0; margin:14px 0 6px; border-top:1.5px dashed rgba(12,20,112,.35)}
+.receipt li{display:flex; justify-content:space-between; gap:12px; margin:0; padding:8px 0;
+  border-bottom:1px dashed rgba(12,20,112,.2)}
+.receipt li b{color:var(--go-dark); font-weight:600}
+.r-foot{font-family:var(--hand); font-weight:700; font-size:23px; color:var(--biro); text-align:center; margin:8px 0 0}
+
+/* ---------- The invite link, as the app draws it ---------- */
+.linkpill{display:inline-block; font-family:var(--mono); font-size:14px; font-weight:600; color:var(--ink);
+  background:var(--go-glow); border:2px solid var(--biro); border-radius:14px; padding:12px 18px 11px;
+  box-shadow:3px 3px 0 var(--biro); margin-top:6px; transform:rotate(-1deg)}
+.linkpill span{color:var(--biro)}
+
+/* ---------- A Windows 98 window, gone over in biro ---------- */
+.win{position:relative; max-width:900px; margin:0 auto; background:#fff; border:2px solid var(--biro); border-radius:10px;
+  box-shadow:5px 5px 0 var(--biro); overflow:hidden}
+.win-bar{display:flex; align-items:center; gap:7px; background:var(--biro); color:#fff;
+  font-family:var(--mono); font-size:12px; font-weight:600; padding:8px 12px}
+.win-bar span{flex:1}
+.win-bar i{display:inline-block; width:17px; height:15px; border:1.5px solid #fff; border-radius:3px}
+.win-body{padding:28px 32px 20px}
+.brief .win-body > p{color:var(--muted); max-width:44em}
+.d-brief-signpost{z-index:3; right:max(1%, calc(50% - 540px)) !important; top:-34px !important}
+
+@media (max-width:1180px){ .callout{display:none} }
+@media (max-width:560px){ .win-body{padding:22px 18px 14px} .receipt{width:100%} }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -684,8 +739,7 @@ home = f"""<section class="hero foil torn-below">
 <p class="eyebrow">The social network on a map</p>
 <h1>Go beyond the screen.</h1>
 <p class="lede">Press play and walk. The fog lifts behind you, and the <strong>traces</strong>
-people have left round here turn up underneath: notes, photos and moments pinned to the spot
-they happened.</p>
+people left round here turn up underneath.</p>
 <div class="btns">
 <a class="btn primary" href="{APP_STORE_URL}">Download on the App Store</a>
 <a class="btn" href="#how">How it works</a>
@@ -693,7 +747,8 @@ they happened.</p>
 <p class="note">Free on iPhone · Made in the UK · Ages 16+</p>
 </div>
 <div class="hero-media">
-<span class="whisper">see you out there.</span>
+<p class="callout c-hero-sealed">sealed. walk over<br>and see.<img src="assets/deco/arrow.png" alt="" width="320" height="75"></p>
+<p class="callout c-hero-walk"><img src="assets/deco/arrow.png" alt="" width="320" height="75">the fog lifts<br>where you walk.</p>
 {deco('tape','d-hero-tape', keep=True)}
 {deco('green-steps','d-hero-steps')}
 <div class="phone"><img src="assets/screens/fog-walk.jpg" width="720" height="1564"
@@ -713,9 +768,10 @@ they happened.</p>
 <div class="idea-copy">
 {deco('compass','d-idea-compass')}
 <p class="eyebrow">The idea</p>
-<h2>Everything on GoBe is somewhere. You find it by going there.</h2>
-<p class="lede">Every trace is pinned to the spot it was left. Your map starts under fog and
-you clear it <span class="ringed">on foot</span>. Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
+<h2>Your phone shows you everywhere. GoBe shows you here.</h2>
+<p class="lede">Every trace is pinned to the spot it was left, and the only way to read one
+is to go there. Your map starts under fog, and you clear it <span class="ringed">on foot</span>.</p>
+<p class="lede">Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
 <span class="whisper">you have to go outside to cut through it.</span>
 </div>
 </div>
@@ -726,21 +782,20 @@ you clear it <span class="ringed">on foot</span>. Cross paths with someone and, 
 {deco('green-sparkles','d-how-sparkles')}
 <p class="eyebrow">How it works</p>
 <h2>Walk. Leave a trace. Go and find one.</h2>
-<p class="lede">That's the whole app. Everything you see on the map was left by someone who
-stood there.</p>
+<p class="lede">Three things. That's the app.</p>
 <div class="moves">
 <div class="move">
 <img class="rank" src="assets/rank-1.png" alt="1" width="120" height="120">
 {deco('blue-sparkle','d-move-sparkle')}
-<img class="sticker" src="assets/play.png" alt="" width="330" height="330">
+<img class="sticker" src="assets/play.png" alt="" width="325" height="311">
 <h3>Press play and walk</h3>
 <p>GoBe draws your route as a <span class="word">trail</span> and the fog lifts behind you.
-The ground you clear stays clear all day.</p>
+What you clear stays clear all day.</p>
 </div>
 <div class="move">
 <img class="rank" src="assets/rank-2.png" alt="2" width="120" height="120">
 {deco('pixel-heart','d-move-heart')}
-<img class="sticker" src="assets/plus.png" alt="" width="330" height="330">
+<img class="sticker" src="assets/plus.png" alt="" width="325" height="311">
 <h3>Leave a trace</h3>
 <p>Write a line, snap a photo or film something. Your <span class="word">trace</span> sits on
 the spot for whoever comes along next.</p>
@@ -759,14 +814,14 @@ the spot for whoever comes along next.</p>
 <img class="tape" src="assets/tape.png" alt="" width="220" height="80">
 {deco('stopwatch','d-film-watch', keep=True)}
 <video src="assets/films/walk.mp4" poster="assets/films/walk.jpg" width="660" height="450"
-  autoplay muted loop playsinline preload="metadata" aria-label="A walk along Whitehall tearing the foil open behind the walker"></video>
-<figcaption>the fog lifts as you walk.<span>What you clear stays clear all day. Tomorrow the fog rolls back in, so off you go again.</span></figcaption>
+  autoplay muted loop playsinline preload="metadata" aria-label="A walk along Whitehall, the fog lifting behind the walker"></video>
+<figcaption>the fog lifts as you walk.<span>What you clear stays clear all day. Tomorrow it rolls back in, so off you go again.</span></figcaption>
 </figure>
 <figure class="film">
 <img class="tape" src="assets/tape.png" alt="" width="220" height="80">
 {deco('pin','d-film-pin', keep=True)}
 <video src="assets/films/trace.mp4" poster="assets/films/trace.jpg" width="660" height="450"
-  autoplay muted loop playsinline preload="metadata" aria-label="A trace left on the map, holding open the ground around it as likes arrive"></video>
+  autoplay muted loop playsinline preload="metadata" aria-label="A trace left on the map, holding the fog back round it as likes arrive"></video>
 <figcaption>a trace holds its ground.<span>Every like, comment and retrace pushes the fog further back round it.</span></figcaption>
 </figure>
 </div>
@@ -782,15 +837,15 @@ the spot for whoever comes along next.</p>
   alt="A GoBe trail being recorded through Soho, the walked route drawn in green"></div>
 <div class="phone"><img src="assets/screens/trail.jpg" width="720" height="1564" loading="lazy"
   alt="A finished GoBe trail, with the route on a map, the distance travelled and the time spent outside"></div>
+<p class="callout c-trail"><img src="assets/deco/arrow.png" alt="" width="320" height="75">name it. keep it.</p>
 </div>
 <div class="copy">
 {deco('steps','d-trails-steps')}
 <p class="eyebrow">Trails</p>
-<h3>Press it again to keep it.</h3>
-<p>A trail records your route while you walk, for up to twelve hours. Press stop and you keep
-the lot: the line you walked, how far you went, how long you were outside and every trace you
-left on the way.</p>
-<p>Switch location off halfway and GoBe bins the trail. A trail is a real walk, start to finish.</p>
+<h3>Press play. Press it again to keep it.</h3>
+<p>Your route draws itself across the map while you walk, for up to twelve hours. Stop and
+you keep the lot: the line, the distance, the time outside and every trace you left on the way.</p>
+<p>Switch location off halfway and the trail's binned. Only real walks count.</p>
 </div>
 </div>
 
@@ -801,17 +856,22 @@ left on the way.</p>
   alt="Leaving a trace in GoBe: a short note being written on a card pinned to the spot"></div>
 <div class="phone"><img src="assets/screens/trace.jpg" width="720" height="1564" loading="lazy"
   alt="A trace opened in GoBe, reading &quot;They've put the tables out on the pavement again&quot;"></div>
+<p class="callout c-trace">someone<br>stood here.<img src="assets/deco/arrow.png" alt="" width="320" height="75"></p>
 </div>
 <div class="copy">
 {deco('heart','d-traces-heart')}
 <p class="eyebrow">Traces</p>
 <h3>Leave a trace where you stood.</h3>
-<p>Write something: a tip, a thought, whatever's going on here. Or snap a photo. Whoever gets
-to that spot can read it, like it, comment and retrace it onto their own map.</p>
-<p>The more people like it, the further it reaches. Your street, written by the people on it.</p>
+<p>A tip, a thought, a photo of whatever's happening right there. It stays on that spot for
+whoever comes along next, and they can like it, comment and retrace it onto their own map.</p>
+<p>The more it's liked, the further it reaches. Your street, written by the people on it.</p>
 </div>
 </div>
+</div>
+</section>
 
+<section class="band foil torn-above torn-below sealed-band">
+<div class="bar">
 <div class="row">
 <div class="media">
 {deco('holo-tape','d-sealed-tape', keep=True)}
@@ -821,25 +881,14 @@ to that spot can read it, like it, comment and retrace it onto their own map.</p
 <div class="copy">
 {deco('sparkle-small','d-sealed-sparkle')}
 <p class="eyebrow">Sealed</p>
-<h3>Anything past a short walk stays sealed.</h3>
-<p>On the map it glows under the fog in its own colour: blue for a trace, yellow for a place,
-green for a community. In the drawer it comes wrapped in foil.</p>
-<p>Tap it and GoBe tells you how many minutes away it is. Walk there and it opens.</p>
+<h3>Far-off traces stay sealed till you get there.</h3>
+<p>On the map they glow under the fog in their own colour: blue for a trace, yellow for a
+place, green for a community. In the drawer they come wrapped in foil.</p>
+<p>Tap one and GoBe tells you how many minutes away it is. Walk there and it opens.</p>
 <div class="extra"><img src="assets/sealed.png" alt="" width="240" height="240">
 <p>Who left it and what it says: that's what the walk is for.</p></div>
 </div>
 </div>
-</div>
-</section>
-
-<section class="band foil torn-above torn-below">
-<div class="bar center">
-{deco('globe-stamp','d-band-stamp', keep=True)}
-{deco('cd','d-band-cd')}
-<p class="eyebrow">Who's around</p>
-<h2>You meet the people who walk your streets.</h2>
-<p class="lede">Everyone whose traces you can read has stood where you're standing.
-The streets decide who you run into.</p>
 </div>
 </section>
 
@@ -858,13 +907,13 @@ The streets decide who you run into.</p>
 {deco('bicycle','d-around-bike')}
 <p class="eyebrow">What's around you</p>
 <h3>Everything round here lives on the map.</h3>
-<p>Places to eat, drink, read, train and shop sit between the traces. Communities and events
-are pinned where they meet.</p>
+<p>Cafés, parks, gyms, bookshops and bars sit between the traces. Communities and events are
+pinned where they meet.</p>
 <p>Say you're going, turn up, and leave a trace while you're there.</p>
 </div>
 </div>
 
-<div class="row">
+<div class="row score">
 <div class="media">
 {deco('rosette','d-board-rosette', keep=True)}
 <div class="phone"><img src="assets/screens/board.jpg" width="720" height="1564" loading="lazy"
@@ -873,14 +922,27 @@ are pinned where they meet.</p>
 <div class="copy">
 {deco('star','d-board-star')}
 <p class="eyebrow">Your ground</p>
-<h3>Tap it and see how you rank.</h3>
-<p>Every trail and trace counts towards your neighbourhood, your borough and your city. The
-board shows who's around and who has left the most.</p>
-<p>Get out more, climb higher. The map of a place is made by the people who walk it.</p>
+<h3>Everything you do out there counts.</h3>
+<p>Your GoBe Score goes up every time you get out. Your area has a board too, ranking who's
+put the most into it: your neighbourhood, your borough, your city.</p>
+<div class="receipt" aria-label="What earns GoBe Score points">
+<p class="r-head">GoBe Score</p>
+<p class="r-sub">what counts</p>
+<ul>
+<li><span>Trace left</span><b>+10</b></li>
+<li><span>Trail kept</span><b>+20</b></li>
+<li><span>Every 500 steps</span><b>+1</b></li>
+<li><span>Reached someone's trace</span><b>+12</b></li>
+<li><span>Someone retraced yours</span><b>+8</b></li>
+<li><span>Friend added</span><b>+15</b></li>
+<li><span>Your friend's first trace</span><b>+50</b></li>
+</ul>
+<p class="r-foot">get out more. climb higher.</p>
+</div>
 </div>
 </div>
 
-<div class="row rev">
+<div class="row rev friends">
 <div class="media">
 {deco('flip-phone','d-friends-phone', keep=True)}
 {deco('pixel-speech','d-friends-speech')}
@@ -891,8 +953,9 @@ board shows who's around and who has left the most.</p>
 {deco('smiley','d-friends-smiley')}
 <p class="eyebrow">Friends</p>
 <h3>GoBe's better with your people.</h3>
-<p>Send your invite link. A friend who joins with it gets points on their GoBe Score straight
-away, and you get yours when they leave their first trace.</p>
+<p>Your invite code lets three people in, so pick them well. They get 25 points for joining,
+and you get 50 when they leave their first trace.</p>
+<p class="linkpill">gobeapp.co.uk/f/?c=<span>YOURCODE</span></p>
 </div>
 </div>
 </div>
@@ -961,6 +1024,9 @@ areas stay on your phone.</p>
 <section class="band tight brief" id="about">
 <div class="bar">
 {deco('signpost','d-brief-signpost')}
+<div class="win">
+<div class="win-bar"><span>about-gobe.txt</span><i></i><i></i><i></i></div>
+<div class="win-body">
 <p class="eyebrow">For investors, partners and press</p>
 <h2>The short version.</h2>
 <p>Social networks got very good at keeping people on their phones. GoBe is built to get them
@@ -979,6 +1045,8 @@ grows the way a place does, one street at a time.</p>
 </div>
 <p class="note">Investors, partners and press: <a href="mailto:{CONTACT}">{CONTACT}</a></p>
 </div>
+</div>
+</div>
 </section>
 
 <section class="closer foil torn-above">
@@ -986,7 +1054,7 @@ grows the way a place does, one street at a time.</p>
 {deco('pixel-globe','d-closer-globe', keep=True)}
 {deco('sparkle','d-closer-sparkle', keep=True)}
 {deco('cd','d-closer-cd')}
-<img class="icon" src="assets/icon-rounded.png" alt="" width="360" height="360">
+<img class="icon" src="assets/icon-rounded.png" alt="" width="240" height="240">
 <h2>See you out there.</h2>
 <p class="lede">GoBe is free on the App Store for iPhone.</p>
 <div class="btns">
