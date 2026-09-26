@@ -51,7 +51,7 @@ p{margin:0 0 16px}
 ul{margin:0 0 16px; padding-left:22px}
 li{margin:0 0 9px}
 strong{font-weight:700}
-h1,h2,h3{font-family:var(--mono); font-weight:600; letter-spacing:-.035em; margin:0; color:var(--ink)}
+h1,h2,h3{font-family:var(--mono); font-weight:600; letter-spacing:-.035em; margin:0; color:var(--ink); text-wrap:balance}
 h1{font-size:clamp(34px,5.6vw,62px); line-height:1.04}
 h2{font-size:clamp(25px,3.4vw,38px); line-height:1.1; margin:0 0 14px}
 h3{font-size:clamp(18px,2vw,22px); line-height:1.2; margin:0 0 10px}
@@ -154,7 +154,7 @@ section{position:relative}
 /* The idea, over the photograph of a route torn through foil. */
 .idea .bar{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,70px); align-items:center}
 .idea .pic{position:relative}
-.idea .pic img{border-radius:22px; width:100%; aspect-ratio:1/1; object-fit:cover;
+.idea .pic img:not(.deco):not(.tape){border-radius:22px; width:100%; aspect-ratio:1/1; object-fit:cover;
   box-shadow:0 22px 44px -20px rgba(12,20,60,.4)}
 .idea .pic .tape{position:absolute; top:-18px; left:36%; width:140px; transform:rotate(-4deg)}
 .idea h2{font-size:clamp(26px,3.2vw,40px)}
@@ -205,7 +205,7 @@ section{position:relative}
 .side .who{font-family:var(--mono); font-size:12px; font-weight:600; margin:0 0 10px; text-transform:lowercase}
 .side ul{list-style:none; padding:0; margin:18px 0 0}
 .side li{padding:0 0 12px 30px; position:relative; margin:0}
-.side.feed{background:#c9cbd2 url('foil.jpg') center/520px; color:#1e1f26; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.side.feed{background:linear-gradient(rgba(248,250,252,.4),rgba(248,250,252,.4)),#c9cbd2 url('foil.jpg') center/520px; color:#1e1f26; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
 .side.feed li::before{content:"\00D7"; position:absolute; left:4px; top:-1px; font-family:var(--mono); color:#5a5c66}
 .side.gobe{background:#fff; border:2px solid var(--biro); box-shadow:4px 4px 0 var(--biro)}
 .side.gobe li::before{content:""; position:absolute; left:2px; top:9px; width:16px; height:5px;
@@ -305,6 +305,83 @@ footer.site nav a:hover{text-decoration:underline}
   .fact .v{text-align:left}
   .btn{padding:12px 16px 11px}
 }
+
+/* ---------- The collage kit, tucked in ----------
+   Small, at the edges, mostly behind the thing it sits by. Nothing here
+   carries meaning; it is the scrapbook the app is made of. */
+.deco{position:absolute; pointer-events:none; user-select:none; height:auto; z-index:0}
+.hero-copy,.idea-copy,.row .media,.row .copy,.move,.film,.side,.sheet,.values,.band > .bar,.closer .bar{position:relative}
+.row .copy > :not(.deco),.side > :not(.deco){position:relative; z-index:1}
+.phone{z-index:2}
+.idea .pic > img:not(.deco):not(.tape){position:relative; z-index:1}
+.idea .pic .tape{z-index:3}
+
+.d-hero-sparkle{width:66px; top:-6px; right:4%; transform:rotate(8deg)}
+.d-hero-tape{width:118px; top:-18px; right:-34px; transform:rotate(34deg); z-index:4}
+.d-hero-steps{width:84px; left:-118px; bottom:10px; transform:rotate(-24deg); opacity:.9}
+.d-idea-map{width:170px; right:-54px; bottom:-46px; transform:rotate(9deg)}
+.d-idea-compass{width:84px; top:-54px; right:4%; transform:rotate(14deg); opacity:.85}
+.d-idea-arrow{width:140px; left:-120px; bottom:-54px; transform:scaleX(-1) rotate(-6deg)}
+.ringed{position:relative; white-space:nowrap}
+.ringed::after{content:""; position:absolute; left:-12%; right:-12%; top:-38%; bottom:-38%;
+  background:url('deco/oval.png') center/100% 100% no-repeat; pointer-events:none}
+.d-how-sparkles{width:76px; top:-8px; left:17%; transform:rotate(-8deg)}
+.d-move-heart{width:50px; right:-18px; bottom:-24px; transform:rotate(-12deg); z-index:3}
+.d-move-sparkle{width:40px; left:-18px; bottom:-18px; transform:rotate(10deg); z-index:3}
+.d-film-watch{width:86px; right:-30px; bottom:-34px; transform:rotate(14deg); z-index:3}
+.d-film-pin{width:66px; right:-18px; top:-34px; transform:rotate(-10deg); z-index:3}
+.d-trails-trainer{width:136px; left:-36px; bottom:-46px; transform:rotate(-12deg); z-index:3}
+.d-trails-steps{width:88px; top:-78px; right:14%; transform:rotate(22deg); opacity:.85}
+.d-traces-camera{width:118px; left:-40px; bottom:40px; transform:rotate(-12deg); z-index:3}
+.d-traces-heart{width:58px; top:-58px; left:-6px; transform:rotate(-10deg)}
+.d-sealed-tape{width:132px; top:-20px; left:calc(50% - 66px); transform:rotate(-7deg); z-index:3}
+.d-sealed-sparkle{width:62px; top:-52px; right:18%; transform:rotate(12deg)}
+.d-band-stamp{width:104px; left:1%; bottom:-58px; transform:rotate(-12deg)}
+.d-band-cd{width:118px; right:-7%; top:-96px; transform:rotate(18deg)}
+.d-around-coffee{width:84px; right:-26px; bottom:-22px; transform:rotate(10deg); z-index:3}
+.d-around-map{width:108px; top:-66px; right:4%; transform:rotate(9deg)}
+.d-around-bike{width:150px; left:-8px; bottom:-120px; transform:rotate(-4deg); opacity:.95}
+.d-board-rosette{width:94px; top:-28px; right:16%; transform:rotate(12deg); z-index:3}
+.d-board-star{width:50px; top:-54px; left:-6px; transform:rotate(-12deg)}
+.d-friends-phone{width:70px; left:10%; bottom:-6px; transform:rotate(-16deg); z-index:3}
+.d-friends-speech{width:72px; left:2%; bottom:88px; transform:rotate(8deg); z-index:3}
+.d-friends-smiley{width:64px; top:-64px; right:22%; transform:rotate(10deg)}
+.d-feed-cursor{width:78px; right:-14px; top:-34px; transform:rotate(-10deg); z-index:2}
+.d-gobe-steps{width:70px; right:12px; bottom:-28px; transform:rotate(18deg); z-index:2}
+.d-privacy-receipt{width:108px; right:-44px; top:-54px; transform:rotate(14deg); z-index:-1}
+.d-values-globe{width:70px; right:-6px; top:-72px; transform:rotate(12deg); opacity:.8}
+.d-brief-signpost{width:84px; right:3%; top:6px; transform:rotate(6deg)}
+.d-closer-globe{width:84px; left:12%; top:0; transform:rotate(-14deg)}
+.d-closer-sparkle{width:62px; right:18%; top:10px; transform:rotate(10deg)}
+.d-closer-cd{width:124px; right:5%; bottom:-40px; transform:rotate(22deg)}
+.brief h2{display:inline-block; position:relative}
+.brief h2::after{content:""; position:absolute; left:-2%; right:-6%; bottom:-16px; height:18px;
+  background:url('deco/underline.png') center/100% 100% no-repeat}
+main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; margin-left:.28em;
+  background:url('deco/star.png') center/contain no-repeat; transform:rotate(12deg) translateY(-.12em)}
+.handoff-mark{position:relative; display:inline-block}
+.handoff-mark::after{content:""; position:absolute; width:96px; height:34px; top:-12px; right:-38px;
+  background:url('deco/tape.png') center/contain no-repeat; transform:rotate(30deg)}
+
+@media (max-width:900px){
+  .deco{display:none}
+  .deco.keep{display:block}
+  .d-hero-tape{width:92px; right:-20px}
+  .d-hero-sparkle{width:48px; right:2%; top:-18px}
+  .d-idea-map{width:120px; right:-14px; bottom:-30px}
+  .d-trails-trainer{width:100px; left:-6px; bottom:-30px}
+  .d-traces-camera{width:90px; left:-6px}
+  .d-around-coffee{width:66px; right:-6px}
+  .d-board-rosette{width:74px}
+  .d-film-watch{width:66px; right:-10px}
+  .d-film-pin{width:52px; right:-6px}
+  .d-band-stamp{width:80px}
+  .d-closer-globe{width:64px; left:6%}
+  .d-closer-sparkle{width:48px; right:8%}
+  .d-gobe-steps{width:56px}
+  .d-friends-phone{width:56px; left:6%}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .btn,nav.top a.get{transition:none}

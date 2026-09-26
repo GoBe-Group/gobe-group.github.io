@@ -106,7 +106,7 @@ p{margin:0 0 16px}
 ul{margin:0 0 16px; padding-left:22px}
 li{margin:0 0 9px}
 strong{font-weight:700}
-h1,h2,h3{font-family:var(--mono); font-weight:600; letter-spacing:-.035em; margin:0; color:var(--ink)}
+h1,h2,h3{font-family:var(--mono); font-weight:600; letter-spacing:-.035em; margin:0; color:var(--ink); text-wrap:balance}
 h1{font-size:clamp(34px,5.6vw,62px); line-height:1.04}
 h2{font-size:clamp(25px,3.4vw,38px); line-height:1.1; margin:0 0 14px}
 h3{font-size:clamp(18px,2vw,22px); line-height:1.2; margin:0 0 10px}
@@ -209,7 +209,7 @@ section{position:relative}
 /* The idea, over the photograph of a route torn through foil. */
 .idea .bar{display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,70px); align-items:center}
 .idea .pic{position:relative}
-.idea .pic img{border-radius:22px; width:100%; aspect-ratio:1/1; object-fit:cover;
+.idea .pic img:not(.deco):not(.tape){border-radius:22px; width:100%; aspect-ratio:1/1; object-fit:cover;
   box-shadow:0 22px 44px -20px rgba(12,20,60,.4)}
 .idea .pic .tape{position:absolute; top:-18px; left:36%; width:140px; transform:rotate(-4deg)}
 .idea h2{font-size:clamp(26px,3.2vw,40px)}
@@ -260,7 +260,7 @@ section{position:relative}
 .side .who{font-family:var(--mono); font-size:12px; font-weight:600; margin:0 0 10px; text-transform:lowercase}
 .side ul{list-style:none; padding:0; margin:18px 0 0}
 .side li{padding:0 0 12px 30px; position:relative; margin:0}
-.side.feed{background:#c9cbd2 url('foil.jpg') center/520px; color:#1e1f26; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.side.feed{background:linear-gradient(rgba(248,250,252,.4),rgba(248,250,252,.4)),#c9cbd2 url('foil.jpg') center/520px; color:#1e1f26; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
 .side.feed li::before{content:"\\00D7"; position:absolute; left:4px; top:-1px; font-family:var(--mono); color:#5a5c66}
 .side.gobe{background:#fff; border:2px solid var(--biro); box-shadow:4px 4px 0 var(--biro)}
 .side.gobe li::before{content:""; position:absolute; left:2px; top:9px; width:16px; height:5px;
@@ -360,6 +360,83 @@ footer.site nav a:hover{text-decoration:underline}
   .fact .v{text-align:left}
   .btn{padding:12px 16px 11px}
 }
+
+/* ---------- The collage kit, tucked in ----------
+   Small, at the edges, mostly behind the thing it sits by. Nothing here
+   carries meaning; it is the scrapbook the app is made of. */
+.deco{position:absolute; pointer-events:none; user-select:none; height:auto; z-index:0}
+.hero-copy,.idea-copy,.row .media,.row .copy,.move,.film,.side,.sheet,.values,.band > .bar,.closer .bar{position:relative}
+.row .copy > :not(.deco),.side > :not(.deco){position:relative; z-index:1}
+.phone{z-index:2}
+.idea .pic > img:not(.deco):not(.tape){position:relative; z-index:1}
+.idea .pic .tape{z-index:3}
+
+.d-hero-sparkle{width:66px; top:-6px; right:4%; transform:rotate(8deg)}
+.d-hero-tape{width:118px; top:-18px; right:-34px; transform:rotate(34deg); z-index:4}
+.d-hero-steps{width:84px; left:-118px; bottom:10px; transform:rotate(-24deg); opacity:.9}
+.d-idea-map{width:170px; right:-54px; bottom:-46px; transform:rotate(9deg)}
+.d-idea-compass{width:84px; top:-54px; right:4%; transform:rotate(14deg); opacity:.85}
+.d-idea-arrow{width:140px; left:-120px; bottom:-54px; transform:scaleX(-1) rotate(-6deg)}
+.ringed{position:relative; white-space:nowrap}
+.ringed::after{content:""; position:absolute; left:-12%; right:-12%; top:-38%; bottom:-38%;
+  background:url('deco/oval.png') center/100% 100% no-repeat; pointer-events:none}
+.d-how-sparkles{width:76px; top:-8px; left:17%; transform:rotate(-8deg)}
+.d-move-heart{width:50px; right:-18px; bottom:-24px; transform:rotate(-12deg); z-index:3}
+.d-move-sparkle{width:40px; left:-18px; bottom:-18px; transform:rotate(10deg); z-index:3}
+.d-film-watch{width:86px; right:-30px; bottom:-34px; transform:rotate(14deg); z-index:3}
+.d-film-pin{width:66px; right:-18px; top:-34px; transform:rotate(-10deg); z-index:3}
+.d-trails-trainer{width:136px; left:-36px; bottom:-46px; transform:rotate(-12deg); z-index:3}
+.d-trails-steps{width:88px; top:-78px; right:14%; transform:rotate(22deg); opacity:.85}
+.d-traces-camera{width:118px; left:-40px; bottom:40px; transform:rotate(-12deg); z-index:3}
+.d-traces-heart{width:58px; top:-58px; left:-6px; transform:rotate(-10deg)}
+.d-sealed-tape{width:132px; top:-20px; left:calc(50% - 66px); transform:rotate(-7deg); z-index:3}
+.d-sealed-sparkle{width:62px; top:-52px; right:18%; transform:rotate(12deg)}
+.d-band-stamp{width:104px; left:1%; bottom:-58px; transform:rotate(-12deg)}
+.d-band-cd{width:118px; right:-7%; top:-96px; transform:rotate(18deg)}
+.d-around-coffee{width:84px; right:-26px; bottom:-22px; transform:rotate(10deg); z-index:3}
+.d-around-map{width:108px; top:-66px; right:4%; transform:rotate(9deg)}
+.d-around-bike{width:150px; left:-8px; bottom:-120px; transform:rotate(-4deg); opacity:.95}
+.d-board-rosette{width:94px; top:-28px; right:16%; transform:rotate(12deg); z-index:3}
+.d-board-star{width:50px; top:-54px; left:-6px; transform:rotate(-12deg)}
+.d-friends-phone{width:70px; left:10%; bottom:-6px; transform:rotate(-16deg); z-index:3}
+.d-friends-speech{width:72px; left:2%; bottom:88px; transform:rotate(8deg); z-index:3}
+.d-friends-smiley{width:64px; top:-64px; right:22%; transform:rotate(10deg)}
+.d-feed-cursor{width:78px; right:-14px; top:-34px; transform:rotate(-10deg); z-index:2}
+.d-gobe-steps{width:70px; right:12px; bottom:-28px; transform:rotate(18deg); z-index:2}
+.d-privacy-receipt{width:108px; right:-44px; top:-54px; transform:rotate(14deg); z-index:-1}
+.d-values-globe{width:70px; right:-6px; top:-72px; transform:rotate(12deg); opacity:.8}
+.d-brief-signpost{width:84px; right:3%; top:6px; transform:rotate(6deg)}
+.d-closer-globe{width:84px; left:12%; top:0; transform:rotate(-14deg)}
+.d-closer-sparkle{width:62px; right:18%; top:10px; transform:rotate(10deg)}
+.d-closer-cd{width:124px; right:5%; bottom:-40px; transform:rotate(22deg)}
+.brief h2{display:inline-block; position:relative}
+.brief h2::after{content:""; position:absolute; left:-2%; right:-6%; bottom:-16px; height:18px;
+  background:url('deco/underline.png') center/100% 100% no-repeat}
+main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; margin-left:.28em;
+  background:url('deco/star.png') center/contain no-repeat; transform:rotate(12deg) translateY(-.12em)}
+.handoff-mark{position:relative; display:inline-block}
+.handoff-mark::after{content:""; position:absolute; width:96px; height:34px; top:-12px; right:-38px;
+  background:url('deco/tape.png') center/contain no-repeat; transform:rotate(30deg)}
+
+@media (max-width:900px){
+  .deco{display:none}
+  .deco.keep{display:block}
+  .d-hero-tape{width:92px; right:-20px}
+  .d-hero-sparkle{width:48px; right:2%; top:-18px}
+  .d-idea-map{width:120px; right:-14px; bottom:-30px}
+  .d-trails-trainer{width:100px; left:-6px; bottom:-30px}
+  .d-traces-camera{width:90px; left:-6px}
+  .d-around-coffee{width:66px; right:-6px}
+  .d-board-rosette{width:74px}
+  .d-film-watch{width:66px; right:-10px}
+  .d-film-pin{width:52px; right:-6px}
+  .d-band-stamp{width:80px}
+  .d-closer-globe{width:64px; left:6%}
+  .d-closer-sparkle{width:48px; right:8%}
+  .d-gobe-steps{width:56px}
+  .d-friends-phone{width:56px; left:6%}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .btn,nav.top a.get{transition:none}
@@ -370,6 +447,18 @@ GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
              '<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" '
              'numOctaves="2" stitchTiles="stitch"/></filter>'
              '<rect width="100%" height="100%" filter="url(#n)"/></svg>')
+
+
+def deco(name, cls, keep=False):
+    """One piece of the collage kit, tucked in somewhere: decoration only, so
+    hidden from assistive tech, and most of it dropped on a phone (`keep`
+    marks the few that stay)."""
+    with open(HERE / "assets" / "deco" / f"{name}.png", "rb") as f:
+        head = f.read(24)
+    w, h = int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
+    extra = " keep" if keep else ""
+    return (f'<img class="deco {cls}{extra}" src="assets/deco/{name}.png" alt="" aria-hidden="true" '
+            f'width="{w}" height="{h}" loading="lazy">')
 
 
 def page(title, body, active="", wrap_class="", base="", description="", csp=CSP, head=""):
@@ -591,6 +680,7 @@ HOME_DESC = (
 home = f"""<section class="hero foil torn-below">
 <div class="bar">
 <div class="hero-copy">
+{deco('sparkle','d-hero-sparkle', keep=True)}
 <p class="eyebrow">The social network on a map</p>
 <h1>Go beyond the screen.</h1>
 <p class="lede">Press play and walk. The fog lifts behind you, and the <strong>traces</strong>
@@ -604,6 +694,8 @@ they happened.</p>
 </div>
 <div class="hero-media">
 <span class="whisper">see you out there.</span>
+{deco('tape','d-hero-tape', keep=True)}
+{deco('green-steps','d-hero-steps')}
 <div class="phone"><img src="assets/screens/fog-walk.jpg" width="720" height="1564"
   alt="The GoBe map of Soho under iridescent foil, torn open along a walk, with a green trail running through the cleared streets"></div>
 </div>
@@ -614,14 +706,16 @@ they happened.</p>
 <div class="bar">
 <div class="pic">
 <img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+{deco('map-scrap','d-idea-map', keep=True)}
 <img src="assets/cut-through.jpg" width="1100" height="1100" loading="lazy"
   alt="A green route and a blue dot on a paper map, showing through a tear in crumpled holographic foil">
 </div>
-<div>
+<div class="idea-copy">
+{deco('compass','d-idea-compass')}
 <p class="eyebrow">The idea</p>
 <h2>Everything on GoBe is somewhere. You find it by going there.</h2>
 <p class="lede">Every trace is pinned to the spot it was left. Your map starts under fog and
-you clear it on foot. Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
+you clear it <span class="ringed">on foot</span>. Cross paths with someone and, if you've both said yes, GoBe tells you.</p>
 <span class="whisper">you have to go outside to cut through it.</span>
 </div>
 </div>
@@ -629,6 +723,7 @@ you clear it on foot. Cross paths with someone and, if you've both said yes, GoB
 
 <section class="band tight center" id="how">
 <div class="bar">
+{deco('green-sparkles','d-how-sparkles')}
 <p class="eyebrow">How it works</p>
 <h2>Walk. Leave a trace. Go and find one.</h2>
 <p class="lede">That's the whole app. Everything you see on the map was left by someone who
@@ -636,6 +731,7 @@ stood there.</p>
 <div class="moves">
 <div class="move">
 <img class="rank" src="assets/rank-1.png" alt="1" width="120" height="120">
+{deco('blue-sparkle','d-move-sparkle')}
 <img class="sticker" src="assets/play.png" alt="" width="160" height="160">
 <h3>Press play and walk</h3>
 <p>GoBe draws your route as a <span class="word">trail</span> and the fog lifts behind you.
@@ -643,6 +739,7 @@ The ground you clear stays clear all day.</p>
 </div>
 <div class="move">
 <img class="rank" src="assets/rank-2.png" alt="2" width="120" height="120">
+{deco('pixel-heart','d-move-heart')}
 <img class="sticker" src="assets/plus.png" alt="" width="160" height="160">
 <h3>Leave a trace</h3>
 <p>Write a line, snap a photo or film something. Your <span class="word">trace</span> sits on
@@ -660,12 +757,14 @@ the spot for whoever comes along next.</p>
 <div class="films">
 <figure class="film">
 <img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+{deco('stopwatch','d-film-watch', keep=True)}
 <video src="assets/films/walk.mp4" poster="assets/films/walk.jpg" width="660" height="450"
   autoplay muted loop playsinline preload="metadata" aria-label="A walk along Whitehall tearing the foil open behind the walker"></video>
 <figcaption>the fog lifts as you walk.<span>What you clear stays clear all day. Tomorrow the fog rolls back in, so off you go again.</span></figcaption>
 </figure>
 <figure class="film">
 <img class="tape" src="assets/tape.png" alt="" width="220" height="80">
+{deco('pin','d-film-pin', keep=True)}
 <video src="assets/films/trace.mp4" poster="assets/films/trace.jpg" width="660" height="450"
   autoplay muted loop playsinline preload="metadata" aria-label="A trace left on the map, holding open the ground around it as likes arrive"></video>
 <figcaption>a trace holds its ground.<span>Every like, comment and retrace pushes the fog further back round it.</span></figcaption>
@@ -678,12 +777,14 @@ the spot for whoever comes along next.</p>
 <div class="bar">
 <div class="row">
 <div class="media pair">
+{deco('trainer','d-trails-trainer', keep=True)}
 <div class="phone"><img src="assets/screens/walk.jpg" width="720" height="1564" loading="lazy"
   alt="A GoBe trail being recorded through Soho, the walked route drawn in green"></div>
 <div class="phone"><img src="assets/screens/trail.jpg" width="720" height="1564" loading="lazy"
   alt="A finished GoBe trail, with the route on a map, the distance travelled and the time spent outside"></div>
 </div>
 <div class="copy">
+{deco('steps','d-trails-steps')}
 <p class="eyebrow">Trails</p>
 <h3>Press it again to keep it.</h3>
 <p>A trail records your route while you walk, for up to twelve hours. Press stop and you keep
@@ -695,12 +796,14 @@ left on the way.</p>
 
 <div class="row rev">
 <div class="media pair">
+{deco('camera','d-traces-camera', keep=True)}
 <div class="phone"><img src="assets/screens/compose.jpg" width="720" height="1564" loading="lazy"
   alt="Leaving a trace in GoBe: a short note being written on a card pinned to the spot"></div>
 <div class="phone"><img src="assets/screens/trace.jpg" width="720" height="1564" loading="lazy"
   alt="A trace opened in GoBe, reading &quot;They've put the tables out on the pavement again&quot;"></div>
 </div>
 <div class="copy">
+{deco('heart','d-traces-heart')}
 <p class="eyebrow">Traces</p>
 <h3>Leave a trace where you stood.</h3>
 <p>Write something: a tip, a thought, whatever's going on here. Or snap a photo. Whoever gets
@@ -711,10 +814,12 @@ to that spot can read it, like it, comment and retrace it onto their own map.</p
 
 <div class="row">
 <div class="media">
+{deco('holo-tape','d-sealed-tape', keep=True)}
 <div class="phone"><img src="assets/screens/sealed.jpg" width="720" height="1564" loading="lazy"
   alt="The GoBe drawer, where traces beyond a short walk are dealt wrapped in iridescent foil"></div>
 </div>
 <div class="copy">
+{deco('sparkle-small','d-sealed-sparkle')}
 <p class="eyebrow">Sealed</p>
 <h3>Anything past a short walk stays sealed.</h3>
 <p>On the map it glows under the fog in its own colour: blue for a trace, yellow for a place,
@@ -729,6 +834,8 @@ green for a community. In the drawer it comes wrapped in foil.</p>
 
 <section class="band foil torn-above torn-below">
 <div class="bar center">
+{deco('globe-stamp','d-band-stamp', keep=True)}
+{deco('cd','d-band-cd')}
 <p class="eyebrow">Who's around</p>
 <h2>You meet the people who walk your streets.</h2>
 <p class="lede">Everyone whose traces you can read has stood where you're standing.
@@ -740,12 +847,15 @@ The streets decide who you run into.</p>
 <div class="bar">
 <div class="row rev">
 <div class="media pair">
+{deco('coffee','d-around-coffee', keep=True)}
 <div class="phone"><img src="assets/screens/map.jpg" width="720" height="1564" loading="lazy"
   alt="The GoBe map of central London with traces, places and events laid on the streets"></div>
 <div class="phone"><img src="assets/screens/event.jpg" width="720" height="1564" loading="lazy"
   alt="An event board in GoBe, Records in the Square, with Going, Maybe and Can't go"></div>
 </div>
 <div class="copy">
+{deco('folded-map','d-around-map')}
+{deco('bicycle','d-around-bike')}
 <p class="eyebrow">What's around you</p>
 <h3>Everything round here lives on the map.</h3>
 <p>Places to eat, drink, read, train and shop sit between the traces. Communities and events
@@ -756,10 +866,12 @@ are pinned where they meet.</p>
 
 <div class="row">
 <div class="media">
+{deco('rosette','d-board-rosette', keep=True)}
 <div class="phone"><img src="assets/screens/board.jpg" width="720" height="1564" loading="lazy"
   alt="GoBe's leaderboard for Westminster: who's around, ranked, with the reader fourth"></div>
 </div>
 <div class="copy">
+{deco('star','d-board-star')}
 <p class="eyebrow">Your ground</p>
 <h3>Tap it and see how you rank.</h3>
 <p>Every trail and trace counts towards your neighbourhood, your borough and your city. The
@@ -770,10 +882,13 @@ board shows who's around and who has left the most.</p>
 
 <div class="row rev">
 <div class="media">
+{deco('flip-phone','d-friends-phone', keep=True)}
+{deco('pixel-speech','d-friends-speech')}
 <div class="phone"><img src="assets/screens/invite.jpg" width="720" height="1564" loading="lazy"
   alt="GoBe's invite page, with a personal link to share with friends"></div>
 </div>
 <div class="copy">
+{deco('smiley','d-friends-smiley')}
 <p class="eyebrow">Friends</p>
 <h3>GoBe's better with your people.</h3>
 <p>Send your invite link. A friend who joins with it gets points on their GoBe Score straight
@@ -789,6 +904,7 @@ away, and you get yours when they leave their first trace.</p>
 <h2>A feed keeps you scrolling. GoBe gets you out.</h2>
 <div class="versus">
 <div class="side feed">
+{deco('cursor','d-feed-cursor')}
 <p class="who">A feed</p>
 <h3>Keeps you in</h3>
 <ul>
@@ -799,6 +915,7 @@ away, and you get yours when they leave their first trace.</p>
 </ul>
 </div>
 <div class="side gobe">
+{deco('green-steps','d-gobe-steps', keep=True)}
 <p class="who">GoBe</p>
 <h3>Gets you out</h3>
 <ul>
@@ -820,6 +937,7 @@ away, and you get yours when they leave their first trace.</p>
 <p class="lede">A map of real places has to keep people safe at them. Here's how GoBe does it.</p>
 </div>
 <div class="sheet">
+{deco('receipt','d-privacy-receipt')}
 <p>Traces are saved to a rough spot on a grid about thirty metres across. The exact point is
 never stored, on your phone or on our servers.</p>
 <p>Trails are more precise, so trails stay private to you.</p>
@@ -831,6 +949,7 @@ areas stay on your phone.</p>
 </div>
 <div class="bar">
 <div class="values">
+{deco('globe','d-values-globe')}
 <div class="value"><div class="vtitle">Free</div><p>Nothing to pay and no ads.</p></div>
 <div class="value"><div class="vtitle">Your data is yours</div><p>We never sell it. Delete your account and everything in it whenever you like.</p></div>
 <div class="value"><div class="vtitle">Made in the UK</div><p>An independent app, made in Britain.</p></div>
@@ -841,6 +960,7 @@ areas stay on your phone.</p>
 
 <section class="band tight brief" id="about">
 <div class="bar">
+{deco('signpost','d-brief-signpost')}
 <p class="eyebrow">For investors, partners and press</p>
 <h2>The short version.</h2>
 <p>Social networks got very good at keeping people on their phones. GoBe is built to get them
@@ -863,6 +983,9 @@ grows the way a place does, one street at a time.</p>
 
 <section class="closer foil torn-above">
 <div class="bar">
+{deco('pixel-globe','d-closer-globe', keep=True)}
+{deco('sparkle','d-closer-sparkle', keep=True)}
+{deco('cd','d-closer-cd')}
 <img class="icon" src="assets/icon-rounded.png" alt="" width="360" height="360">
 <h2>See you out there.</h2>
 <p class="lede">GoBe is free on the App Store for iPhone.</p>
