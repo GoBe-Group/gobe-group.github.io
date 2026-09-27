@@ -1419,12 +1419,13 @@ print("wrote i/index.html")
 
 # --- /f/ : a friend's invite code ------------------------------------------
 #
-# Where a friend's invite link lands (/f/?c=CODE). It is how GoBe is
-# downloaded from an invite: the code is shown big, the App Store button
-# copies it on the way out (a tap is the only moment a page may write to the
-# clipboard), and the sign-up page's code field has a Paste button for it.
-# If GoBe is already on the phone, the universal link opens the app instead
+# Where a friend's invite link lands (/f/?c=CODE). The link is for getting
+# GoBe, so the page goes on to the App Store by itself after a moment, long
+# enough to see the code. The button copies the code on the way out for
+# anybody quicker than that (a tap is the only moment a page may write to the
+# clipboard). Once GoBe is on the phone the same link opens the app instead
 # (the association file claims /f/), and the app fills the code in itself.
+# `?noauto=1` holds the page still, for looking at it.
 #
 # A code is not a secret the way a gathering invite is: it is meant to be
 # typed and shown, so showing it here costs nothing.
@@ -1438,6 +1439,9 @@ FRIEND_JS = f"""(function(){{
   }}
   var code = (raw || '').trim().replace(/\\/+$/, '').toUpperCase();
   var ok = /^[A-Z0-9]{{4,12}}$/.test(code);
+  var auto = q.get('noauto') !== '1';
+  var gone = false;
+  function go() {{ if (!gone) {{ gone = true; location.replace(STORE); }} }}
 
   function start() {{
     var shown = document.getElementById('invite-code');
@@ -1453,10 +1457,10 @@ FRIEND_JS = f"""(function(){{
       get.addEventListener('click', function (event) {{
         if (!ok || !navigator.clipboard) return;
         event.preventDefault();
-        var go = function () {{ location.href = STORE; }};
         navigator.clipboard.writeText(code).then(go, go);
       }});
     }}
+    if (auto) setTimeout(go, 1600);
   }}
 
   if (document.readyState === 'loading') {{
@@ -1478,9 +1482,9 @@ friend = f"""<section class="handoff">
 <div id="code-box">
 <p class="lede">Your invite code</p>
 <p class="invite-code" id="invite-code"></p>
-<p class="note">Get GoBe copies it for you. When you make your account, tap
-<strong>Paste</strong> by the invite code: it puts points on your GoBe Score
-straight away, and on theirs once you leave your first trace.</p>
+<p class="note">Taking you to the App Store. Once GoBe is on your phone, open
+this link again and the code goes in by itself: it puts points on your GoBe
+Score straight away, and on theirs once you leave your first trace.</p>
 </div>
 <div class="hero-cta">
 <a class="btn" id="get-gobe" href="{APP_STORE_URL}">Get GoBe</a>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-MWq1yztJLenrA30zvjmgXQutTSVKThWs9d6yb2XsVwU='; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-v3VwtiHi6YJJIDBYT/wtJMfcdYcafOQvqc1EWLgkkmQ='; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>You&#x27;re invited · GoBe</title>
 <meta name="description" content="A friend invited you to GoBe. Get the app and bring their invite code.">
@@ -26,6 +26,9 @@
   }
   var code = (raw || '').trim().replace(/\/+$/, '').toUpperCase();
   var ok = /^[A-Z0-9]{4,12}$/.test(code);
+  var auto = q.get('noauto') !== '1';
+  var gone = false;
+  function go() { if (!gone) { gone = true; location.replace(STORE); } }
 
   function start() {
     var shown = document.getElementById('invite-code');
@@ -41,10 +44,10 @@
       get.addEventListener('click', function (event) {
         if (!ok || !navigator.clipboard) return;
         event.preventDefault();
-        var go = function () { location.href = STORE; };
         navigator.clipboard.writeText(code).then(go, go);
       });
     }
+    if (auto) setTimeout(go, 1600);
   }
 
   if (document.readyState === 'loading') {
@@ -68,9 +71,9 @@
 <div id="code-box">
 <p class="lede">Your invite code</p>
 <p class="invite-code" id="invite-code"></p>
-<p class="note">Get GoBe copies it for you. When you make your account, tap
-<strong>Paste</strong> by the invite code: it puts points on your GoBe Score
-straight away, and on theirs once you leave your first trace.</p>
+<p class="note">Taking you to the App Store. Once GoBe is on your phone, open
+this link again and the code goes in by itself: it puts points on your GoBe
+Score straight away, and on theirs once you leave your first trace.</p>
 </div>
 <div class="hero-cta">
 <a class="btn" id="get-gobe" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get GoBe</a>
