@@ -679,7 +679,22 @@ wk.mkdir(exist_ok=True)
 # to change it, which is what has kept universal links from working. Hosts that
 # read a `_headers` file (Cloudflare Pages, Netlify) honour this; on GitHub Pages
 # it's simply an inert text file, so it's safe to ship either way.
+#
+# Every page also carries the security headers a <meta> tag can't set (27 Sep
+# 2026 audit): HTTPS remembered for a year, no framing by other sites, no
+# content-type guessing, and none of the phone's sensors asked for. The strict
+# per-page CSP stays in each page's <meta>; the header one only adds
+# frame-ancestors, which a <meta> CSP ignores.
 (HERE / "_headers").write_text(
+    "/*\n"
+    "  Strict-Transport-Security: max-age=31536000; includeSubDomains\n"
+    "  X-Content-Type-Options: nosniff\n"
+    "  X-Frame-Options: DENY\n"
+    "  Content-Security-Policy: frame-ancestors 'none'\n"
+    "  Referrer-Policy: strict-origin-when-cross-origin\n"
+    "  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()\n"
+    "  Cross-Origin-Opener-Policy: same-origin\n"
+    "\n"
     "/.well-known/apple-app-site-association\n"
     "  Content-Type: application/json\n"
     "  Cache-Control: public, max-age=3600\n",
