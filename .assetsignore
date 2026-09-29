@@ -8,3 +8,5 @@ wrangler.jsonc
 .gitignore
 .assetsignore
 .claude
+# The launch film: too big for the Workers build, served from GitHub Pages.
+assets/films/launch-*.mp4

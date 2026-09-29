@@ -1532,8 +1532,12 @@ Score straight away, and on theirs once you leave your first trace.</p>
 print("wrote f/index.html")
 
 # ─── /film: the launch film, on a page of its own to link to ────────────────
+# The film files are too big for the Cloudflare Workers build (it fails on
+# them; .assetsignore keeps them out), so they are played from the GitHub Pages
+# copy of this same repo, which still serves everything.
+FILM_HOST = "https://gobe-group.github.io"
 FILM_CSP = (
-    "default-src 'none'; img-src 'self'; media-src 'self'; style-src 'self'; font-src 'self'; "
+    "default-src 'none'; img-src 'self'; media-src 'self' " + FILM_HOST + "; style-src 'self'; font-src 'self'; "
     "base-uri 'none'; form-action 'none'"
 )
 film = f"""<section class="handoff">
@@ -1541,9 +1545,9 @@ film = f"""<section class="handoff">
 <h1>The internet is outside.</h1>
 <p class="lede">GoBe is a map of photos and notes that people leave where they are.
 You can only open one where it was left, so you walk there.</p>
-<video class="launch-film square" src="/assets/films/launch-square.mp4" controls playsinline preload="metadata"
+<video class="launch-film square" src="{FILM_HOST}/assets/films/launch-square.mp4" controls playsinline preload="metadata"
   poster="/assets/films/launch.jpg" aria-label="The GoBe launch film"></video>
-<video class="launch-film tall" src="/assets/films/launch-vertical.mp4" controls playsinline preload="none"
+<video class="launch-film tall" src="{FILM_HOST}/assets/films/launch-vertical.mp4" controls playsinline preload="none"
   poster="/assets/films/launch-vertical.jpg" aria-label="The GoBe launch film"></video>
 <div class="hero-cta">
 <a class="btn" href="{APP_STORE_URL}">Get GoBe</a>
