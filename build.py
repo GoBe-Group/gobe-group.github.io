@@ -496,6 +496,14 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
   html{scroll-behavior:auto}
   .btn,nav.top a.get{transition:none}
 }
+
+/* /film: the 1.5 launch film on its own page, for sharing. Square on a
+   desktop, the vertical cut on a phone. */
+.launch-film{display:block;width:100%;max-width:640px;aspect-ratio:1/1;margin:28px auto 8px;
+  border-radius:22px;background:#dfe3ea;box-shadow:0 24px 50px rgba(16,26,69,.18)}
+.launch-film.tall{display:none}
+@media (max-width:700px){.launch-film.square{display:none}
+  .launch-film.tall{display:block;max-width:420px;aspect-ratio:9/16;max-height:82vh}}
 """
 
 GRAIN_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140">'
@@ -1522,6 +1530,41 @@ Score straight away, and on theirs once you leave your first trace.</p>
     encoding="utf-8",
 )
 print("wrote f/index.html")
+
+# ─── /film: the launch film, on a page of its own to link to ────────────────
+FILM_CSP = (
+    "default-src 'none'; img-src 'self'; media-src 'self'; style-src 'self'; font-src 'self'; "
+    "base-uri 'none'; form-action 'none'"
+)
+film = f"""<section class="handoff">
+<p class="eyebrow">GoBe 1.5</p>
+<h1>The internet is outside.</h1>
+<p class="lede">GoBe is a map of photos and notes that people leave where they are.
+You can only open one where it was left, so you walk there.</p>
+<video class="launch-film square" src="/assets/films/launch-square.mp4" controls playsinline preload="metadata"
+  poster="/assets/films/launch.jpg" aria-label="The GoBe launch film"></video>
+<video class="launch-film tall" src="/assets/films/launch-vertical.mp4" controls playsinline preload="none"
+  poster="/assets/films/launch-vertical.jpg" aria-label="The GoBe launch film"></video>
+<div class="hero-cta">
+<a class="btn" href="{APP_STORE_URL}">Get GoBe</a>
+</div>
+<p class="note">Free on iPhone, in the UK App Store · For ages 16+</p>
+<p class="note"><a href="/index.html">How it works</a> · <a href="/privacy.html">Privacy</a> · <a href="mailto:{CONTACT}">{CONTACT}</a></p>
+</section>
+"""
+(HERE / "film").mkdir(exist_ok=True)
+(HERE / "film" / "index.html").write_text(
+    page(
+        "The internet is outside",
+        film,
+        base="/",
+        description="GoBe is a map of photos and notes people leave where they are. You can only open one where it was left.",
+        csp=FILM_CSP,
+    ),
+    encoding="utf-8",
+)
+print("wrote film/index.html")
+
 
 # --- 404 ---
 # The site is a set of real files, so the pretty profile form (/u/ada) has no

@@ -441,3 +441,11 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
   html{scroll-behavior:auto}
   .btn,nav.top a.get{transition:none}
 }
+
+/* /film: the 1.5 launch film on its own page, for sharing. Square on a
+   desktop, the vertical cut on a phone. */
+.launch-film{display:block;width:100%;max-width:640px;aspect-ratio:1/1;margin:28px auto 8px;
+  border-radius:22px;background:#dfe3ea;box-shadow:0 24px 50px rgba(16,26,69,.18)}
+.launch-film.tall{display:none}
+@media (max-width:700px){.launch-film.square{display:none}
+  .launch-film.tall{display:block;max-width:420px;aspect-ratio:9/16;max-height:82vh}}
