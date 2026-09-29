@@ -1537,6 +1537,9 @@ print("wrote f/index.html")
 # The film files break the Cloudflare Workers build whenever they are in this
 # repo (even ignored), so they live in GoBe-Group/gobe-films on GitHub Pages.
 FILM_HOST = "https://gobe-group.github.io"
+# GoBe is on every storefront now, and the country-less link sends each
+# visitor to their own (checked 29 Sep 2026; it used to 404 when UK-only).
+APP_STORE_GLOBAL_URL = f"https://apps.apple.com/app/{APP_STORE_SLUG}/id{APP_STORE_ID}"
 FILM_DIR = FILM_HOST + "/gobe-films/launch"
 FILM_CSP = (
     "default-src 'none'; img-src 'self'; media-src 'self' " + FILM_HOST + "; style-src 'self'; font-src 'self'; "
@@ -1551,8 +1554,8 @@ You can only open one where it was left, so you walk there.</p>
   poster="/assets/films/launch.jpg" aria-label="The GoBe launch film"></video>
 <video class="launch-film tall" src="{FILM_DIR}/launch-vertical.mp4" controls playsinline preload="none"
   poster="/assets/films/launch-vertical.jpg" aria-label="The GoBe launch film"></video>
-<a class="store-badge" href="{APP_STORE_URL}"><img src="/assets/appstore-badge.svg" alt="Download on the App Store" width="240" height="80"></a>
-<p class="note">Free on iPhone, in the UK App Store · For ages 16+</p>
+<a class="store-badge" href="{APP_STORE_GLOBAL_URL}"><img src="/assets/appstore-badge.svg" alt="Download on the App Store" width="240" height="80"></a>
+<p class="note">Free on iPhone · For ages 16+</p>
 <p class="note"><a href="/index.html">How it works</a> · <a href="/privacy.html">Privacy</a> · <a href="mailto:{CONTACT}">{CONTACT}</a></p>
 </section>
 """
