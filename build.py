@@ -502,6 +502,8 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
 .launch-film{display:block;width:100%;max-width:640px;aspect-ratio:1/1;margin:28px auto 8px;
   border-radius:22px;background:#dfe3ea;box-shadow:0 24px 50px rgba(16,26,69,.18)}
 .launch-film.tall{display:none}
+.store-badge{display:inline-block;margin:18px auto 4px}
+.store-badge img{display:block;width:220px;height:auto}
 @media (max-width:700px){.launch-film.square{display:none}
   .launch-film.tall{display:block;max-width:420px;aspect-ratio:9/16;max-height:82vh}}
 """
@@ -1549,9 +1551,7 @@ You can only open one where it was left, so you walk there.</p>
   poster="/assets/films/launch.jpg" aria-label="The GoBe launch film"></video>
 <video class="launch-film tall" src="{FILM_DIR}/launch-vertical.mp4" controls playsinline preload="none"
   poster="/assets/films/launch-vertical.jpg" aria-label="The GoBe launch film"></video>
-<div class="hero-cta">
-<a class="btn" href="{APP_STORE_URL}">Get GoBe</a>
-</div>
+<a class="store-badge" href="{APP_STORE_URL}"><img src="/assets/appstore-badge.svg" alt="Download on the App Store" width="240" height="80"></a>
 <p class="note">Free on iPhone, in the UK App Store · For ages 16+</p>
 <p class="note"><a href="/index.html">How it works</a> · <a href="/privacy.html">Privacy</a> · <a href="mailto:{CONTACT}">{CONTACT}</a></p>
 </section>
