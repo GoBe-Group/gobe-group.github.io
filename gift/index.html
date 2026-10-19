@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-fBkpKyGLJNcpb6jQq8uEyAUzdmA6PNTa3EW1jhxK6Zk='; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Gift · GoBe</title>
+<meta name="description" content="Unwrap your GoBe gift in the app. GoBe: leave and find traces of daily moments.">
+<meta property="og:site_name" content="GoBe">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gift · GoBe">
+<meta property="og:description" content="Unwrap your GoBe gift in the app. GoBe: leave and find traces of daily moments.">
+<meta property="og:image" content="https://gobeapp.co.uk/assets/icon.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="/assets/icon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<script>(function(){
+  var STORE = "https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391";
+  var q = new URLSearchParams(location.search);
+  // Accept both shapes: /gift/?t=<code> (what we send) and /gift/<code>.
+  var raw = q.get('t');
+  if (!raw) {
+    try { raw = decodeURIComponent(location.pathname.replace(/^\/gift\/?/, '')); }
+    catch (e) { raw = ''; }
+  }
+  var code = (raw || '').toUpperCase().replace(/[\s-]/g, '').replace(/\/+$/, '');
+  var ok = /^[A-HJ-NP-Z2-9]{8}$/.test(code);
+  var appURL = ok ? 'gobe://gift/?t=' + encodeURIComponent(code) : null;
+  var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  function reach(event) {
+    if (!appURL) return;
+    if (event) event.preventDefault();
+    var timer = setTimeout(function () {
+      if (document.visibilityState !== 'hidden') location.replace(STORE);
+    }, 1400);
+    function cancel() { clearTimeout(timer); }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) cancel();
+    });
+    window.addEventListener('pagehide', cancel);
+    location.href = appURL;
+  }
+
+  function start() {
+    var openBtn = document.getElementById('open-in-app');
+    if (openBtn) {
+      if (appURL) openBtn.href = appURL;
+      openBtn.addEventListener('click', reach);
+    }
+    if (iOS && appURL && !q.has('noauto')) reach();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();</script>
+</head>
+<body>
+<div class="frame" aria-hidden="true"></div>
+<main class="col">
+<header class="site"><div class="bar">
+<a class="brand" href="/index.html"><img src="/assets/gobe-logo.png" alt="GoBe" width="520" height="231"></a>
+<nav class="top"><a href="/index.html#how">How it works</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a><a class="get" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get the app</a></nav>
+</div></header>
+<section class="handoff">
+<div class="handoff-mark"><img src="/assets/icon-rounded.png" alt="" width="108" height="108"></div>
+<p class="eyebrow">Somebody wrapped you a gift</p>
+<h1>Unwrap it in GoBe.</h1>
+<p class="lede">A gift link opens straight in the app, still sealed. If GoBe
+isn't on this iPhone yet, you'll be taken to the App Store to get it: once it's
+on, tap the link again and the gift is there. It waits for you for 30 days.</p>
+<div class="hero-cta">
+<a class="btn" id="open-in-app" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Open in GoBe</a>
+<a class="btn" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">Get GoBe</a>
+</div>
+<p class="note">Free on the App Store · Made in the UK · For ages 16+</p>
+<p class="note"><a href="/index.html">What is GoBe?</a> · <a href="/support.html">Need a hand?</a></p>
+</section>
+
+<div class="card">
+<h2>What is this?</h2>
+<p>Somebody on GoBe made you a <strong>gift bag</strong>: things they wrote or
+photographed, stickers they found, a deal. Join GoBe to open it and the two of
+you are friends. Already on GoBe? You get the gift, and an add from them that
+is yours to say yes or no to.</p>
+<h2>Why can't I see it here?</h2>
+<p>This page shows nothing about the gift on purpose. A link can be forwarded
+and a web page is public, so naming who sent it here would hand that to anyone
+the link reached.</p>
+<p class="flush">More on how we handle your data in our
+<a href="/privacy.html">Privacy Policy</a>.</p>
+</div>
+
+</main>
+<footer class="site"><div class="bar">
+<p>GoBe is operated by Hamed Bakayoko, sole trader trading as GoBe, 124 City Road, London EC1V 2NX, United Kingdom.
+Contact: <a href="mailto:contact@gobeapp.co.uk">contact@gobeapp.co.uk</a> · Governing law: England &amp; Wales.</p>
+<nav><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/support.html">Support</a></nav>
+</div></footer>
+</body>
+</html>

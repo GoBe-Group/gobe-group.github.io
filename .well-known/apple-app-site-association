@@ -37,6 +37,14 @@
           {
             "/": "/f/*",
             "comment": "friend invite links (path form)"
+          },
+          {
+            "/": "/gift/",
+            "comment": "gift links"
+          },
+          {
+            "/": "/gift/*",
+            "comment": "gift links (path form)"
           }
         ]
       }
