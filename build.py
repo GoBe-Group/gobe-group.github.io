@@ -68,14 +68,20 @@ CSS = """
   font-display:swap;src:url('fonts/caveat-bold.woff2') format('woff2')}
 
 :root{
-  /* GoBeColors.swift, 1.5 */
-  --paper:#F8FAFC; --paper-base:#EEF1F5; --paper-aged:#DFE4EC;
+  /* GoBeColors.swift, 1.6: every pen is black ink now, the paper neutral */
+  --paper:#F7F7F7; --paper-base:#F7F7F7; --paper-aged:#ECECEC;
   --ink:#111114; --muted:#52535A; --faint:#7A8298;
-  --biro:#0C1470; --ballpoint:#0A1BB0;
+  --biro:#111114; --ballpoint:#111114;
   --go:#90C808; --go-glow:#C4F03C; --go-dark:#4E7A00; --highlighter:#B4E02E;
-  --be:#254BE0; --be-dark:#162C9A; --red:#E84C3D;
-  --line:rgba(12,20,112,.16);
-  --mono:'Martian Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --be:#111114; --be-dark:#000; --red:#E84C3D;
+  --line:rgba(17,17,20,.14);
+  /* IridescentSheen.swift: pink, peach, mint, sky, lilac, and a white glint */
+  --sheen:linear-gradient(120deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.75) 46%,rgba(255,255,255,0) 62%),
+    linear-gradient(115deg,#FFD6EE 0%,#FFEFD2 24%,#D6FFEA 48%,#D2EBFF 72%,#EBDAFF 100%);
+  /* the glow a card wears in the app, pink one side and sky the other */
+  --halo:0 0 0 1px rgba(17,17,20,.10), -14px -6px 34px -8px rgba(255,110,200,.45),
+    14px 10px 38px -8px rgba(110,200,255,.45);
+  --mono:Arial,'Helvetica Neue',Helvetica,sans-serif;
   --sans:'Avenir Next','Avenir','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
   --digital:Arial,'Helvetica Neue',Helvetica,sans-serif;
   --hand:'Caveat','Bradley Hand','Segoe Print',cursive;
@@ -85,7 +91,9 @@ CSS = """
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 body{
-  margin:0; background:var(--paper); color:var(--ink);
+  margin:0; color:var(--ink);
+  background:url('crumple.jpg') center top/1200px repeat, #F2F2F2 url('foil-paper.jpg') center top/100% auto repeat-y;
+  background-blend-mode:overlay, normal;
   font-family:var(--sans); font-size:17px; line-height:1.6;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
@@ -97,12 +105,11 @@ body::before{
 /* the biro line round the window */
 .frame{
   position:fixed; inset:7px; z-index:100; pointer-events:none;
-  border:3.5px solid var(--biro); border-radius:30px;
-  box-shadow:inset 1px -1px 0 rgba(12,20,112,.35);
+  border:3px solid var(--ink); border-radius:30px;
 }
 img,video{max-width:100%; height:auto; display:block}
-a{color:var(--be)}
-a:hover{color:var(--be-dark)}
+a{color:var(--ink); text-decoration-color:var(--go); text-underline-offset:3px; text-decoration-thickness:2px}
+a:hover{color:#000}
 p{margin:0 0 16px}
 ul{margin:0 0 16px; padding-left:22px}
 li{margin:0 0 9px}
@@ -120,22 +127,20 @@ h3{font-size:clamp(18px,2vw,22px); line-height:1.2; margin:0 0 10px}
 /* Buttons: a drawn box and a pen shadow, pressed when you press them. */
 .btn{
   display:inline-flex; align-items:center; gap:10px; justify-content:center;
-  font-family:var(--mono); font-weight:600; font-size:13px; letter-spacing:-.01em;
-  color:var(--biro); background:var(--paper); text-decoration:none;
-  border:2px solid var(--biro); border-radius:14px; padding:13px 20px 12px;
+  font-family:var(--digital); font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink); background:#fff; text-decoration:none;
+  border:2px solid var(--ink); border-radius:12px; padding:13px 20px 12px;
   box-shadow:3px 3px 0 var(--biro); transition:transform .08s ease, box-shadow .08s ease;
 }
 .btn:hover{color:var(--biro); transform:translate(1px,1px); box-shadow:2px 2px 0 var(--biro)}
 .btn:active{transform:translate(3px,3px); box-shadow:0 0 0 var(--biro)}
-.btn.primary{background:var(--biro); color:#fff; box-shadow:3px 3px 0 var(--go)}
-.btn.primary:hover{color:#fff; box-shadow:2px 2px 0 var(--go)}
-.btn.primary:active{box-shadow:0 0 0 var(--go)}
+.btn.primary{background:var(--go)}
+.btn.primary:hover{color:var(--ink)}
 .btn .apple{width:15px; height:18px; flex:none}
 
-.eyebrow{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.02em;
-  color:var(--biro); margin:0 0 14px; text-transform:lowercase}
-.eyebrow::before{content:""; display:inline-block; width:22px; height:3px; border-radius:2px;
-  background:var(--go); vertical-align:middle; margin:-2px 10px 0 0}
+.eyebrow{display:inline-block; font-family:var(--digital); font-size:11.5px; font-weight:700; letter-spacing:.12em;
+  color:var(--ink); margin:0 0 16px; text-transform:uppercase; background:var(--sheen);
+  border-radius:999px; padding:7px 14px 6px; box-shadow:0 0 0 1px rgba(17,17,20,.12), 0 6px 16px -8px rgba(17,17,20,.35)}
 .lede{font-size:clamp(18px,1.6vw,20px); color:var(--muted); max-width:36em}
 .note{font-size:13px; color:var(--faint)}
 .note a{color:var(--muted)}
@@ -151,15 +156,15 @@ header.site .bar{display:flex; align-items:center; justify-content:space-between
 /* the wordmark on a scrap of paper, so its thin green Go holds on foil too */
 .brand{display:inline-flex; text-decoration:none; background:var(--paper); border-radius:14px;
   padding:6px 14px 4px; transform:rotate(-2deg); box-shadow:0 8px 18px -10px rgba(12,20,60,.45),
-  0 0 0 1px rgba(12,20,112,.08)}
+  0 0 0 1px rgba(17,17,20,.08)}
 .brand img{height:44px; width:auto}
 nav.top{display:flex; align-items:center; gap:6px 22px; flex-wrap:wrap;
-  font-family:var(--mono); font-size:12.5px; font-weight:600}
+  font-family:var(--digital); font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase}
 nav.top a{color:var(--ink); text-decoration:none; padding:4px 0; border-bottom:2.5px solid transparent}
 nav.top a:hover{border-bottom-color:var(--go)}
 nav.top a.active{border-bottom-color:var(--go)}
-nav.top a.get{border:2px solid var(--biro); border-radius:12px; padding:8px 14px 7px;
-  color:var(--biro); background:var(--paper); box-shadow:2px 2px 0 var(--biro)}
+nav.top a.get{border:2px solid var(--ink); border-radius:12px; padding:8px 14px 7px;
+  color:var(--ink); background:var(--go); box-shadow:2px 2px 0 var(--ink)}
 nav.top a.get:hover{transform:translate(1px,1px); box-shadow:1px 1px 0 var(--biro)}
 
 /* ---------- Foil, and where it tears ---------- */
@@ -188,6 +193,7 @@ nav.top a.get:hover{transform:translate(1px,1px); box-shadow:1px 1px 0 var(--bir
 
 /* ---------- Home: the 1.6 loop, one chapter per App Store slide ---------- */
 main.home header.site{position:absolute; left:0; right:0; top:0}
+main.home{overflow-x:clip}
 section{position:relative}
 .band{padding:clamp(56px,7.5vw,104px) 0}
 .band.tight{padding-top:clamp(40px,6vw,72px)}
@@ -195,10 +201,6 @@ section{position:relative}
 
 /* The ground the slides are printed on: foil paper with the crumple over it.
    The slide crops sit on the same foil, faded at their edges into it. */
-main.home{
-  background:url('crumple.jpg') center top/1200px repeat, url('foil-paper.jpg') center top/940px repeat;
-  background-blend-mode:overlay, normal;
-}
 
 .swipe{position:relative; z-index:0; white-space:nowrap}
 .swipe::before{content:""; position:absolute; z-index:-1; left:-5%; right:-5%; top:30%; bottom:-4%;
@@ -229,25 +231,34 @@ main.home{
 .loop ol{list-style:none; display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0}
 .loop li{margin:0}
 .loop a{display:inline-flex; align-items:baseline; gap:8px; text-decoration:none; color:var(--ink);
-  background:rgba(255,255,255,.72); border:2px solid var(--biro); border-radius:12px;
-  padding:7px 12px 6px; box-shadow:2px 2px 0 var(--biro); font-size:14.5px}
-.loop a b{font-family:var(--hand); font-size:19px; color:var(--ballpoint); line-height:1}
-.loop a:hover{transform:translate(1px,1px); box-shadow:1px 1px 0 var(--biro)}
+  background:var(--sheen); border-radius:999px; padding:8px 15px 7px; font-size:14.5px;
+  box-shadow:0 0 0 1px rgba(17,17,20,.12), 0 6px 16px -8px rgba(17,17,20,.35)}
+.loop a b{font-family:var(--digital); font-size:12px; letter-spacing:.06em}
+.loop a:hover{box-shadow:0 0 0 2px var(--ink)}
 
 .chapter{padding:clamp(20px,3.5vw,44px) 0}
 .chapter.rev .ch-copy{order:2}
 .chapter h2{font-size:clamp(40px,5.6vw,70px); line-height:1.02; margin:0 0 4px}
-.ch-num{font-family:var(--hand); font-weight:700; font-size:34px; color:var(--ballpoint); margin:0 0 8px; line-height:1}
-.ch-num span{font-size:20px; color:var(--faint); margin-left:4px}
+.ch-num{display:inline-flex; align-items:center; justify-content:center; width:74px; height:72px; margin:0 0 14px -4px;
+  background:url('deco/foil-parcel.webp') center/contain no-repeat; transform:rotate(-6deg);
+  font-family:var(--digital); font-size:26px; color:var(--ink); line-height:1;
+  filter:drop-shadow(0 8px 12px rgba(17,17,20,.25))}
+.ch-num span{display:none}
+/* the iridescent glow behind each phone, as round a card in your hand */
+.ch-pic{position:relative; isolation:isolate}
+.ch-pic::before{content:""; position:absolute; inset:14% -8%; z-index:-1; border-radius:40%;
+  background:radial-gradient(closest-side at 35% 40%,rgba(255,120,205,.38),transparent),
+    radial-gradient(closest-side at 65% 62%,rgba(110,205,255,.38),transparent),
+    radial-gradient(closest-side at 50% 85%,rgba(170,255,200,.3),transparent);
+  filter:blur(26px)}
 /* the walk line, from each chapter to the next, the lime line through the slides */
 .chapter::before{content:""; position:absolute; left:50%; top:-40px; width:3px; height:80px;
-  background:repeating-linear-gradient(var(--go) 0 10px,transparent 10px 18px); border-radius:2px}
+  background:repeating-linear-gradient(var(--go) 0 10px,transparent 10px 18px); border-radius:2px; z-index:1}
 
 .privacy .two{display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(24px,5vw,64px); align-items:start}
 .privacy .lede{margin-top:10px}
-.sheet{background:#fff; border:2px solid var(--biro); border-radius:24px; padding:30px 30px 14px;
-  box-shadow:4px 4px 0 var(--biro)}
-.sheet p{color:var(--muted)}
+.sheet{background:var(--sheen); border-radius:26px; padding:30px 30px 14px; box-shadow:var(--halo)}
+.sheet p{color:#33343c}
 .values{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:44px}
 .value{border-top:3px solid var(--biro); padding-top:14px}
 .value .vtitle{font-family:var(--digital); font-size:19px; margin-bottom:6px}
@@ -256,11 +267,11 @@ main.home{
 .facts{display:grid; grid-template-columns:1fr 1fr; gap:0 28px; margin:26px 0 18px;
   border-top:2px solid var(--biro)}
 .fact{display:flex; justify-content:space-between; gap:18px; padding:12px 0; border-bottom:1px solid var(--line)}
-.fact .k{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--biro); text-transform:lowercase; white-space:nowrap}
+.fact .k{font-family:var(--digital); font-size:11.5px; font-weight:700; letter-spacing:.08em; color:var(--ink); text-transform:uppercase; white-space:nowrap}
 .fact .v{font-size:15px; text-align:right}
 
 .closer{padding:clamp(56px,8vw,96px) 0 clamp(80px,10vw,120px); text-align:center}
-.closer .icon{width:116px; margin:0 auto 22px; border-radius:26px; filter:drop-shadow(0 18px 28px rgba(12,20,60,.35))}
+.closer .icon{width:116px; margin:0 auto 22px; border-radius:26px; box-shadow:var(--halo)}
 .closer h2{font-size:clamp(40px,6vw,72px); margin:0 0 4px}
 .closer .whisper{margin:0 0 18px}
 .closer .lede{margin:0 auto; color:#2a2b33}
@@ -272,22 +283,22 @@ main.col h1{font-size:clamp(32px,5vw,50px); margin:0 0 12px}
 main.col h2{font-size:clamp(20px,2.4vw,25px); margin:42px 0 12px}
 main.col h3{font-size:18px; margin:26px 0 8px}
 main.col .lede{margin-bottom:28px}
-.stamp{display:inline-block; font-family:var(--mono); font-size:12px; font-weight:600;
-  color:var(--biro); border:2px solid var(--biro); border-radius:10px; padding:6px 12px 5px;
-  transform:rotate(-1.5deg); margin:6px 0 28px; background:#fff}
-.card{background:#fff; border:2px solid var(--biro); border-radius:22px; padding:24px 26px 10px;
-  box-shadow:4px 4px 0 var(--biro); margin:0 0 26px}
+.stamp{display:inline-block; font-family:var(--digital); font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink); border-radius:999px; padding:7px 14px 6px;
+  margin:6px 0 28px; background:var(--sheen); box-shadow:0 0 0 1px rgba(17,17,20,.12)}
+.card{background:var(--sheen); border-radius:24px; padding:24px 26px 10px;
+  box-shadow:var(--halo); margin:0 0 26px}
 .card h2{margin-top:0}
 .flush{margin-bottom:12px}
 main.col table{border-collapse:collapse; width:100%; margin:0 0 20px; font-size:15px}
 main.col th,main.col td{border-bottom:1px solid var(--line); padding:9px 8px; text-align:left; vertical-align:top}
-main.col th{font-family:var(--mono); font-size:12px; color:var(--biro)}
+main.col th{font-family:var(--digital); font-size:12px; font-weight:700; color:var(--ink)}
 main.col blockquote{margin:0 0 16px; padding:4px 0 4px 18px; border-left:3px solid var(--go); color:var(--muted)}
 
 /* ---------- Handoff pages (/u/, /g/, /i/, /f/, 404) ---------- */
 .handoff{text-align:center; padding:12px 0 18px}
 .handoff-mark img{width:108px; height:108px; margin:0 auto 22px; border-radius:24px;
-  box-shadow:0 14px 28px -12px rgba(12,20,60,.45)}
+  box-shadow:var(--halo)}
 .handoff h1{font-size:clamp(28px,4.6vw,42px); margin:0 0 12px}
 .handoff .lede{margin:0 auto 22px}
 .hero-cta{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:24px 0 18px}
@@ -296,11 +307,11 @@ main.col blockquote{margin:0 0 16px; padding:4px 0 4px 18px; border-left:3px sol
   background:linear-gradient(transparent 12%,rgba(180,224,46,.75) 12%,rgba(180,224,46,.75) 92%,transparent 92%)}
 
 /* ---------- Footer ---------- */
-footer.site{border-top:2px solid var(--biro); margin-top:0; padding:26px 0 44px; font-size:13px; color:var(--muted)}
+footer.site{border-top:2px solid var(--ink); margin-top:0; padding:26px 0 44px; font-size:13px; color:var(--muted)}
 footer.site .bar{display:flex; justify-content:space-between; gap:18px 40px; flex-wrap:wrap; align-items:flex-start}
 footer.site p{margin:0; max-width:560px}
-footer.site nav{display:flex; gap:18px; font-family:var(--mono); font-size:12px; font-weight:600}
-footer.site nav a{color:var(--biro); text-decoration:none}
+footer.site nav{display:flex; gap:18px; font-family:var(--digital); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+footer.site nav a{color:var(--ink); text-decoration:none}
 footer.site nav a:hover{text-decoration:underline}
 
 /* ---------- Narrow screens ---------- */
@@ -340,10 +351,10 @@ main.col h1::after{content:""; display:inline-block; width:.62em; height:.62em; 
   background:url('deco/tape.png') center/contain no-repeat; transform:rotate(30deg)}
 
 /* ---------- A Windows 98 window, gone over in biro ---------- */
-.win{position:relative; max-width:900px; margin:0 auto; background:#fff; border:2px solid var(--biro); border-radius:10px;
-  box-shadow:5px 5px 0 var(--biro); overflow:hidden}
-.win-bar{display:flex; align-items:center; gap:7px; background:var(--biro); color:#fff;
-  font-family:var(--mono); font-size:12px; font-weight:600; padding:8px 12px}
+.win{position:relative; max-width:900px; margin:0 auto; background:#fff; border:2px solid var(--ink); border-radius:12px;
+  box-shadow:var(--halo); overflow:hidden}
+.win-bar{display:flex; align-items:center; gap:7px; background:var(--ink); color:#fff;
+  font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:.06em; padding:8px 12px}
 .win-bar span{flex:1}
 .win-bar i{display:inline-block; width:17px; height:15px; border:1.5px solid #fff; border-radius:3px}
 .win-body{padding:28px 32px 20px}
