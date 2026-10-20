@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-t9n9n3LAowdle+kCDvi8p0quRL7QKUXAYZ5BBotW72U='; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'sha256-y4zA9Q39rt0aWBTIYb4sUE8xQ0VPFlYsm26/Fzd2NRA='; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Not found · GoBe</title>
 <meta name="description" content="That page isn&#x27;t here. GoBe: leave and find traces of daily moments.">
@@ -36,6 +36,13 @@
     var token = decodeURIComponent(i[1]).trim();
     if (!/^[A-Za-z0-9_-]{16,128}$/.test(token)) return;
     location.replace('/i/?t=' + encodeURIComponent(token));
+    return;
+  }
+  var t = location.pathname.match(/^\/t\/([^\/?#]+)\/?$/);
+  if (t) {
+    var code = decodeURIComponent(t[1]).trim().toUpperCase();
+    if (!/^[A-HJ-NP-Z2-9]{8}$/.test(code)) return;
+    location.replace('/t/?c=' + encodeURIComponent(code));
   }
 })();</script>
 </head>

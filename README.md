@@ -28,6 +28,10 @@ Note Workers serves pages without the `.html` suffix: `/privacy.html` 307s to
   reach an installed GoBe, and if the page is still open ~1.4s later (nothing
   took the scheme, so the app isn't there) it goes to the App Store product
   page. `?noauto=1` turns the automatic attempt off for looking at the page.
+- `t/index.html` — a shared trace link (`/t/?c=<code>`) for visitors without
+  the app. It requests a sealed preview from Supabase: the sender, trace kind,
+  area, and rough map unless the sender hides locations. The trace content stays
+  inside GoBe. Its source is `templates/trace.html`, built by `build.py`.
 - `404.html` — ordinary "not found", except for the old pretty profile links
   (`/u/ada`), which have no file behind them and are redirected to `/u/?h=ada`.
   `wrangler.jsonc` sets `not_found_handling: "404-page"` so Workers serves it.
@@ -39,10 +43,9 @@ Note Workers serves pages without the `.html` suffix: `/privacy.html` 307s to
 - `.assetsignore` — keeps `build.py` and the source markdown out of the upload;
   `wrangler.jsonc` points the asset directory at the repo root.
 
-`/u/` and `404.html` are the only pages carrying a script, and it's inline and
-pinned by a `sha256` CSP hash that `build.py` computes from the script itself,
-so the hash can't drift and nothing external can ever load. Every other page
-keeps the site's script-free `default-src 'none'` policy.
+Scripted pages pin their inline code with CSP hashes computed by `build.py`.
+The `/t/` page alone can request a preview from Supabase and grey map tiles from
+OpenStreetMap. The legal pages keep the site's script-free policy.
 
 **Universal links need Apple's CDN, not just this site.** iOS reads the
 association from `app-site-association.cdn-apple.com/a/v1/gobeapp.co.uk`, not
@@ -66,8 +69,9 @@ this changed.
 directly appears to work and is then silently thrown away by the next
 `python3 build.py`, which is a genuinely easy hour to lose. The page copy lives
 in the `home` / `support` blocks of `build.py`; the stylesheet lives in the
-`CSS` constant at the top of it. The only hand-maintained sources in the repo
-are the two legal markdown files and the images under `assets/`.
+`CSS` constant at the top of it. The trace page source lives in
+`templates/trace.html`. The legal markdown and images under `assets/` are also
+hand-maintained sources.
 
 `privacy.html` and `terms.html` are generated from `gobe-privacy-policy.md` and
 `gobe-terms-of-service.md`, which are kept word-for-word in sync with the in-app

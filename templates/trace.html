@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="__TRACE_CSP__">
+<meta name="referrer" content="no-referrer">
+<title>A trace for you on GoBe</title>
+<meta name="description" content="Somebody left a trace for you on GoBe. It's sealed until you're there.">
+<meta property="og:title" content="Somebody left a trace for you 📍">
+<meta property="og:description" content="It's sealed till you're standing there ✨">
+<meta property="og:type" content="website">
+<!--
+  gobeapp.co.uk/t/?c=CODE — where a trace sent as a link lands.
+
+  On a phone with GoBe, the universal link opens the app before this page is
+  shown (the apple-app-site-association file must list "/t/*"). Without it,
+  this page says who left the trace, what kind it is and roughly where, on a
+  grey map, and that it opens by going there, in the app. Never what it says:
+  the server does not hand that over (`trace_link_preview`, which the anon key
+  may call; see 20261020200000_waves_and_trace_links.sql).
+
+  The map is OpenStreetMap's tiles, greyed: the fog. Light use, credited.
+-->
+<style>
+  :root {
+    --paper: #EEF1F5; --paper-light: #F8FAFC; --ink: #111114; --muted: #52535A;
+    --be-blue-dark: #162C9A; --go-green: #90C808;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink);
+    font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+  }
+  main { width: 100%; max-width: 420px; text-align: center; }
+  .label { font: 700 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .2em; color: var(--muted); }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 34px; margin: 10px 0 4px; }
+  .sub { font-size: 17px; color: var(--muted); margin: 0 0 20px; }
+  .map {
+    position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 18px; overflow: hidden;
+    background: #D9DCE1; box-shadow: inset 0 0 0 1px rgba(17,17,20,.18), 0 10px 22px rgba(16,26,69,.16);
+    margin: 0 0 8px;
+  }
+  .tiles { position: absolute; display: grid; grid-template-columns: repeat(3, 256px); filter: grayscale(1) contrast(.9) brightness(1.05); }
+  .tiles img { width: 256px; height: 256px; display: block; }
+  .pin {
+    position: absolute; left: 50%; top: 50%; width: 66px; height: 66px; margin: -33px 0 0 -33px;
+    border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #C9D2DE 45%, #8E9AAB);
+    box-shadow: 0 0 0 4px rgba(255,255,255,.8), 0 0 0 120px rgba(17,17,20,.08), 0 8px 18px rgba(0,0,0,.25);
+    display: flex; align-items: center; justify-content: center; font-size: 28px;
+    animation: breathe 3.2s ease-in-out infinite;
+  }
+  @keyframes breathe { 50% { transform: scale(1.06); } }
+  @media (prefers-reduced-motion: reduce) { .pin { animation: none; } }
+  .credit { font-size: 11px; color: var(--muted); margin: 0 0 18px; }
+  .credit a { color: inherit; }
+  .area { font-weight: 600; margin: 0 0 22px; }
+  .button {
+    display: block; width: 100%; padding: 16px; border-radius: 16px; border: 0;
+    background: var(--be-blue-dark); color: #fff; font: 900 14px/1 ui-monospace, Menlo, monospace;
+    letter-spacing: .1em; text-decoration: none; margin-bottom: 12px; cursor: pointer;
+  }
+  .button.secondary { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--be-blue-dark); }
+  .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <span class="label">A TRACE FOR YOU</span>
+  <h1 id="title">Somebody left you a trace</h1>
+  <p class="sub" id="sub">It's sealed until you're there 📍</p>
+
+  <div class="map" id="map" hidden aria-label="Roughly where the trace is, on a grey map">
+    <div class="tiles" id="tiles"></div>
+    <div class="pin" aria-hidden="true">✉️</div>
+  </div>
+  <p class="credit" id="credit" hidden>Map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p>
+  <p class="area" id="area" hidden></p>
+
+  <div id="actions">
+    <a class="button" id="open" href="#">OPEN IN GOBE 📍</a>
+    <a class="button secondary" id="store" href="#">GET GOBE, IT'S FREE</a>
+  </div>
+  <p class="note" id="status" hidden></p>
+  <p class="note">Traces open when you're standing where they were left.<br>GoBe: the internet is outside.</p>
+</main>
+<script>
+  const APP_STORE_URL = "__APP_STORE_URL__";
+  const SUPABASE_URL = "https://hoskgiuquxykoywiggjk.supabase.co";
+  // The public anon key the app ships with; it can only call what anon may.
+  const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvc2tnaXVxdXh5a295d2lnZ2prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjUwODksImV4cCI6MjA5MDQ0MTA4OX0.NWOVbU4TAdn8Rel0396UkyreaIpKboKoYel-4651qlM";
+  const KINDS = { note: "a note", photo: "a photo", film: "a film" };
+
+  const raw = new URLSearchParams(location.search).get("c") || "";
+  const code = raw.toUpperCase().replace(/[^A-HJ-NP-Z2-9]/g, "");
+  const $ = (id) => document.getElementById(id);
+  $("store").href = APP_STORE_URL;
+
+  // Three by three OpenStreetMap tiles round the point, the point in the
+  // middle of the box.
+  function drawMap(lat, lon) {
+    const z = 16, n = Math.pow(2, z);
+    const xf = (lon + 180) / 360 * n;
+    const r = lat * Math.PI / 180;
+    const yf = (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n;
+    const x0 = Math.floor(xf) - 1, y0 = Math.floor(yf) - 1;
+    const tiles = $("tiles");
+    for (let dy = 0; dy < 3; dy++) for (let dx = 0; dx < 3; dx++) {
+      const img = document.createElement("img");
+      img.alt = "";
+      img.loading = "lazy";
+      img.src = "https://tile.openstreetmap.org/" + z + "/" + (x0 + dx) + "/" + (y0 + dy) + ".png";
+      tiles.appendChild(img);
+    }
+    const place = () => {
+      const box = $("map").getBoundingClientRect();
+      const px = (xf - x0) * 256, py = (yf - y0) * 256;
+      tiles.style.left = (box.width / 2 - px) + "px";
+      tiles.style.top = (box.height / 2 - py) + "px";
+    };
+    $("map").hidden = false;
+    $("credit").hidden = false;
+    place();
+    addEventListener("resize", place);
+  }
+
+  if (code.length === 8) {
+    $("open").href = "gobe://t/" + code;
+    fetch(SUPABASE_URL + "/rest/v1/rpc/trace_link_preview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": ANON_KEY, "Authorization": "Bearer " + ANON_KEY },
+      body: JSON.stringify({ p_code: code })
+    })
+      .then((r) => r.ok ? r.json() : [])
+      .then((rows) => {
+        const t = rows && rows[0];
+        if (!t) {
+          $("title").textContent = "That link didn't work";
+          $("sub").textContent = "It may have been copied wrong.";
+          $("actions").hidden = true;
+          return;
+        }
+        if (t.status !== "sealed") {
+          $("title").textContent = t.status === "expired" ? "This link has expired" : "This trace has gone";
+          $("sub").textContent = t.status === "expired"
+            ? "Links last thirty days. " + t.sender_handle + " can send you another 💛"
+            : "Whoever left it has taken it down.";
+          $("open").hidden = true;
+          return;
+        }
+        $("title").textContent = t.sender_handle + " left you a trace";
+        $("sub").textContent = "It's " + (KINDS[t.kind] || "a trace") + ", sealed until you're there 📍";
+        if (t.area) { $("area").textContent = "In " + t.area; $("area").hidden = false; }
+        if (typeof t.latitude === "number" && typeof t.longitude === "number") {
+          drawMap(t.latitude, t.longitude);
+        }
+      })
+      .catch(() => {});
+  } else {
+    $("open").hidden = true;
+  }
+</script>
+</body>
+</html>

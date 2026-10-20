@@ -45,6 +45,14 @@
           {
             "/": "/gift/*",
             "comment": "gift links (path form)"
+          },
+          {
+            "/": "/t/",
+            "comment": "trace links"
+          },
+          {
+            "/": "/t/*",
+            "comment": "trace links (path form)"
           }
         ]
       }

@@ -2,7 +2,7 @@
 """Build GoBe's public legal/support site from the source markdown.
 
 Run:  python3 build.py
-Outputs: index.html, privacy.html, terms.html, support.html,
+Outputs: index.html, privacy.html, terms.html, support.html, t/index.html,
          assets/style.css, assets/grain.svg, .well-known/security.txt, .nojekyll
 
 Security posture (static site, so hardened at the document level):
@@ -522,7 +522,7 @@ wk.mkdir(exist_ok=True)
     encoding="utf-8",
 )
 
-# apple-app-site-association — lets iOS hand /u/ links straight to the GoBe app
+# apple-app-site-association — lets iOS hand shared links straight to the GoBe app
 # instead of opening Safari. Must be served at this exact path, with no file
 # extension, over HTTPS, with no redirect. `.nojekyll` above is what stops
 # GitHub Pages hiding the dot-directory.
@@ -547,6 +547,8 @@ wk.mkdir(exist_ok=True)
                             {"/": "/f/*", "comment": "friend invite links (path form)"},
                             {"/": "/gift/", "comment": "gift links"},
                             {"/": "/gift/*", "comment": "gift links (path form)"},
+                            {"/": "/t/", "comment": "trace links"},
+                            {"/": "/t/*", "comment": "trace links (path form)"},
                         ],
                     }
                 ]
@@ -1394,6 +1396,32 @@ You can only open one where it was left, so you walk there.</p>
 print("wrote film/index.html")
 
 
+# --- Trace links ---
+# The public page may show only the preview returned by trace_link_preview.
+# Keep its source template out of the uploaded assets; hash its inline CSS and
+# script so this page can use a strict CSP while loading the preview and map.
+trace_page = (HERE / "templates" / "trace.html").read_text(encoding="utf-8")
+trace_page = trace_page.replace("__APP_STORE_URL__", APP_STORE_URL)
+trace_style = re.search(r"<style>(.*?)</style>", trace_page, re.S)
+trace_script = re.search(r"<script>(.*?)</script>", trace_page, re.S)
+if not trace_style or not trace_script:
+    raise ValueError("Trace page must have one inline style and script block")
+def csp_hash(content):
+    return base64.b64encode(hashlib.sha256(content.encode("utf-8")).digest()).decode()
+TRACE_CSP = (
+    "default-src 'none'; "
+    "style-src 'sha256-" + csp_hash(trace_style.group(1)) + "'; "
+    "script-src 'sha256-" + csp_hash(trace_script.group(1)) + "'; "
+    "img-src https://tile.openstreetmap.org; "
+    "connect-src https://hoskgiuquxykoywiggjk.supabase.co; "
+    "base-uri 'none'; form-action 'none'"
+)
+trace_page = trace_page.replace("__TRACE_CSP__", TRACE_CSP)
+(HERE / "t").mkdir(exist_ok=True)
+(HERE / "t" / "index.html").write_text(trace_page, encoding="utf-8")
+print("wrote t/index.html")
+
+
 # --- 404 ---
 # The site is a set of real files, so the pretty profile form (/u/ada) has no
 # file behind it and 404s. That form predates the ?h= query and is still out
@@ -1421,6 +1449,13 @@ NOT_FOUND_JS = """(function(){
     var token = decodeURIComponent(i[1]).trim();
     if (!/^[A-Za-z0-9_-]{16,128}$/.test(token)) return;
     location.replace('/i/?t=' + encodeURIComponent(token));
+    return;
+  }
+  var t = location.pathname.match(/^\\/t\\/([^\\/?#]+)\\/?$/);
+  if (t) {
+    var code = decodeURIComponent(t[1]).trim().toUpperCase();
+    if (!/^[A-HJ-NP-Z2-9]{8}$/.test(code)) return;
+    location.replace('/t/?c=' + encodeURIComponent(code));
   }
 })();"""
 
