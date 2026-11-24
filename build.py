@@ -422,7 +422,9 @@ def page(title, body, active="", wrap_class="", base="", description="", csp=CSP
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:image" content="{ORIGIN}/assets/icon.png">
 <meta name="twitter:card" content="summary">
-<link rel="icon" type="image/png" href="{base}assets/icon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="{base}assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="{base}assets/icon.png">
 <link rel="apple-touch-icon" href="{base}assets/apple-touch-icon.png">
 <link rel="stylesheet" href="{base}assets/style.css">
 {head}</head>
@@ -1412,7 +1414,7 @@ TRACE_CSP = (
     "default-src 'none'; "
     "style-src 'sha256-" + csp_hash(trace_style.group(1)) + "'; "
     "script-src 'sha256-" + csp_hash(trace_script.group(1)) + "'; "
-    "img-src https://tile.openstreetmap.org; "
+    "img-src 'self' https://tile.openstreetmap.org; "
     "connect-src https://hoskgiuquxykoywiggjk.supabase.co; "
     "base-uri 'none'; form-action 'none'"
 )
