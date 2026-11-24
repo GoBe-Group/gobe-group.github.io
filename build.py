@@ -1424,6 +1424,33 @@ trace_page = trace_page.replace("__TRACE_CSP__", TRACE_CSP)
 print("wrote t/index.html")
 
 
+# --- GoBe Plus on the web (/plus/) ---
+# Sells GoBe Plus through Stripe Checkout for people who'd rather pay on the web
+# (the app itself sells it through Apple). Sign in is the app's own: an emailed
+# code from Supabase Auth, or a username and password through `username-login`.
+# The page then talks only to the `plus-web` edge function, which hands back a
+# Stripe Checkout or billing-portal URL to go to; nothing on this site touches
+# a card. Source: `templates/plus.html` (kept in step with `web/plus/index.html`
+# in the app repo). Its scripts may reach Supabase and nothing else.
+plus_page = (HERE / "templates" / "plus.html").read_text(encoding="utf-8")
+plus_page = plus_page.replace("__APP_STORE_URL__", APP_STORE_URL)
+plus_style = re.search(r"<style>(.*?)</style>", plus_page, re.S)
+plus_script = re.search(r"<script>(.*?)</script>", plus_page, re.S)
+if not plus_style or not plus_script:
+    raise ValueError("Plus page must have one inline style and script block")
+PLUS_CSP = (
+    "default-src 'none'; "
+    "style-src 'sha256-" + csp_hash(plus_style.group(1)) + "'; "
+    "script-src 'sha256-" + csp_hash(plus_script.group(1)) + "'; "
+    "img-src 'self'; "
+    "connect-src https://hoskgiuquxykoywiggjk.supabase.co; "
+    "base-uri 'none'; form-action 'none'"
+)
+plus_page = plus_page.replace("__PLUS_CSP__", PLUS_CSP)
+(HERE / "plus").mkdir(exist_ok=True)
+(HERE / "plus" / "index.html").write_text(plus_page, encoding="utf-8")
+print("wrote plus/index.html")
+
 # --- 404 ---
 # The site is a set of real files, so the pretty profile form (/u/ada) has no
 # file behind it and 404s. That form predates the ?h= query and is still out

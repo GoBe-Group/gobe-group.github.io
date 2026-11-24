@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GoBe Plus</title>
+<meta name="description" content="More builds in every chat. GoBe Plus, on the web.">
+<meta property="og:title" content="GoBe Plus">
+<meta property="og:description" content="Your group's plans, actually happening.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'sha256-c4CJKobS9BEpA/kWkfBHudj9ozH5o2gk/QlI1i4W+EQ='; script-src 'sha256-GctH41eriAv2UkhNQGokYf8H9w3mAiat5rGjKJmXROk='; img-src 'self'; connect-src https://hoskgiuquxykoywiggjk.supabase.co; base-uri 'none'; form-action 'none'">
+<!--
+  gobeapp.co.uk/plus — GoBe Plus, bought on the web with Stripe.
+
+  Sign in with the emailed code (the app's own way in) or a username and
+  password; the page then asks `plus-web` for the plans, this account's plan,
+  a Stripe Checkout page, or Stripe's billing portal. Nothing here makes
+  anybody Plus: `stripe-webhook` does, once Stripe says it is paid, and the
+  app reads it from `my_plan` like any other Plus (docs/plus.md, "On the web").
+
+  The session is kept in this browser's localStorage, as the app keeps it in
+  the keychain: the access token only ever goes to Supabase.
+-->
+<style>
+  :root {
+    --paper: #EEF1F5; --paper-light: #F8FAFC; --ink: #111114; --muted: #52535A;
+    --be-blue-dark: #162C9A; --go-green: #90C808; --line: rgba(17,17,20,.14);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink);
+    font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: flex; justify-content: center; padding: 40px 16px 56px;
+  }
+  main { width: 100%; max-width: 440px; }
+  .label { font: 700 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .2em; color: var(--muted); }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 38px; line-height: 1.05; margin: 10px 0 8px; }
+  .sub { font-size: 17px; color: var(--muted); margin: 0 0 24px; }
+  .card {
+    background: var(--paper-light); border-radius: 18px; padding: 18px;
+    box-shadow: inset 0 0 0 1px var(--line), 0 10px 22px rgba(16,26,69,.08); margin: 0 0 14px;
+  }
+  .outcomes { list-style: none; padding: 0; margin: 0 0 22px; }
+  .outcomes li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .outcomes li:last-child { border-bottom: 0; }
+  .outcomes b { display: block; font-size: 16px; }
+  .outcomes span { color: var(--muted); font-size: 14px; }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 10px; }
+  .plan {
+    text-align: left; border: 0; border-radius: 16px; padding: 14px; cursor: pointer; font: inherit; color: inherit;
+    background: #fff; box-shadow: inset 0 0 0 2px var(--line);
+  }
+  .plan[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--be-blue-dark); }
+  .plan .name { font: 700 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--muted); }
+  .plan .price { display: block; font-size: 22px; font-weight: 700; margin: 8px 0 2px; }
+  .plan .week { font-size: 13px; color: var(--muted); }
+  .plan .tag { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #3E5A00; background: #E5F4BF; border-radius: 8px; padding: 3px 7px; }
+  details { margin: 0 0 18px; }
+  summary { cursor: pointer; color: var(--be-blue-dark); font-weight: 600; font-size: 14px; }
+  details .plan { width: 100%; margin-top: 10px; }
+  .button {
+    display: block; width: 100%; padding: 16px; border-radius: 16px; border: 0; text-align: center;
+    background: var(--be-blue-dark); color: #fff; font: 900 14px/1 ui-monospace, Menlo, monospace;
+    letter-spacing: .1em; text-decoration: none; margin-bottom: 12px; cursor: pointer;
+  }
+  .button.secondary { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--be-blue-dark); }
+  .button[disabled] { opacity: .5; cursor: default; }
+  .fine { color: var(--muted); font-size: 13px; line-height: 1.45; margin: 0 0 12px; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
+  .error { color: #A11A1A; font-size: 14px; margin: 0 0 12px; }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 0 0 6px; }
+  input {
+    width: 100%; padding: 14px; border-radius: 14px; border: 0; font: inherit; font-size: 17px; margin: 0 0 12px;
+    background: #fff; box-shadow: inset 0 0 0 2px var(--line); color: var(--ink);
+  }
+  input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--be-blue-dark); }
+  .link { background: none; border: 0; padding: 0; color: var(--be-blue-dark); font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
+  footer a { color: inherit; }
+  .big { margin: 0 0 6px; font-size: 20px; font-weight: 700; }
+  .flush { margin: 0; }
+  .toggle { margin: 6px 0 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <span class="label">GOBE PLUS</span>
+  <h1 id="title">Your group's plans, actually happening.</h1>
+  <p class="sub" id="sub">GoBe builds whatever the chat needs the moment someone asks.</p>
+
+  <p class="error" id="error" role="alert" hidden></p>
+
+  <!-- Signing in -->
+  <section id="signin" hidden>
+    <div class="card">
+      <form id="emailForm">
+        <label for="email">The email on your GoBe account</label>
+        <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+        <button class="button" type="submit" id="sendCode">EMAIL ME A CODE</button>
+      </form>
+      <form id="codeForm" hidden>
+        <label for="code">The code we sent to <span id="sentTo"></span></label>
+        <input id="code" inputmode="numeric" autocomplete="one-time-code" required pattern="[0-9]{6,10}" placeholder="123456">
+        <button class="button" type="submit">SIGN IN</button>
+        <button class="link" type="button" id="otherEmail">Use another email</button>
+      </form>
+      <form id="passwordForm" hidden>
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">SIGN IN</button>
+      </form>
+      <p class="fine toggle">
+        <button class="link" type="button" id="togglePassword">Sign in with a username instead</button>
+      </p>
+    </div>
+    <p class="fine">Signed up with Apple? Use the email in GoBe → Settings → Account. If it's a private relay address, the code still reaches you.</p>
+  </section>
+
+  <!-- Choosing a plan -->
+  <section id="buy" hidden>
+    <ul class="outcomes">
+      <li><b>Say it once, and the chat has its app.</b><span id="allowance">60 builds a month, against 5 a week on free.</span></li>
+      <li><b>The whole chat builds on yours.</b><span>When a friend's builds run out, theirs are on your Plus in your chats.</span></li>
+      <li><b>Change it whenever plans change.</b><span>Switch plan or cancel any time, here.</span></li>
+    </ul>
+    <div class="plans" id="plans"></div>
+    <details id="otherPlans"><summary>Other plans</summary><div id="weekly"></div></details>
+    <button class="button" id="checkout" disabled>START MY PLAN</button>
+    <p class="fine" id="terms"></p>
+  </section>
+
+  <!-- Already Plus -->
+  <section id="have" hidden>
+    <div class="card">
+      <p class="big">You have GoBe Plus.</p>
+      <p class="fine flush" id="haveWhen"></p>
+    </div>
+    <button class="button" id="manage" hidden>MANAGE BILLING</button>
+    <p class="fine" id="appleNote" hidden>Your Plus is from the App Store. Change or cancel it on your iPhone: Settings → your name → Subscriptions.</p>
+  </section>
+
+  <!-- Back from checkout -->
+  <section id="done" hidden>
+    <div class="card">
+      <p class="big" id="doneTitle">Plus is on.</p>
+      <p class="fine flush" id="doneSub">Open GoBe and ask the chat's next thing. Your builds are already there.</p>
+    </div>
+    <a class="button" href="https://apps.apple.com/gb/app/gobe-a-local-social-network/id6779702391">OPEN GOBE</a>
+  </section>
+
+  <p class="note" id="who" hidden><span id="whoEmail"></span> · <button class="link" type="button" id="signout">Sign out</button></p>
+
+  <footer>
+    Payments by Stripe. Plans renew automatically until cancelled.
+    <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a>
+  </footer>
+</main>
+<script>
+  const SUPABASE_URL = "https://hoskgiuquxykoywiggjk.supabase.co";
+  // The public anon key the app ships with; it can only call what anon may.
+  const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvc2tnaXVxdXh5a295d2lnZ2prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NjUwODksImV4cCI6MjA5MDQ0MTA4OX0.NWOVbU4TAdn8Rel0396UkyreaIpKboKoYel-4651qlM";
+  const SESSION_KEY = "gobe.plus.session";
+  const $ = (id) => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+
+  let plans = [];
+  let chosen = params.get("plan") || "gobe.plus.yearly";
+  let state = null;
+
+  // MARK: session
+
+  function saved() {
+    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); } catch { return null; }
+  }
+  function keep(s) {
+    const expires_at = s.expires_at || Math.floor(Date.now() / 1000) + (s.expires_in || 3600);
+    localStorage.setItem(SESSION_KEY, JSON.stringify({
+      access_token: s.access_token, refresh_token: s.refresh_token, expires_at,
+      email: s.user && s.user.email || null,
+    }));
+  }
+  function forget() { localStorage.removeItem(SESSION_KEY); }
+
+  async function auth(path, body) {
+    const res = await fetch(SUPABASE_URL + "/auth/v1/" + path, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: ANON_KEY },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.msg || data.error_description || data.message || "That didn't work. Try again.");
+    return data;
+  }
+
+  async function token() {
+    const s = saved();
+    if (!s) return null;
+    if (s.expires_at - 60 > Date.now() / 1000) return s.access_token;
+    try {
+      keep(Object.assign({ user: { email: s.email } }, await auth("token?grant_type=refresh_token", { refresh_token: s.refresh_token })));
+      return saved().access_token;
+    } catch { forget(); return null; }
+  }
+
+  async function call(action, extra = {}, signedIn = true) {
+    const bearer = signedIn ? await token() : ANON_KEY;
+    if (signedIn && !bearer) { show("signin"); throw new Error("Sign in first."); }
+    const res = await fetch(SUPABASE_URL + "/functions/v1/plus-web", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: ANON_KEY, Authorization: "Bearer " + bearer },
+      body: JSON.stringify(Object.assign({ action }, extra)),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) { forget(); show("signin"); }
+    if (!res.ok) throw new Error(data.error || "That didn't work. Try again.");
+    return data;
+  }
+
+  // MARK: words
+
+  function money(minor, currency) {
+    return new Intl.NumberFormat("en-GB", { style: "currency", currency: currency.toUpperCase() }).format(minor / 100);
+  }
+  const WEEKS = { week: 1, month: 52 / 12, year: 52 };
+  const NAMES = { "gobe.plus.yearly": "YEARLY", "gobe.plus.monthly": "MONTHLY", "gobe.plus.weekly": "WEEKLY" };
+  const BUILDS = { "gobe.plus.yearly": "60 builds a month", "gobe.plus.monthly": "60 builds a month", "gobe.plus.weekly": "10 builds a week" };
+  function day(date) { return date.toLocaleDateString("en-GB", { day: "numeric", month: "long" }); }
+
+  function error(message) {
+    $("error").textContent = message || "";
+    $("error").hidden = !message;
+  }
+
+  function show(which) {
+    for (const id of ["signin", "buy", "have", "done"]) $(id).hidden = id !== which;
+    const s = saved();
+    $("who").hidden = !s || which === "signin";
+    $("whoEmail").textContent = (state && state.email) || (s && s.email) || "Signed in";
+  }
+
+  // MARK: plans
+
+  function planButton(p) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "plan"; b.dataset.plan = p.plan;
+    b.setAttribute("aria-pressed", String(p.plan === chosen));
+    const perWeek = money(Math.round(p.amount / WEEKS[p.interval]), p.currency);
+    const monthly = plans.find((q) => q.plan === "gobe.plus.monthly");
+    let tag = "";
+    if (p.plan === "gobe.plus.yearly" && monthly) {
+      const saving = Math.floor((1 - p.amount / (monthly.amount * 12)) * 100);
+      if (saving > 0) tag = saving + "% less than monthly";
+    }
+    const free = p.trialDays && state && state.freeWeek ? p.trialDays + " days free" : "";
+    b.innerHTML = '<span class="name"></span><span class="price"></span><span class="week"></span>' +
+      ((tag || free) ? '<br><span class="tag"></span>' : "");
+    b.querySelector(".name").textContent = NAMES[p.plan];
+    b.querySelector(".price").textContent = money(p.amount, p.currency) + " a " + p.interval;
+    b.querySelector(".week").textContent = p.interval === "week" ? BUILDS[p.plan] : perWeek + " a week";
+    if (tag || free) b.querySelector(".tag").textContent = [free, tag].filter(Boolean).join(" · ");
+    b.onclick = () => { chosen = p.plan; drawPlans(); };
+    return b;
+  }
+
+  function drawPlans() {
+    $("plans").replaceChildren(...["gobe.plus.yearly", "gobe.plus.monthly"]
+      .map((id) => plans.find((p) => p.plan === id)).filter(Boolean).map(planButton));
+    const weekly = plans.find((p) => p.plan === "gobe.plus.weekly");
+    $("otherPlans").hidden = !weekly;
+    if (weekly) $("weekly").replaceChildren(planButton(weekly));
+    if (chosen === "gobe.plus.weekly") $("otherPlans").open = true;
+
+    const p = plans.find((q) => q.plan === chosen);
+    $("checkout").disabled = !p;
+    if (!p) return;
+    $("allowance").textContent = BUILDS[p.plan] + ", against 5 a week on free.";
+    const trial = p.trialDays && state && state.freeWeek;
+    $("checkout").textContent = trial ? "START MY FREE WEEK" : "START MY PLAN";
+    const price = money(p.amount, p.currency) + " a " + p.interval;
+    if (trial) {
+      const ends = new Date(Date.now() + p.trialDays * 86400000);
+      $("terms").textContent = "Free until " + day(ends) + ", then " + price + ". Renews automatically. Cancel any time here, at least a day before it renews.";
+    } else {
+      $("terms").textContent = price + ", starting today. Renews automatically. Cancel any time here, at least a day before it renews.";
+    }
+  }
+
+  // MARK: what to show
+
+  async function refresh() {
+    error("");
+    if (!(await token())) { show("signin"); return; }
+    state = await call("state");
+    if (params.get("done") === "1") {
+      if (state.active) {
+        show("done");
+        history.replaceState(null, "", location.pathname);
+        return;
+      }
+      // Stripe's webhook can land a moment after the redirect.
+      show("done");
+      $("doneTitle").textContent = "Nearly there…";
+      $("doneSub").textContent = "Stripe has your payment. Plus switches on in a few seconds.";
+      for (let i = 0; i < 10 && !state.active; i++) {
+        await new Promise((r) => setTimeout(r, 2000));
+        state = await call("state");
+      }
+      $("doneTitle").textContent = state.active ? "Plus is on." : "Almost there.";
+      $("doneSub").textContent = state.active
+        ? "Open GoBe and ask the chat's next thing. Your builds are already there."
+        : "It can take a minute. Open GoBe: your plan shows in Settings → GoBe Plus once it's through.";
+      if (state.active) history.replaceState(null, "", location.pathname);
+      return;
+    }
+    if (state.active) {
+      show("have");
+      const until = new Date(state.expiresAt);
+      $("haveWhen").textContent = (BUILDS[state.product] || "More builds") + ", in every chat. Paid up until " + day(until) + ".";
+      $("manage").hidden = state.store !== "stripe";
+      $("appleNote").hidden = state.store !== "apple";
+      return;
+    }
+    if (!plans.length) plans = (await call("prices", {}, false)).plans || [];
+    show("buy");
+    drawPlans();
+  }
+
+  // MARK: actions
+
+  let signingInWithPassword = false;
+  $("togglePassword").onclick = () => {
+    signingInWithPassword = !signingInWithPassword;
+    $("emailForm").hidden = signingInWithPassword;
+    $("codeForm").hidden = true;
+    $("passwordForm").hidden = !signingInWithPassword;
+    $("togglePassword").textContent = signingInWithPassword ? "Get an emailed code instead" : "Sign in with a username instead";
+  };
+
+  $("emailForm").onsubmit = async (e) => {
+    e.preventDefault(); error("");
+    const email = $("email").value.trim();
+    $("sendCode").disabled = true;
+    try {
+      // Only an account made in the app: the web never makes one.
+      await auth("otp", { email, create_user: false });
+      $("sentTo").textContent = email;
+      $("emailForm").hidden = true; $("codeForm").hidden = false; $("code").focus();
+    } catch (err) {
+      error(/signups not allowed|not found/i.test(err.message) ? "There's no GoBe account with that email. Make one in the app first." : err.message);
+    } finally { $("sendCode").disabled = false; }
+  };
+
+  $("codeForm").onsubmit = async (e) => {
+    e.preventDefault(); error("");
+    try {
+      keep(await auth("verify", { type: "email", email: $("sentTo").textContent, token: $("code").value.trim() }));
+      await refresh();
+    } catch (err) { error(err.message); }
+  };
+
+  $("otherEmail").onclick = () => { $("codeForm").hidden = true; $("emailForm").hidden = false; };
+
+  $("passwordForm").onsubmit = async (e) => {
+    e.preventDefault(); error("");
+    try {
+      const res = await fetch(SUPABASE_URL + "/functions/v1/username-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", apikey: ANON_KEY, Authorization: "Bearer " + ANON_KEY },
+        body: JSON.stringify({ username: $("username").value.trim(), password: $("password").value }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error === "too_many_attempts" ? "Too many tries. Wait a few minutes." : "That username and password don't match.");
+      keep(data);
+      await refresh();
+    } catch (err) { error(err.message); }
+  };
+
+  $("checkout").onclick = async () => {
+    error(""); $("checkout").disabled = true;
+    try {
+      const { url } = await call("checkout", { plan: chosen });
+      location.href = url;
+    } catch (err) { error(err.message); $("checkout").disabled = false; }
+  };
+
+  $("manage").onclick = async () => {
+    error("");
+    try { location.href = (await call("portal")).url; } catch (err) { error(err.message); }
+  };
+
+  $("signout").onclick = () => { forget(); state = null; show("signin"); };
+
+  refresh().catch((err) => error(err.message));
+</script>
+</body>
+</html>
