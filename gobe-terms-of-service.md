@@ -1,6 +1,6 @@
 # GoBe — Terms of Service
 
-**Last updated:** 22 August 2026
+**Last updated:** 23 November 2026
 
 > This is the hosted version of GoBe's Terms of Service. It is generated from and kept in sync with the in-app version.
 
@@ -14,7 +14,7 @@ You must be at least 16 years old to create a GoBe account or use the App. Durin
 
 ## 3. Description of the Service
 
-GoBe lets you record "Trails" — routes you travel, tracked via your device's location services — and create "Traces" — notes, optional photos or short videos, text you add on top of them, and pinned locations along your route — and view them on a map. You use GoBe signed in — with an Apple ID, or with an email-verified username and password. GoBe is a user-to-user service: content you share may be visible to other users where the App's features allow. You can also start a "community" or an "event" and pin it to the map for others to join, and choose to leave a Trace to one you belong to, which lets everyone who has joined it open that Trace without having to be near it.
+GoBe is a messaging app and a user-to-user service. You can message people you have both added, one to one or in groups, and invite people into a group with a link. Anyone in a chat can ask GoBe to turn it into a small app for what the group is sorting out, such as a vote, a rota, a sign-up list or a game, by starting a message with “@GoBe” (section 8). You can also make a page about yourself that other people on GoBe can visit, sign and ask questions on. You use GoBe signed in, with an Apple ID or with an email-verified username and password. GoBe is free to use; GoBe Plus is an optional paid subscription that lets your groups ask GoBe for more apps (section 9).
 
 ## 4. Your Account
 
@@ -24,70 +24,80 @@ You are responsible for maintaining the confidentiality of your account and for 
 
 When using GoBe, you agree not to:
 
-- Post or include in any Trace, Trail, username, display name, or photo any content that is illegal, harassing, threatening, hateful, sexually explicit, or otherwise violates the rights of others;
+- Send, post or put in a message, group, page, guestbook, question, group app, username, display name or photo anything that is illegal, harassing, threatening, hateful, sexually explicit, or otherwise violates the rights of others;
+- Send messages or invites that are unwanted, repeated or automated (spam), or add people to groups to harass them;
 - Impersonate any person or entity, or misrepresent your affiliation with one;
-- Use the App to stalk, track, or harass another person without their consent, or to share another person's private information or precise location without their consent;
+- Share another person's private information, including where they live or are, without their consent;
 - Upload content you don't have the right to share, or that infringes someone else's intellectual property or privacy;
+- Use “@GoBe” requests to try to make GoBe produce anything this section forbids, or to get around its limits or safeguards;
 - Attempt to interfere with, disrupt, reverse-engineer, or gain unauthorised access to the App or its backend systems;
 - Use the App for any unlawful purpose.
 
 We may remove content or suspend or terminate accounts that we believe, in good faith, violate this section.
 
-## 5a. Communities & Events
+## 5a. Groups, Invites & Your Page
 
-If you start a community or event, you are responsible for what you name it, what you write in it, and where you pin it. Do not pin one to somebody's home or to a place you do not have the right to gather at, do not use one to organise anything unlawful or to target a person or group, and do not name one so as to impersonate a real organisation, venue or person. A community or event is not an invitation to trespass, and GoBe is not the organiser of anything you start: any real-world gathering is yours, and the safety, permissions and legality of it are yours too.
+Whoever starts a group runs it, and may add and remove people and rename it; if the only person running a group leaves or deletes their account, it passes to whoever has been in it longest. Anyone with an invite link to a group can join it, so share one only with people you want in it; whoever made a link can withdraw it. What you say in a group can be read by everyone in it, including people who join later.
 
-Whoever starts a community or event may decide who joins it and may remove anyone from it, and may call the whole thing off at any time. Traces left to it stay with their authors and stay on the map; they simply stop being shared through it. We may remove a community or event, or the whole account behind it, where it breaks these Terms — including where it is used to harass somebody, to reveal where somebody lives, or to gather people around a place in order to cause harm. Anything you leave to a community or event remains subject to the rest of these Terms, and can be reported in the same way as any other Trace.
+Your page is visible to other signed-in GoBe users. You are responsible for what you put on it, and for what you keep on it from others: you can take down any guestbook entry and choose which questions to answer. Do not use a page to target or expose another person. GoBe is not the organiser of anything arranged in a chat: any real-world plan or gathering is yours, and its safety, permissions and legality are yours too.
 
 ## 6. Content Moderation, Reporting & Illegal Content
 
 We operate systems and processes to help keep GoBe safe and to detect and remove illegal content and content that breaches these Terms, including under the UK Online Safety Act 2023 and other platform-safety laws that apply where we offer the App.
 
-You can report any Trace, Trail, community or event, profile, or user that you believe is illegal, harmful, or in breach of these Terms — use the in-app reporting tools, or email us at contact@gobeapp.co.uk. Tell us what the content is, where you found it, and why you are reporting it. We aim to review reports of serious harm without undue delay, and we will remove content we find to be illegal or in breach of these Terms.
+You can report any message, page, guestbook entry, question or user that you believe is illegal, harmful, or in breach of these Terms, using the in-app reporting tools or by emailing contact@gobeapp.co.uk, and you can block anyone. Tell us what the content is, where you found it, and why you are reporting it. We aim to review reports of serious harm without undue delay, and we will remove content we find to be illegal or in breach of these Terms.
 
 If we remove content, restrict features, or suspend or close an account, we will explain the main reason where the law requires and provide any review or appeal route required in your country. If you believe content on GoBe infringes your intellectual property or privacy rights, contact us at the same address with enough detail to identify the content and your rights, and we will deal with it under our notice-and-takedown process.
 
 ## 7. Your Content & Licence to GoBe
 
-You retain ownership of the Traces, Trails, photos, notes about places, and other content you create in GoBe ("Your Content"). By submitting Your Content, you grant Hamed Bakayoko a non-exclusive, worldwide, royalty-free licence to host, store, reproduce, and display Your Content as necessary to operate and provide the App's features (for example, rendering your Trail on a map, or showing a Trace you've shared to other users where the feature allows it). This licence ends when you delete the content or your account, except for content other users have already saved or where we must retain it to comply with the law.
+You retain ownership of the messages, photos, pages, guestbook entries, questions, requests and other content you create in GoBe (“Your Content”). By submitting Your Content, you grant Hamed Bakayoko a non-exclusive, worldwide, royalty-free licence to host, store, reproduce, adapt and display Your Content as necessary to operate and provide the App's features: for example, delivering a message to the people in a chat, showing your page to the people who visit it, or turning a “@GoBe” request into an app. This licence ends when you delete the content or your account, except for content that others in a chat already hold (such as an app you asked for, which stays with its group) or that we must retain to comply with the law.
 
-You are solely responsible for Your Content and for ensuring you have the rights to share it. As described in our Privacy Policy, photos you upload are stored privately and can only be accessed by signed-in users through an access-controlled endpoint.
+You are solely responsible for Your Content and for ensuring you have the rights to share it. As described in our Privacy Policy, photos you upload are stored privately and can only be opened by the people they were shared with.
 
-## 8. Location Tracking & Your Safety
+## 8. Group Apps & GoBe's AI
 
-GoBe's core functionality depends on access to your device's precise location, including background location while you are actively recording a Trail. By using these features, you acknowledge and consent to this collection, understanding that the App may continue to use your location after you leave the App or lock your device. You can stop a recording or revoke location permissions in iOS Settings at any time, though doing so will limit or disable trail recording.
+When someone asks GoBe for an app, or to change one or how a chat looks, the request is turned into an app by an AI model provided by Anthropic, or by GoBe's own servers for small changes and ready-made apps. What it makes is shown to the chat to look over, and the group decides whether to use it. As the Privacy Policy explains, the request and some details of the chat are sent to Anthropic to do this, and if the people who run a chat's app allow it, its last 30 messages too.
 
-To help protect your privacy, GoBe stores Traces only at an approximate location (rounded to a coarse grid) rather than your exact coordinate, and lets you mark one or more "protected areas" — places such as your home, your workplace, or the gym, which you choose yourself on a map. Protected areas are kept on your device only and are never uploaded, and GoBe warns you before you post a Trace inside one. These protections reduce, but cannot eliminate, the risk of revealing where you are.
+AI-made apps can be wrong, incomplete or not what you meant. Check what an app says before relying on it, especially for dates, money, places, scores or anything that matters, and do not use one for anything where a mistake could cause harm, such as medical, legal, financial or safety decisions. An app's contents are put in by the people in the chat; they are Your Content and theirs, not ours.
 
-Your safety is your own responsibility. Be aware of your surroundings, traffic, and other hazards while moving — do not let the App distract you. Think carefully before sharing locations of sensitive places such as your home, a child's school, or anywhere you would not want to be publicly known. If you choose to meet, online or in person, people you encounter through GoBe, you do so at your own risk.
+We may limit how many apps can be built, refuse a request, or stop an app that breaks these Terms.
 
-## 9. Disclaimers
+## 9. GoBe Plus
 
-GoBe is provided "as is" and "as available," without warranties of any kind except those that cannot be excluded by law. We do not warrant that the App will be uninterrupted or error-free, or that recorded routes, locations, or step counts will always be accurate — GPS, motion sensors, and network connectivity can all affect accuracy. We do not control and are not responsible for content posted by other users. This section does not affect your statutory rights as a consumer (see section 11).
+GoBe Plus is an optional subscription that lets your groups ask GoBe for more apps than the free allowance. Its plans, prices and allowances are shown in the App before you subscribe, together with any free trial and the date you will first be charged.
 
-## 10. Limitation of Liability
+GoBe Plus is bought, billed and renewed through Apple's App Store, under Apple's terms. Your subscription renews automatically at the end of each period, at the price shown when you subscribed, unless you cancel at least 24 hours before the end of the current period. You can manage or cancel it at any time in your Apple account settings; deleting the App or your GoBe account does not cancel it. If you cancel, GoBe Plus stays on until the end of the period you have paid for. If you started a free trial, you will be charged when it ends unless you cancel before then, and GoBe reminds you before it does. Refunds are handled by Apple under its policies and your consumer rights.
+
+We may change what GoBe Plus includes or its price. A price change applies only from your next renewal, after Apple has told you about it and, where required, asked for your agreement.
+
+## 10. Disclaimers
+
+GoBe is provided “as is” and “as available,” without warranties of any kind except those that cannot be excluded by law. We do not warrant that the App will be uninterrupted or error-free, that messages will always be delivered instantly, or that apps built by GoBe will be accurate or suit your purpose. We do not control and are not responsible for content posted by other users. This section does not affect your statutory rights as a consumer (see section 12).
+
+## 11. Limitation of Liability
 
 Nothing in these Terms limits or excludes our liability where it would be unlawful to do so. This includes liability for death or personal injury caused by our negligence, for fraud or fraudulent misrepresentation, and for any other liability that cannot be excluded or limited under the laws of England and Wales, including your statutory rights as a consumer.
 
-Subject to that paragraph, and to the fullest extent permitted by law: we provide GoBe to you free of charge and for your domestic and private use only; we are not liable for any loss that is not a reasonably foreseeable result of our breach, for any business losses, or for loss or damage caused by events outside our reasonable control; and we are not responsible for the content, conduct, or actions of other users, including any interactions or meetings you have with them online or in person. Where we are liable to you, our liability is limited to loss that was reasonably foreseeable by both you and us when you started using the App.
+Subject to that paragraph, and to the fullest extent permitted by law: we provide GoBe for your domestic and private use only; we are not liable for any loss that is not a reasonably foreseeable result of our breach, for any business losses, or for loss or damage caused by events outside our reasonable control; and we are not responsible for the content, conduct, or actions of other users, including any interactions or meetings you have with them online or in person, or for decisions made using an app's contents. Where we are liable to you, our liability is limited to loss that was reasonably foreseeable by both you and us when you started using the App, and, for GoBe Plus, to the amount you paid for it in the 12 months before the claim arose.
 
-## 11. Your Consumer Rights
+## 12. Your Consumer Rights
 
 As a consumer, you have legal rights that these Terms do not affect. In the UK, these include rights under the Consumer Rights Act 2015, including that a digital service is provided with reasonable care and skill. If you live elsewhere, you retain any mandatory warranties, remedies, cancellation rights, or other protections that the law of your usual residence gives you and does not allow a contract to exclude. Nothing in these Terms excludes or limits those rights.
 
-## 12. Termination
+## 13. Termination
 
-You may stop using the App and delete your account at any time using the "Delete Account" feature in the App's Account screen. We may suspend or terminate your access to the App if we reasonably believe you have violated these Terms, where necessary to comply with the law, or if we discontinue the App — and, where it is reasonable to do so, we will give you notice. Sections of these Terms that by their nature should survive termination — such as content licences already granted, disclaimers, and limitations of liability — will survive.
+You may stop using the App and delete your account at any time using “Delete account” in the App's Settings. We may suspend or terminate your access to the App if we reasonably believe you have violated these Terms, where necessary to comply with the law, or if we discontinue the App — and, where it is reasonable to do so, we will give you notice. If we close your account for reasons that are not your fault while you have GoBe Plus, you may ask Apple for a refund of the unused period. Sections of these Terms that by their nature should survive termination — such as content licences already granted, disclaimers, and limitations of liability — will survive.
 
-## 13. Changes to These Terms
+## 14. Changes to These Terms
 
-We may update these Terms from time to time. If we make material changes, we will update the "Last Updated" date above and notify you in the App or by email before they take effect where reasonably possible. If applicable law requires fresh agreement, we will ask you to accept the updated Terms. Otherwise, continued use after the effective date constitutes acceptance of the updated Terms.
+We may update these Terms from time to time. If we make material changes, we will update the “Last Updated” date above and notify you in the App or by email before they take effect where reasonably possible. If applicable law requires fresh agreement, we will ask you to accept the updated Terms. Otherwise, continued use after the effective date constitutes acceptance of the updated Terms.
 
-## 14. Governing Law & Jurisdiction
+## 15. Governing Law & Jurisdiction
 
 These Terms are governed by the laws of England and Wales. The courts of England and Wales have non-exclusive jurisdiction. If you are a consumer resident elsewhere, this choice does not deprive you of mandatory protections provided by the law of your usual residence, and you may bring proceedings in your local courts where applicable law permits. Nothing in this section requires a consumer to use arbitration or waive a right to bring an eligible claim before a court or public authority.
 
-## 15. Regional Terms
+## 16. Regional Terms
 
 European Economic Area. If we specifically offer GoBe to consumers in the EEA, mandatory EU and national consumer protections apply. Content-moderation decisions and complaints will be handled with any explanation, review, and redress rights required by applicable platform law.
 
@@ -99,6 +109,6 @@ Australia. Nothing in these Terms excludes, restricts, or modifies consumer guar
 
 Japan. Nothing in these Terms excludes mandatory protections under Japanese consumer law. Any provision that unlawfully excludes liability or is otherwise invalid applies only to the maximum extent permitted by law.
 
-## 16. Contact Us
+## 17. Contact Us
 
 GoBe is operated by Hamed Bakayoko, trading as GoBe, of 124 City Road, London EC1V 2NX, United Kingdom. Questions or complaints about these Terms can be sent to contact@gobeapp.co.uk.
