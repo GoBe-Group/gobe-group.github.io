@@ -9,6 +9,8 @@
 <meta property="og:description" content="Your group's plans, actually happening.">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F7F7F7">
 <meta http-equiv="Content-Security-Policy" content="__PLUS_CSP__">
 <!--
   gobeapp.co.uk/plus — GoBe Plus, bought on the web with Stripe.
@@ -21,75 +23,148 @@
 
   The session is kept in this browser's localStorage, as the app keeps it in
   the keychain: the access token only ever goes to Supabase.
+
+  It looks like the app (GoBeColors.swift): paper and black ink, the pen line
+  round the window, the blue biro, the green felt tip coloured in behind what's
+  on, and buttons of the app's soft foil. Headings in the app's digital face,
+  Arial pressed to 80% width and never bold.
 -->
 <style>
   :root {
-    --paper: #EEF1F5; --paper-light: #F8FAFC; --ink: #111114; --muted: #52535A;
-    --be-blue-dark: #162C9A; --go-green: #90C808; --line: rgba(17,17,20,.14);
+    --paper: #F7F7F7; --card: #FFFFFF; --ink: #111114; --ink-soft: #2E2F36; --muted: #52535A;
+    --biro: #2331B8; --biro-line: rgba(35, 49, 184, .7); --cobalt: #1E45D8; --red: #C8321F;
+    --digital: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    --sans: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --felt-rim: inset 0 0 0 1.5px rgba(108, 170, 20, .6);
+    --foil-light: linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,0) 38%, rgba(0,0,0,0) 68%, rgba(0,0,0,.06) 100%);
+    --foil-rim: inset 0 1px 0 rgba(255,255,255,.9), inset 0 0 0 1px rgba(255,255,255,.35);
+    --lift: 0 2.5px 7px rgba(30,30,46,.22), 0 .6px 1.2px rgba(0,0,0,.08);
+    --lift-up: 0 5px 13px rgba(30,30,46,.24), 0 1px 2px rgba(0,0,0,.08);
+    --lift-down: 0 1px 2.5px rgba(30,30,46,.2);
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; min-height: 100vh; background: var(--paper); color: var(--ink);
-    font-family: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    display: flex; justify-content: center; padding: 40px 16px 56px;
+    font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+    display: flex; justify-content: center; padding: 34px 24px 60px; overflow-x: hidden;
   }
-  main { width: 100%; max-width: 440px; }
-  .label { font: 700 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .2em; color: var(--muted); }
-  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-size: 38px; line-height: 1.05; margin: 10px 0 8px; }
-  .sub { font-size: 17px; color: var(--muted); margin: 0 0 24px; }
+  /* paper fibre, as in the app */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 90;
+    opacity: .04; mix-blend-mode: multiply; background-image: url("/assets/grain.svg");
+  }
+  /* the pen line round the window, as round the app */
+  body::after {
+    content: ""; position: fixed; inset: 7px; z-index: 100; pointer-events: none;
+    border: 3px solid var(--ink); border-radius: 30px;
+  }
+  main { width: 100%; max-width: 460px; overflow-x: clip; }
+  a { color: var(--cobalt); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  a:hover { color: var(--ink); }
+  :focus-visible { outline: 2.5px solid var(--cobalt); outline-offset: 2px; }
+
+  .brand { display: inline-flex; align-items: flex-end; gap: 9px; margin: 0 0 30px; color: var(--ink); text-decoration: none; }
+  .brand img { display: block; height: 46px; width: auto; }
+  .brand span { font: 400 33px/1 var(--digital); transform: scaleX(.8); transform-origin: 0 100%; margin: 0 0 1px; }
+
+  /* The app's digital face: Arial pressed to 80% width, never bold. Set 125%
+     wide and squashed back, so lines wrap where they'll be seen. */
+  h1, .say, .plan .name {
+    font-family: var(--digital); font-weight: 400; letter-spacing: -.01em; color: var(--ink);
+    width: 125%; transform: scaleX(.8); transform-origin: 0 0; text-wrap: balance;
+  }
+  h1 { font-size: clamp(40px, 11vw, 54px); line-height: 1.02; margin: 0 0 14px; }
+  .lede { margin: 0 0 28px; color: var(--ink-soft); font-size: 18px; line-height: 1.5; }
+  .say { font-size: 34px; line-height: 1.08; margin: 0 0 10px; }
+  /* the green felt tip, coloured in behind what's on */
+  .felt {
+    background: url("/assets/felt-lime.png") center / 100% 100% no-repeat; box-shadow: var(--felt-rim);
+    border-radius: 7px; padding: 0 .14em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+
+  /* a card as a group app's are: white, an ink edge and a hard pen shadow */
   .card {
-    background: var(--paper-light); border-radius: 18px; padding: 18px;
-    box-shadow: inset 0 0 0 1px var(--line), 0 10px 22px rgba(16,26,69,.08); margin: 0 0 14px;
+    background: var(--card); border: 2px solid var(--ink); border-radius: 18px;
+    box-shadow: 4px 4px 0 var(--ink); padding: 20px 20px 18px; margin: 0 0 18px;
   }
-  .outcomes { list-style: none; padding: 0; margin: 0 0 22px; }
-  .outcomes li { padding: 10px 0; border-bottom: 1px solid var(--line); }
-  .outcomes li:last-child { border-bottom: 0; }
-  .outcomes b { display: block; font-size: 16px; }
-  .outcomes span { color: var(--muted); font-size: 14px; }
-  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 10px; }
-  .plan {
-    text-align: left; border: 0; border-radius: 16px; padding: 14px; cursor: pointer; font: inherit; color: inherit;
-    background: #fff; box-shadow: inset 0 0 0 2px var(--line);
-  }
-  .plan[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--be-blue-dark); }
-  .plan .name { font: 700 12px/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--muted); }
-  .plan .price { display: block; font-size: 22px; font-weight: 700; margin: 8px 0 2px; }
-  .plan .week { font-size: 13px; color: var(--muted); }
-  .plan .tag { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #3E5A00; background: #E5F4BF; border-radius: 8px; padding: 3px 7px; }
-  details { margin: 0 0 18px; }
-  summary { cursor: pointer; color: var(--be-blue-dark); font-weight: 600; font-size: 14px; }
-  details .plan { width: 100%; margin-top: 10px; }
-  .button {
-    display: block; width: 100%; padding: 16px; border-radius: 16px; border: 0; text-align: center;
-    background: var(--be-blue-dark); color: #fff; font: 900 14px/1 ui-monospace, Menlo, monospace;
-    letter-spacing: .1em; text-decoration: none; margin-bottom: 12px; cursor: pointer;
-  }
-  .button.secondary { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--be-blue-dark); }
-  .button[disabled] { opacity: .5; cursor: default; }
-  .fine { color: var(--muted); font-size: 13px; line-height: 1.45; margin: 0 0 12px; }
-  .note { color: var(--muted); font-size: 14px; margin-top: 18px; }
-  .error { color: #A11A1A; font-size: 14px; margin: 0 0 12px; }
-  label { display: block; font-size: 14px; font-weight: 600; margin: 0 0 6px; }
+  label { display: block; font-weight: 600; font-size: 15px; margin: 0 0 8px; }
   input {
-    width: 100%; padding: 14px; border-radius: 14px; border: 0; font: inherit; font-size: 17px; margin: 0 0 12px;
-    background: #fff; box-shadow: inset 0 0 0 2px var(--line); color: var(--ink);
+    display: block; width: 100%; margin: 0 0 14px; padding: 13px 14px; border-radius: 12px;
+    border: 1.5px solid var(--biro-line); background: #fff; color: var(--ink); font: inherit; font-size: 17px;
   }
-  input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--be-blue-dark); }
-  .link { background: none; border: 0; padding: 0; color: var(--be-blue-dark); font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; }
-  .row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-  footer { margin-top: 28px; font-size: 13px; color: var(--muted); }
-  footer a { color: inherit; }
-  .big { margin: 0 0 6px; font-size: 20px; font-weight: 700; }
+  input::placeholder { color: #8A8C99; }
+  input:focus { outline: 2.5px solid var(--cobalt); outline-offset: 1px; border-color: var(--cobalt); }
+
+  /* the one thing to do: a pill of the app's soft foil, lifted off the page */
+  .button {
+    display: flex; width: 100%; min-height: 52px; align-items: center; justify-content: center;
+    margin: 0 0 12px; padding: 14px 24px 13px; border: 0; border-radius: 999px; cursor: pointer;
+    font: 600 17px/1.1 var(--sans); letter-spacing: -.005em; color: var(--ink); text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    background: var(--foil-light), #ECEDF0 url("/assets/foil-button.jpg") 30% 40% / 100% auto no-repeat;
+    box-shadow: var(--foil-rim), var(--lift);
+  }
+  .button:hover { color: var(--ink); box-shadow: var(--foil-rim), var(--lift-up); }
+  .button:active { box-shadow: var(--foil-rim), var(--lift-down); }
+  .button[disabled] { cursor: default; opacity: .5; box-shadow: var(--foil-rim); }
+  @media (prefers-reduced-motion: no-preference) {
+    .button { transition: transform .12s ease, box-shadow .12s ease; }
+    .button:not([disabled]):hover { transform: translateY(-1px); }
+    .button:not([disabled]):active { transform: translateY(1px); }
+  }
+  .link {
+    background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-weight: 600; color: var(--cobalt);
+    text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+  }
+  .link:hover { color: var(--ink); }
+
+  /* what Plus does, each ticked in green as a vote is in the app */
+  .outcomes { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 14px; }
+  .outcomes li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; }
+  .tick {
+    width: 26px; height: 26px; margin-top: 1px; border-radius: 50%; display: grid; place-items: center;
+    background: url("/assets/felt-lime-square.png") center / cover; box-shadow: inset 0 0 0 1.3px var(--biro);
+    font: 700 14px/1 var(--sans); color: var(--ink);
+  }
+  .outcomes b { display: block; font-weight: 600; font-size: 16.5px; line-height: 1.35; }
+  .outcomes .d { display: block; color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px; }
+  .plan {
+    display: flex; flex-direction: column; justify-content: flex-start; width: 100%; text-align: left;
+    cursor: pointer; font: inherit; color: var(--ink);
+    background: var(--card); border: 1.5px solid var(--biro-line); border-radius: 14px; padding: 14px 14px 13px;
+  }
+  /* the plan you're on is coloured in and gone round in black */
+  .plan[aria-pressed="true"] {
+    background: linear-gradient(rgba(255,255,255,.38), rgba(255,255,255,.38)), url("/assets/felt-lime.png") center / cover, #fff;
+    border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 13.5px 13.5px 12.5px;
+  }
+  .plan .name { display: block; font-size: 25px; line-height: 1; margin: 0 0 9px; }
+  .plan .price { display: block; font-weight: 700; font-size: 17px; line-height: 1.25; }
+  .plan .week { display: block; font-size: 14px; color: var(--ink-soft); }
+  .plan .tag { display: block; margin-top: 8px; font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+  details { margin: 0 0 20px; }
+  summary {
+    display: inline-block; cursor: pointer; color: var(--cobalt); font-weight: 600; font-size: 15px;
+    text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+  }
+  details[open] summary { margin: 0 0 10px; }
+
+  .fine { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 12px; }
   .flush { margin: 0; }
-  .toggle { margin: 6px 0 0; }
+  .error { color: var(--red); font-weight: 600; font-size: 15px; margin: 0 0 14px; }
+  .who { font-size: 14.5px; color: var(--ink-soft); margin: 22px 0 0; }
+  footer { margin-top: 30px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <main>
-  <span class="label">GOBE PLUS</span>
-  <h1 id="title">Your group's plans, actually happening.</h1>
-  <p class="sub" id="sub">GoBe builds whatever the chat needs the moment someone asks.</p>
+  <a class="brand" href="/"><img src="/assets/gobe-logo.png" alt="GoBe" width="520" height="231"><span>Plus</span></a>
+  <h1 id="title">Your group's plans, <span class="felt">actually happening.</span></h1>
+  <p class="lede" id="sub">GoBe builds whatever the chat needs the moment someone asks.</p>
 
   <p class="error" id="error" role="alert" hidden></p>
 
@@ -99,24 +174,22 @@
       <form id="emailForm">
         <label for="email">The email on your GoBe account</label>
         <input id="email" type="email" autocomplete="email" required placeholder="you@example.com">
-        <button class="button" type="submit" id="sendCode">EMAIL ME A CODE</button>
+        <button class="button" type="submit" id="sendCode">Email me a code</button>
       </form>
       <form id="codeForm" hidden>
         <label for="code">The code we sent to <span id="sentTo"></span></label>
         <input id="code" inputmode="numeric" autocomplete="one-time-code" required pattern="[0-9]{6,10}" placeholder="123456">
-        <button class="button" type="submit">SIGN IN</button>
-        <button class="link" type="button" id="otherEmail">Use another email</button>
+        <button class="button" type="submit">Sign in</button>
+        <p class="fine"><button class="link" type="button" id="otherEmail">Use another email</button></p>
       </form>
       <form id="passwordForm" hidden>
         <label for="username">Username</label>
         <input id="username" autocomplete="username" required>
         <label for="password">Password</label>
         <input id="password" type="password" autocomplete="current-password" required>
-        <button class="button" type="submit">SIGN IN</button>
+        <button class="button" type="submit">Sign in</button>
       </form>
-      <p class="fine toggle">
-        <button class="link" type="button" id="togglePassword">Sign in with a username instead</button>
-      </p>
+      <p class="fine flush"><button class="link" type="button" id="togglePassword">Sign in with a username instead</button></p>
     </div>
     <p class="fine">Signed up with Apple? Use the email in GoBe → Settings → Account. If it's a private relay address, the code still reaches you.</p>
   </section>
@@ -124,36 +197,36 @@
   <!-- Choosing a plan -->
   <section id="buy" hidden>
     <ul class="outcomes">
-      <li><b>Say it once, and the chat has its app.</b><span id="allowance">60 builds a month, against 5 a week on free.</span></li>
-      <li><b>The whole chat builds on yours.</b><span>When a friend's builds run out, theirs are on your Plus in your chats.</span></li>
-      <li><b>Change it whenever plans change.</b><span>Switch plan or cancel any time, here.</span></li>
+      <li><span class="tick" aria-hidden="true">✓</span><span><b>Say it once, and the chat has its app.</b><span class="d" id="allowance">60 builds a month, against 5 a week on free.</span></span></li>
+      <li><span class="tick" aria-hidden="true">✓</span><span><b>The whole chat builds on yours.</b><span class="d">When a friend's builds run out, theirs are on your Plus in your chats.</span></span></li>
+      <li><span class="tick" aria-hidden="true">✓</span><span><b>Change it whenever plans change.</b><span class="d">Switch plan or cancel any time, here.</span></span></li>
     </ul>
     <div class="plans" id="plans"></div>
     <details id="otherPlans"><summary>Other plans</summary><div id="weekly"></div></details>
-    <button class="button" id="checkout" disabled>START MY PLAN</button>
+    <button class="button" id="checkout" disabled>Start my plan</button>
     <p class="fine" id="terms"></p>
   </section>
 
   <!-- Already Plus -->
   <section id="have" hidden>
     <div class="card">
-      <p class="big">You have GoBe Plus.</p>
+      <p class="say">You have <span class="felt">GoBe Plus</span>.</p>
       <p class="fine flush" id="haveWhen"></p>
     </div>
-    <button class="button" id="manage" hidden>MANAGE BILLING</button>
+    <button class="button" id="manage" hidden>Manage billing</button>
     <p class="fine" id="appleNote" hidden>Your Plus is from the App Store. Change or cancel it on your iPhone: Settings → your name → Subscriptions.</p>
   </section>
 
   <!-- Back from checkout -->
   <section id="done" hidden>
     <div class="card">
-      <p class="big" id="doneTitle">Plus is on.</p>
+      <p class="say"><span class="felt" id="doneTitle">Plus is on.</span></p>
       <p class="fine flush" id="doneSub">Open GoBe and ask the chat's next thing. Your builds are already there.</p>
     </div>
-    <a class="button" href="__APP_STORE_URL__">OPEN GOBE</a>
+    <a class="button" href="__APP_STORE_URL__">Open GoBe</a>
   </section>
 
-  <p class="note" id="who" hidden><span id="whoEmail"></span> · <button class="link" type="button" id="signout">Sign out</button></p>
+  <p class="who" id="who" hidden><span id="whoEmail"></span> · <button class="link" type="button" id="signout">Sign out</button></p>
 
   <footer>
     Payments by Stripe. Plans renew automatically until cancelled.
@@ -227,7 +300,7 @@
     return new Intl.NumberFormat("en-GB", { style: "currency", currency: currency.toUpperCase() }).format(minor / 100);
   }
   const WEEKS = { week: 1, month: 52 / 12, year: 52 };
-  const NAMES = { "gobe.plus.yearly": "YEARLY", "gobe.plus.monthly": "MONTHLY", "gobe.plus.weekly": "WEEKLY" };
+  const NAMES = { "gobe.plus.yearly": "Yearly", "gobe.plus.monthly": "Monthly", "gobe.plus.weekly": "Weekly" };
   const BUILDS = { "gobe.plus.yearly": "60 builds a month", "gobe.plus.monthly": "60 builds a month", "gobe.plus.weekly": "10 builds a week" };
   function day(date) { return date.toLocaleDateString("en-GB", { day: "numeric", month: "long" }); }
 
@@ -258,7 +331,7 @@
     }
     const free = p.trialDays && state && state.freeWeek ? p.trialDays + " days free" : "";
     b.innerHTML = '<span class="name"></span><span class="price"></span><span class="week"></span>' +
-      ((tag || free) ? '<br><span class="tag"></span>' : "");
+      ((tag || free) ? '<span class="tag"></span>' : "");
     b.querySelector(".name").textContent = NAMES[p.plan];
     b.querySelector(".price").textContent = money(p.amount, p.currency) + " a " + p.interval;
     b.querySelector(".week").textContent = p.interval === "week" ? BUILDS[p.plan] : perWeek + " a week";
@@ -280,7 +353,7 @@
     if (!p) return;
     $("allowance").textContent = BUILDS[p.plan] + ", against 5 a week on free.";
     const trial = p.trialDays && state && state.freeWeek;
-    $("checkout").textContent = trial ? "START MY FREE WEEK" : "START MY PLAN";
+    $("checkout").textContent = trial ? "Start my free week" : "Start my plan";
     const price = money(p.amount, p.currency) + " a " + p.interval;
     if (trial) {
       const ends = new Date(Date.now() + p.trialDays * 86400000);
@@ -305,12 +378,14 @@
       // Stripe's webhook can land a moment after the redirect.
       show("done");
       $("doneTitle").textContent = "Nearly there…";
+      $("doneTitle").classList.remove("felt");
       $("doneSub").textContent = "Stripe has your payment. Plus switches on in a few seconds.";
       for (let i = 0; i < 10 && !state.active; i++) {
         await new Promise((r) => setTimeout(r, 2000));
         state = await call("state");
       }
       $("doneTitle").textContent = state.active ? "Plus is on." : "Almost there.";
+      $("doneTitle").classList.toggle("felt", state.active);
       $("doneSub").textContent = state.active
         ? "Open GoBe and ask the chat's next thing. Your builds are already there."
         : "It can take a minute. Open GoBe: your plan shows in Settings → GoBe Plus once it's through.";
